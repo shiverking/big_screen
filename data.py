@@ -209,7 +209,7 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        self.title = '大数据可视化展板通用模板'
+        self.title = '意图识别模块'
 
 class CorpData(SourceDataDemo):
 

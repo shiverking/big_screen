@@ -9,24 +9,27 @@ from flask import Flask, render_template
 from data import *
 
 app = Flask(__name__)
-
+#热更新
+app.jinja_env.auto_reload = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+#处理乱码
+app.config['JSON_AS_ASCII']=False
 
 @app.route('/')
 def index():
     data = SourceData()
     return render_template('index.html', form=data, title=data.title)
 
-
-@app.route('/corp')
-def corp():
-    data = CorpData()
-    return render_template('index.html', form=data, title=data.title)
-
-
-@app.route('/job')
-def job():
-    data = JobData()
-    return render_template('index.html', form=data, title=data.title)
+# @app.route('/corp')
+# def corp():
+#     data = CorpData()
+#     return render_template('index.html', form=data, title=data.title)
+#
+#
+# @app.route('/job')
+# def job():
+#     data = JobData()
+#     return render_template('index.html', form=data, title=data.title)
 
 
 if __name__ == "__main__":
