@@ -15,10 +15,15 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 #处理乱码
 app.config['JSON_AS_ASCII']=False
 
-@app.route('/')
+@app.route('/index')
 def index():
     data = SourceData()
     return render_template('index.html', form=data, title=data.title)
+
+@app.route('/')
+def home():
+    data = SourceData()
+    return render_template('home.html', form=data, title=data.title)
 
 # @app.route('/corp')
 # def corp():

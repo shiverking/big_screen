@@ -1,0 +1,27 @@
+body .my-layer-skin .layui-layer-title {
+    background:#0F2691;
+    color:white;
+    border-right: 2px solid #1e9fff;
+    border-left: 2px solid #1e9fff;
+    border-top: 2px solid #1e9fff;
+    border-bottom: none;
+}
+body .my-layer-skin .layui-layer-content {
+    background: #0F2691;
+    color:white;
+    border-right: 2px solid #1e9fff;
+    border-left: 2px solid #1e9fff;
+    border-bottom: 2px solid #1e9fff;}
+body .my-layer-skin .layui-layer-btn{
+    background: #0F2691;
+    border-top: 2px solid #0F2691;
+     border-right: 2px solid #1e9fff;
+    border-left: 2px solid #1e9fff;
+    border-bottom: 2px solid #1e9fff;
+}
+body .my-layer-skin .layui-icon-close{
+    color: white;
+}
+body .my-layer-skin .layui-select-tips layui-this{
+    color: #1E9FFF;
+}

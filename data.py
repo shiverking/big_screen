@@ -209,7 +209,7 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        self.title = '意图识别模块'
+        self.title = '智能方法性能边界对比分析原理验证系统'
 
 class CorpData(SourceDataDemo):
 
