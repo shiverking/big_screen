@@ -122,13 +122,35 @@
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 90px;">场景选择</label>
         <div class="layui-input-block">
-            <select name="situation" lay-verify="required" lay-verType="alert">
+            <select id="situationSelect" lay-filter="selectChange" lay-verify="required" lay-verType="alert">
                 <option value=""></option>
                 <option value="0">正南战斗机DD利佩茨克机场</option>
                 <option value="1">正西无人机DD圣彼得堡</option>
-                <option value="2">正西侦察 机侦察</option>
+                <option value="2">正西侦察机侦察</option>
                 <option value="3">正西轰炸机DD莫斯科</option>
             </select>
+            <div id="preview" style="display: none">
+                <button id="situation0" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
+                        style="margin-top: 10px;margin-left: 0px;">
+                        场景预览
+                    <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                </button>
+                <button id="situation1" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
+                        style="margin-top: 10px;margin-left: 0px;">
+                        场景预览
+                    <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                </button>
+                <button id="situation2" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
+                        style="margin-top: 10px;margin-left: 0px;">
+                        场景预览
+                    <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                </button>
+                <button id="situation3" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
+                        style="margin-top: 10px;margin-left: 0px;">
+                        场景预览
+                    <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                </button>
+            </div>
         </div>
     </div>
     <div class="layui-form-item">
@@ -358,24 +380,40 @@
                         <th>任务目标</th>
                     </tr>
                     </thead>
-                    <tbody>
+                     <tbody>
                     <tr>
-                        <td>正南对莫斯科DJ</td>
+                        <td>正南对莫斯科DJ
+                            <button id="situation0" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                              <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                            </button>
+                        </td>
                         <td>F-22A 科加尔尼西亚 #1 - #10</td>
                         <td>DJ莫斯科南部的利佩茨克空军基地</td>
                     </tr>
                     <tr>
-                        <td>正西突袭</td>
+                        <td>正西突袭
+                            <button id="situation1" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                                  <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                            </button>
+                        </td>
                         <td>罗斯福 #41 - #48</td>
                         <td>DJ圣彼得堡和莫斯科周边FK力量</td>
                     </tr>
                     <tr>
-                        <td>正西侦察MQ-4</td>
+                        <td>正西侦察MQ-4
+                        <button id="situation2" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                              <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                        </button>
+                        </td>
                         <td>英国MQ-4RAF Mildenhall #1 - #3</td>
                         <td>侦察俄方在西部地区FK力量</td>
                     </tr>
                     <tr>
-                        <td rowspan="5">正西对莫斯科DJ</td>
+                        <td rowspan="5">正西对莫斯科DJ
+                        <button id="situation3" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                              <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                        </button>
+                        </td>
                         <td>B-2A</td>
                         <td>DJ莫斯科宫殿</td>
                     </tr>
@@ -419,6 +457,9 @@
             </div>
         </div>
     </div>
+</div>
+<div id="display" style="display: none">
+    <div id="situation" style="height: 600px;"></div>
 </div>
 <style>
     .layui-form-checked[lay-skin=primary] i {
@@ -484,6 +525,13 @@
     .layui-menu{
         background-color: #0F8CD6;
         margin: -2px;
+    }
+    .play-icon{
+        font-size: 23px;
+        color: #ffffff;
+    }
+    .play-button{
+        margin-left:13px;
     }
 </style>
 <!--echart1-->
@@ -1008,12 +1056,42 @@
         });
     })
 </script>
-<!--下拉菜单-->
+<!--下拉菜单控制标签-->
 <script>
-    layui.use(['dropdown', 'layer', 'form'], function () {
+    layui.config({
+            //存放拓展模块的根目录
+            base: '/static/ckplayer/'
+    }).extend({
+        //设定模块别名
+        ckplayer: 'ckplayer'
+    }).use(['dropdown', 'layer', 'form','ckplayer'], function () {
         var dropdown = layui.dropdown;
         var layer = layui.layer;
         var form = layui.form;
+        form.on('select(selectChange)', function (data) {
+            console.log(data.value.length);
+            if (data.value.length == 0) {
+                $("#preview").hide();
+            } else {
+                if (data.value == 0) {
+                    $("#preview").show();
+                    $("#situation0").show();
+                    $("#situation0").siblings().hide();
+                } else if (data.value == 1) {
+                    $("#preview").show();
+                    $("#situation1").show();
+                    $("#situation1").siblings().hide();
+                } else if (data.value == 2) {
+                    $("#preview").show();
+                    $("#situation2").show();
+                    $("#situation2").siblings().hide();
+                } else if (data.value == 3) {
+                    $("#preview").show();
+                    $("#situation3").show();
+                    $("#situation3").siblings().hide();
+                }
+            }
+        });
         layer.config({
             extend: 'skin/style.css', //同样需要先加载新皮肤
             skin: 'my-layer-skin'
@@ -1070,6 +1148,100 @@
                 }
             }
         });
+        //播放器
+        var ckplayer = layui.ckplayer;
+        //由于X2的ckplayer需要用url请求方式获取配置json
+        //因此定义请求的根目录
+        var baseUrl = "/static/ckplayer/"
+        $("#situation0").click(function(){
+            layer.open({
+                        type: 1,
+                        title: '场景介绍-西南DJ利佩茨克机场',
+                        content: $("#display"),
+                        area: ['85%', '90%'],
+                        shade: 0.5,
+                        shadeClose: true,
+                        resize: false,
+                        end:function(){
+                            $("#situation").children().remove()
+                        }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正南打击利佩茨克机场.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+        $("#situation1").click(function(){
+            layer.open({
+                        type: 1,
+                        title: '场景介绍-正西DJ圣彼得堡',
+                        content: $("#display"),
+                        area: ['85%', '90%'],
+                        shade: 0.5,
+                        shadeClose: true,
+                        resize: false,
+                 end:function(){
+                            $("#situation").children().remove()
+                        }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正西打击圣彼得堡.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+        $("#situation2").click(function(){
+            layer.open({
+                        type: 1,
+                        title: '场景介绍-正西侦查',
+                        content: $("#display"),
+                        area: ['85%', '90%'],
+                        shade: 0.5,
+                        shadeClose: true,
+                        resize: false,
+                 end:function(){
+                            $("#situation").children().remove()
+                        }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正西侦察.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+        $("#situation3").click(function(){
+            layer.open({
+                        type: 1,
+                        title: '场景介绍-正西DJ莫斯科',
+                        content: $("#display"),
+                        area: ['85%', '90%'],
+                        shade: 0.5,
+                        shadeClose: true,
+                        resize: false,
+                 end:function(){
+                            $("#situation").children().remove()
+                        }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正西打击莫斯科.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+
     });
 </script>
 </body>
