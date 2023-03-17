@@ -383,7 +383,7 @@
                      <tbody>
                     <tr>
                         <td>正南对莫斯科DJ
-                            <button id="situation0" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                            <button id="situation_0" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
                               <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                             </button>
                         </td>
@@ -392,7 +392,7 @@
                     </tr>
                     <tr>
                         <td>正西突袭
-                            <button id="situation1" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                            <button id="situation_1" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
                                   <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                             </button>
                         </td>
@@ -401,7 +401,7 @@
                     </tr>
                     <tr>
                         <td>正西侦察MQ-4
-                        <button id="situation2" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                        <button id="situation_2" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
                               <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                         </button>
                         </td>
@@ -410,7 +410,7 @@
                     </tr>
                     <tr>
                         <td rowspan="5">正西对莫斯科DJ
-                        <button id="situation3" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
+                        <button id="situation_3" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
                               <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                         </button>
                         </td>
@@ -1241,7 +1241,94 @@
             };
             var player = new ckplayer(videoObject);//初始化播放器
         })
-
+        $("#situation_0").click(function () {
+            layer.open({
+                type: 1,
+                title: '场景介绍-西南DJ利佩茨克机场',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正南打击利佩茨克机场.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+        $("#situation_1").click(function () {
+            layer.open({
+                type: 1,
+                title: '场景介绍-正西DJ圣彼得堡',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正西打击圣彼得堡.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+        $("#situation_2").click(function () {
+            layer.open({
+                type: 1,
+                title: '场景介绍-正西侦查',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正西侦察.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
+        $("#situation_3").click(function () {
+            layer.open({
+                type: 1,
+                title: '场景介绍-正西DJ莫斯科',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
+            });
+            //定义一个变量：videoObject，用来做为视频初始化配置
+            var videoObject = {
+                container: '#situation',
+                variable: 'player',
+                video: '/static/video/正西打击莫斯科.mp4', //视频地址
+                baseUrl: baseUrl //配置json所在目录
+            };
+            var player = new ckplayer(videoObject);//初始化播放器
+        })
     });
 </script>
 </body>
