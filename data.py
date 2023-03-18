@@ -212,6 +212,13 @@ class SourceData(SourceDataDemo):
         """
         super().__init__()
         self.title = '智能方法性能边界对比分析原理验证系统'
+        xAxis, series, legend = get_echart1_data()
+        self.echart1_data = {
+            'title': '各模型的意图识别结果图',
+            'xAxis': xAxis,
+            'series': series,
+            'legend': legend
+        }
 
 class CorpData(SourceDataDemo):
 
