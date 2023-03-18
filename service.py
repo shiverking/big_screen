@@ -5,7 +5,7 @@ def get_echart1_data():
     xAxis_line = [x for x in range(200)]
     series_line = list()
     for data_list in plt_data:
-        series_line.append({'name': data_list['name'],'type': 'line', 'data': data_list['data'], 'smooth': True})
+        series_line.append({'name': data_list['name'],'type': 'line', 'data': data_list['data'], 'smooth': 'true'})
     data_pie = list()
     for leg, per in list(zip(legend_pie, perc_pie)):
         data_pie.append({'value': leg, 'name': per})
