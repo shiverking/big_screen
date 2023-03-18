@@ -112,99 +112,6 @@ class SourceDataDemo:
             ]
         }
 
-    @property
-    def echart1(self):
-        xAxis, series, legend = get_echart1_data()
-        echart = {
-            'title': '各模型的意图识别结果图',
-            'xAxis': xAxis,
-            'series': series,
-            'legend': legend
-        }
-        return echart
-
-    @property
-    def echart2(self):
-        data = self.echart2_data
-        echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'series': [i.get("value") for i in data.get('data')]
-        }
-        return echart
-
-    @property
-    def echarts3_1(self):
-        data = self.echarts3_1_data
-        echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'data': data.get('data'),
-        }
-        return echart
-
-    @property
-    def echarts3_2(self):
-        data = self.echarts3_2_data
-        echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'data': data.get('data'),
-        }
-        return echart
-
-    @property
-    def echarts3_3(self):
-        data = self.echarts3_3_data
-        echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'data': data.get('data'),
-        }
-        return echart
-
-    @property
-    def echart4(self):
-        data = self.echart4_data
-        echart = {
-            'title': data.get('title'),
-            'names': [i.get("name") for i in data.get('data')],
-            'xAxis': data.get('xAxis'),
-            'data': data.get('data'),
-        }
-        return echart
-
-    @property
-    def echart5(self):
-        data = self.echart5_data
-        echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'series': [i.get("value") for i in data.get('data')],
-            'data': data.get('data'),
-        }
-        return echart
-
-    @property
-    def echart6(self):
-        data = self.echart6_data
-        echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'data': data.get('data'),
-        }
-        return echart
-
-    @property
-    def map_1(self):
-        data = self.map_1_data
-        echart = {
-            'symbolSize': data.get('symbolSize'),
-            'data': data.get('data'),
-        }
-        return echart
-
-
 class SourceData(SourceDataDemo):
 
     def __init__(self):
@@ -212,48 +119,14 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        self.title = '智能方法性能边界对比分析原理验证系统'
-
-class CorpData(SourceDataDemo):
-
-    def __init__(self):
-        """
-        按照 SourceDataDemo 的格式覆盖数据即可
-        """
-        super().__init__()
-        with open('corp.json', 'r', encoding='utf-8') as f:
-            data = json.loads(f.read())
-        self.title = data.get('title')
-        self.counter = data.get('counter')
-        self.counter2 = data.get('counter2')
-        self.echart1_data = data.get('echart1_data')
-        self.echart2_data = data.get('echart2_data')
-        self.echarts3_1_data = data.get('echarts3_1_data')
-        self.echarts3_2_data = data.get('echarts3_2_data')
-        self.echarts3_3_data = data.get('echarts3_3_data')
-        self.echart4_data = data.get('echart4_data')
-        self.echart5_data = data.get('echart5_data')
-        self.echart6_data = data.get('echart6_data')
-        self.map_1_data = data.get('map_1_data')
-
-class JobData(SourceDataDemo):
-
-    def __init__(self):
-        """
-        按照 SourceDataDemo 的格式覆盖数据即可
-        """
-        super().__init__()
-        with open('job.json', 'r', encoding='utf-8') as f:
-            data = json.loads(f.read())
-        self.title = data.get('title')
-        self.counter = data.get('counter')
-        self.counter2 = data.get('counter2')
-        self.echart1_data = data.get('echart1_data')
-        self.echart2_data = data.get('echart2_data')
-        self.echarts3_1_data = data.get('echarts3_1_data')
-        self.echarts3_2_data = data.get('echarts3_2_data')
-        self.echarts3_3_data = data.get('echarts3_3_data')
-        self.echart4_data = data.get('echart4_data')
-        self.echart5_data = data.get('echart5_data')
-        self.echart6_data = data.get('echart6_data')
-        self.map_1_data = data.get('map_1_data')
+        xAxis_line, series_line, legend_line, data_pie, title_pie = get_echart1_data()
+        self.echart1_data = {
+            'title': '各模型的意图识别结果图',
+            'xAxis': xAxis_line,
+            'series': series_line,
+            'legend': legend_line
+        }
+        self.echart6_data = {
+            'title': title_pie,
+            'data': data_pie
+        }

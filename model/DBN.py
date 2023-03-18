@@ -506,62 +506,61 @@ def DBN_RES():
     Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print, legend = model.accuracy_Test(A, B, C, D, Q, R, w, testName, y_test)   # 模型测试结果
     # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
     # print("Average TestTime:{}".format(Aver_time))
-    return plot_print, legend
 
-    # # 【可视化展示2-1】：统计信息图+性能指标值输出+各个模型预测精度对比图
-    # plt.figure()  # 声明一个新画布
-    # dis = 0
-    # separate1 = (dis, dis + 0.05, dis + 0.2, dis + 0.35, dis + 0, dis + 0.45, dis + 0.5, dis + 0)
-    # plt.pie(target_num, autopct='%.01f%%', explode=separate1, radius=1.0, textprops={'fontsize': 8})
-    # plt.legend(model.IntentionName, frameon=False, bbox_to_anchor=(-0.35, 0.5), loc=6)
-    # plt.title("统计信息({})".format(testName), loc="center")
-    # # plt.show()
-
-    # # 【可视化展示2-2】：统计信息图+性能指标值输出+各个模型预测精度对比图
-    # print("perform_report:'\n' {}".format(perform_report))
-
-    # # 【可视化展示2-3】：统计信息图+性能指标值输出+各个模型预测精度对比图
-    # precision = (acc_num / predict_num * 100).numpy().tolist()
-    # precision = [0 if math.isnan(x) else x for x in precision]
-
-    # fig, ax = plt.subplots()
-    # ax.barh(model.IntentionName, precision, align='center', label='KF-DBN')
-    # for a, b in zip(model.IntentionName, precision):
-    #     plt.text(b+1, a, "%.2f%%" % b, ha='center', va='center', fontsize=8, color='k')
-    # ax.set_yticks(model.IntentionName)
-    # ax.set_xlabel('precision(%)')
-    # ax.set_title('各个模型预测精度对比图')
-    # # plt.show()
-
-    # # 【可视化展示3】：不同模型在不同冷启动时间下的准确率表
-    # fig, ax = plt.subplots()
-    # model.IntentionName.append('整体')
-    # rowColours = ["#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F2F2F2"]
-
-    # column_labels = ["KF-DBN(t=1)", "KF-DBN(t=5)", "KF-DBN(t=10)", "KF-DBN(t=15)", "KF-DBN(t=20)"]
-    # colColors = ["#377eb8"] * len(column_labels)
-
-    # accuracy = (100. * acc_num.sum() / target_num.sum()).numpy()
-    # precision_list = [precision] * len(column_labels)
-    # accuracy_list = [accuracy] * len(column_labels)
-    # precision_data = np.vstack((np.array(precision_list).T, np.array(accuracy_list)))
-
-    # ax.axis('off')
-    # ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
-    #          rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
-    # ax.set_title('不同模型在不同冷启动时间下的准确率表')
+    # 【可视化展示2-1】：统计信息图+性能指标值输出+各个模型预测精度对比图
+    plt.figure()  # 声明一个新画布
+    dis = 0
+    separate1 = (dis, dis + 0.05, dis + 0.2, dis + 0.35, dis + 0, dis + 0.45, dis + 0.5, dis + 0)
+    plt.pie(target_num, autopct='%.01f%%', explode=separate1, radius=1.0, textprops={'fontsize': 8})
+    print('饼图数据')
+    plt.legend(model.IntentionName, frameon=False, bbox_to_anchor=(-0.35, 0.5), loc=6)
+    plt.title("统计信息({})".format(testName), loc="center")
     # plt.show()
 
-    # # 【可视化展示4】：运行时间
-    # plt.figure()  # 声明一个新画布
-    # x = ['time_step=1', 'time_step=5', 'time_step=10', 'time_step=15', 'time_step=20']
-    # y = [Aver_time] * len(x)
+    # 【可视化展示2-2】：统计信息图+性能指标值输出+各个模型预测精度对比图
+    print("perform_report:'\n' {}".format(perform_report))
 
-    # plt.plot(x, y, color='k', linewidth=1, marker='o', markersize=5, label="预测时间")
-    # for a, b in zip(x, y):
-    #     plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
-    # plt.title("各模型的预测时间", color='k')
+    # 【可视化展示2-3】：统计信息图+性能指标值输出+各个模型预测精度对比图
+    precision = (acc_num / predict_num * 100).numpy().tolist()
+    precision = [0 if math.isnan(x) else x for x in precision]
+
+    fig, ax = plt.subplots()
+    ax.barh(model.IntentionName, precision, align='center', label='KF-DBN')
+    for a, b in zip(model.IntentionName, precision):
+        plt.text(b+1, a, "%.2f%%" % b, ha='center', va='center', fontsize=8, color='k')
+    ax.set_yticks(model.IntentionName)
+    ax.set_xlabel('precision(%)')
+    ax.set_title('各个模型预测精度对比图')
     # plt.show()
-if __name__ == '__main__':
-    DBN_RES()
+
+    # 【可视化展示3】：不同模型在不同冷启动时间下的准确率表
+    fig, ax = plt.subplots()
+    model.IntentionName.append('整体')
+    rowColours = ["#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F2F2F2"]
+
+    column_labels = ["KF-DBN(t=1)", "KF-DBN(t=5)", "KF-DBN(t=10)", "KF-DBN(t=15)", "KF-DBN(t=20)"]
+    colColors = ["#377eb8"] * len(column_labels)
+
+    accuracy = (100. * acc_num.sum() / target_num.sum()).numpy()
+    precision_list = [precision] * len(column_labels)
+    accuracy_list = [accuracy] * len(column_labels)
+    precision_data = np.vstack((np.array(precision_list).T, np.array(accuracy_list)))
+
+    ax.axis('off')
+    ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
+             rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
+    ax.set_title('不同模型在不同冷启动时间下的准确率表')
+    plt.show()
+
+    # 【可视化展示4】：运行时间
+    plt.figure()  # 声明一个新画布
+    x = ['time_step=1', 'time_step=5', 'time_step=10', 'time_step=15', 'time_step=20']
+    y = [Aver_time] * len(x)
+
+    plt.plot(x, y, color='k', linewidth=1, marker='o', markersize=5, label="预测时间")
+    for a, b in zip(x, y):
+        plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
+    plt.title("各模型的预测时间", color='k')
+    
+    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})"
 
