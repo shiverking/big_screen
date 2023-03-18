@@ -7,7 +7,7 @@ def get_echart1_data():
     series = list()
     for data_list in plt_data:
         print(data_list)
-        series.append({'name': data_list['name'],'type': 'line', 'data': data_list['data'], 'smooth': True})
+        series.append({'name': data_list['name'],'type': 'line', 'data': data_list['data'], 'smooth': 'true'})
     return xAxis, series, legend
 
 if __name__ == '__main__':

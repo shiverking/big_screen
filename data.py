@@ -204,7 +204,6 @@ class SourceDataDemo:
         }
         return echart
 
-
 class SourceData(SourceDataDemo):
 
     def __init__(self):
