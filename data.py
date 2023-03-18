@@ -128,5 +128,18 @@ class SourceData(SourceDataDemo):
         }
         self.echart6_data = {
             'title': title_pie,
-            'data': data_pie
+            'series': [
+                        {
+                        'type': 'pie',
+                        'radius': '40%',
+                        'data': data_pie,
+                        'emphasis': {
+                            'itemStyle': {
+                            'shadowBlur': 10,
+                            'shadowOffsetX': 0,
+                            'shadowColor': 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                        }
+                    ]
         }
