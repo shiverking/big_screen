@@ -8,5 +8,9 @@ def get_echart1_data():
         series_line.append({'name': data_list['name'],'type': 'line', 'data': data_list['data'], 'smooth': 'true'})
     data_pie = list()
     for leg, per in list(zip(legend_pie, perc_pie)):
-        data_pie.append({'value': leg, 'name': per})
+        data_pie.append({'value': per, 'name': leg})
+    print(data_pie)
     return xAxis_line, series_line, legend_line, data_pie, title_pie
+
+if __name__ == '__main__':
+    get_echart1_data()
