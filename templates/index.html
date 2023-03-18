@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>意图识别验证系统</title>
+    <title>智能方法性能边界对比分析原理验证系统</title>
     <script type="text/javascript" src="../static/js/jquery-2.1.4.js"></script>
     <link rel="stylesheet" href="../static/css/comon0.css">
 </head>
@@ -59,6 +59,7 @@
     </script>
 </div>
 <div class="mainbox">
+    <div id="load" style="width:800px;height:600px;"></div>
     <ul class="clearfix">
         <li>
             <div class="boxall" style="height: 4rem">
@@ -88,10 +89,10 @@
                 </div>
             </div>
             <div class="map">
-{#                地球转动#}
-{#                <div class="map1"><img src="../static/picture/lbx.png"></div>#}
-{#                <div class="map2"><img src="../static/picture/jt.png"></div>#}
-{#                <div class="map3"><img src="../static/picture/map.png"></div>#}
+                {#                地球转动#}
+                {#                <div class="map1"><img src="../static/picture/lbx.png"></div>#}
+                {#                <div class="map2"><img src="../static/picture/jt.png"></div>#}
+                {#                <div class="map3"><img src="../static/picture/map.png"></div>#}
                 <div class="map4" style="margin-top:0.1rem;top:0;left:0;">
                     <div class="boxall" style="height: 6.6rem;width:7.9rem">
                         <div class="alltitle">{{ form.echart6.title }}</div>
@@ -118,7 +119,7 @@
 </div>
 <div class="back"></div>
 <!--设置的表单-->
-<form class="layui-form" action="" id="settingForm" style="display:none;padding:13px;" >
+<form class="layui-form" action="" id="settingForm" style="display:none;padding:13px;">
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 90px;">场景选择</label>
         <div class="layui-input-block">
@@ -132,22 +133,22 @@
             <div id="preview" style="display: none">
                 <button id="situation0" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
                         style="margin-top: 10px;margin-left: 0px;">
-                        场景预览
+                    场景预览
                     <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                 </button>
                 <button id="situation1" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
                         style="margin-top: 10px;margin-left: 0px;">
-                        场景预览
+                    场景预览
                     <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                 </button>
                 <button id="situation2" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
                         style="margin-top: 10px;margin-left: 0px;">
-                        场景预览
+                    场景预览
                     <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                 </button>
                 <button id="situation3" type="button" class="layui-btn layui-btn-primary layui-border-blue play-button"
                         style="margin-top: 10px;margin-left: 0px;">
-                        场景预览
+                    场景预览
                     <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                 </button>
             </div>
@@ -194,7 +195,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" >确定</button>
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">确定</button>
             <button type="reset" class="layui-btn layui-btn-primary layui-border-blue">重置</button>
         </div>
     </div>
@@ -235,7 +236,7 @@
                             远:D>20km 近:D≤120km
                         </div>
                     </fieldset>
-                    <blockquote class="layui-elem-quote blockquoteClass" >其中，距离的计算是识别目标
+                    <blockquote class="layui-elem-quote blockquoteClass">其中，距离的计算是识别目标
                         不同类型的目标，其属性速度的状态空间划分不一致，具体如下：
                     </blockquote>
                 </div>
@@ -380,11 +381,12 @@
                         <th>任务目标</th>
                     </tr>
                     </thead>
-                     <tbody>
+                    <tbody>
                     <tr>
                         <td>正南对莫斯科DJ
-                            <button id="situation_0" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
-                              <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                            <button id="situation_0" type="button"
+                                    class="layui-btn layui-btn-sm layui-btn-primary play-button">
+                                <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                             </button>
                         </td>
                         <td>F-22A 科加尔尼西亚 #1 - #10</td>
@@ -392,8 +394,9 @@
                     </tr>
                     <tr>
                         <td>正西突袭
-                            <button id="situation_1" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
-                                  <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                            <button id="situation_1" type="button"
+                                    class="layui-btn layui-btn-sm layui-btn-primary play-button">
+                                <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
                             </button>
                         </td>
                         <td>罗斯福 #41 - #48</td>
@@ -401,18 +404,20 @@
                     </tr>
                     <tr>
                         <td>正西侦察MQ-4
-                        <button id="situation_2" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
-                              <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
-                        </button>
+                            <button id="situation_2" type="button"
+                                    class="layui-btn layui-btn-sm layui-btn-primary play-button">
+                                <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                            </button>
                         </td>
                         <td>英国MQ-4RAF Mildenhall #1 - #3</td>
                         <td>侦察俄方在西部地区FK力量</td>
                     </tr>
                     <tr>
                         <td rowspan="5">正西对莫斯科DJ
-                        <button id="situation_3" type="button" class="layui-btn layui-btn-sm layui-btn-primary play-button" >
-                              <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
-                        </button>
+                            <button id="situation_3" type="button"
+                                    class="layui-btn layui-btn-sm layui-btn-primary play-button">
+                                <i type="button" class="layui-icon layui-icon-triangle-r play-icon"></i>
+                            </button>
                         </td>
                         <td>B-2A</td>
                         <td>DJ莫斯科宫殿</td>
@@ -433,7 +438,7 @@
             <div class="layui-panel" style="border: none">
                 <div style="padding: 10px;" class="fieldSetClass">
                     <fieldset class="layui-elem-field">
-                        <legend  class="color-white">机动动作意图</legend>
+                        <legend class="color-white">机动动作意图</legend>
                         <div class="layui-field-box color-white" style="font-size:large;">
                             超高空盘旋、高空盘旋、中空高速巡航、中空巡航、中空盘旋、
                             低空高速盘旋、低空盘旋、低空高速巡航
@@ -505,33 +510,47 @@
     .color-white {
         color: white;
     }
+
     {#表格颜色白色#}
-    .layui-table td, .layui-table th{
+    .layui-table td, .layui-table th {
         color: white;
     }
+
     {#表头白色#}
-    .layui-form-label{
+    .layui-form-label {
         color: white;
     }
-    .tableBackground{
+
+    .tableBackground {
         background-color: #0F287C
     }
-    .blockquoteClass{
-        border-left: 5px solid #1592eb;background-color: #0F2691;color: white;
+
+    .blockquoteClass {
+        border-left: 5px solid #1592eb;
+        background-color: #0F2691;
+        color: white;
     }
-    .briefClass{
-        padding: 30px;font-size: large; background:#0F2691;color: white;margin: -1px;
+
+    .briefClass {
+        padding: 30px;
+        font-size: large;
+        background: #0F2691;
+        color: white;
+        margin: -1px;
     }
-    .layui-menu{
+
+    .layui-menu {
         background-color: #0F8CD6;
         margin: -2px;
     }
-    .play-icon{
+
+    .play-icon {
         font-size: 23px;
         color: #ffffff;
     }
-    .play-button{
-        margin-left:13px;
+
+    .play-button {
+        margin-left: 13px;
     }
 </style>
 <!--echart1-->
@@ -539,25 +558,30 @@
     $(function echarts_1() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart1'));
-
         option = {
-            //  backgroundColor: '#00265f',
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
-                    type: 'shadow'
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
                 }
+            },
+            legend: {
+                data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'],
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
             },
             grid: {
                 left: '0%',
                 top: '10px',
                 right: '0%',
-                bottom: '4%',
-                containLabel: true
+                bottom: '2%',
+                containLabel: true,
+                borderWidth: 1,
             },
             xAxis: [{
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 type: 'category',
-                data: {{form.echart1.xAxis|safe}},
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -566,7 +590,6 @@
                         type: "solid"
                     },
                 },
-
                 axisTick: {
                     show: false,
                 },
@@ -610,19 +633,35 @@
             }],
             series: [
                 {
-                    type: 'bar',
-                    data: {{form.echart1.series|safe}},
-                    barWidth: '35%', //柱子宽度
-                    // barGap: 1, //柱子之间间距
-                    itemStyle: {
-                        normal: {
-                            color: '#2f89cf',
-                            opacity: 1,
-                            barBorderRadius: 5,
-                        }
-                    }
+                    name: 'Email',
+                    type: 'line',
+                    data: [120, 132, 101, 134, 90, 230, 210],
+                    smooth: true
+                },
+                {
+                    name: 'Union Ads',
+                    type: 'line',
+                    data: [220, 182, 191, 234, 290, 330, 310],
+                    smooth: true
+                },
+                {
+                    name: 'Video Ads',
+                    type: 'line',
+                    data: [150, 232, 201, 154, 190, 330, 410],
+                    smooth: true
+                },
+                {
+                    name: 'Direct',
+                    type: 'line',
+                    data: [320, 332, 301, 334, 390, 330, 320],
+                    smooth: true
+                },
+                {
+                    name: 'Search Engine',
+                    type: 'line',
+                    data: [820, 932, 901, 934, 1290, 1330, 1320],
+                    smooth: true
                 }
-
             ]
         };
 
@@ -1056,15 +1095,66 @@
         });
     })
 </script>
+<!--loading-->
+<script>
+    $(function loading() {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('load'));
+        var option = {
+            graphic: {
+                elements: [
+                    {
+                        type: 'group',
+                        left: 'center',
+                        top: 'center',
+                        children: new Array(7).fill(0).map((val, i) => ({
+                            type: 'rect',
+                            x: i * 20,
+                            shape: {
+                                x: 0,
+                                y: -40,
+                                width: 10,
+                                height: 80
+                            },
+                            style: {
+                                fill: '#5470c6'
+                            },
+                            keyframeAnimation: {
+                                duration: 1000,
+                                delay: i * 200,
+                                loop: true,
+                                keyframes: [
+                                    {
+                                        percent: 0.5,
+                                        scaleY: 0.3,
+                                        easing: 'cubicIn'
+                                    },
+                                    {
+                                        percent: 1,
+                                        scaleY: 1,
+                                        easing: 'cubicOut'
+                                    }
+                                ]
+                            }
+                        }))
+                    }
+                ]
+            }
+        };
+
+        //显示loading动画
+        myChart.setOption(option);
+    })
+</script>
 <!--下拉菜单控制标签-->
 <script>
     layui.config({
-            //存放拓展模块的根目录
-            base: '/static/ckplayer/'
+        //存放拓展模块的根目录
+        base: '/static/ckplayer/'
     }).extend({
         //设定模块别名
         ckplayer: 'ckplayer'
-    }).use(['dropdown', 'layer', 'form','ckplayer'], function () {
+    }).use(['dropdown', 'layer', 'form', 'ckplayer'], function () {
         var dropdown = layui.dropdown;
         var layer = layui.layer;
         var form = layui.form;
@@ -1153,18 +1243,18 @@
         //由于X2的ckplayer需要用url请求方式获取配置json
         //因此定义请求的根目录
         var baseUrl = "/static/ckplayer/"
-        $("#situation0").click(function(){
+        $("#situation0").click(function () {
             layer.open({
-                        type: 1,
-                        title: '场景介绍-西南DJ利佩茨克机场',
-                        content: $("#display"),
-                        area: ['85%', '90%'],
-                        shade: 0.5,
-                        shadeClose: true,
-                        resize: false,
-                        end:function(){
-                            $("#situation").children().remove()
-                        }
+                type: 1,
+                title: '场景介绍-西南DJ利佩茨克机场',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
             });
             //定义一个变量：videoObject，用来做为视频初始化配置
             var videoObject = {
@@ -1175,18 +1265,18 @@
             };
             var player = new ckplayer(videoObject);//初始化播放器
         })
-        $("#situation1").click(function(){
+        $("#situation1").click(function () {
             layer.open({
-                        type: 1,
-                        title: '场景介绍-正西DJ圣彼得堡',
-                        content: $("#display"),
-                        area: ['85%', '90%'],
-                        shade: 0.5,
-                        shadeClose: true,
-                        resize: false,
-                 end:function(){
-                            $("#situation").children().remove()
-                        }
+                type: 1,
+                title: '场景介绍-正西DJ圣彼得堡',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
             });
             //定义一个变量：videoObject，用来做为视频初始化配置
             var videoObject = {
@@ -1197,18 +1287,18 @@
             };
             var player = new ckplayer(videoObject);//初始化播放器
         })
-        $("#situation2").click(function(){
+        $("#situation2").click(function () {
             layer.open({
-                        type: 1,
-                        title: '场景介绍-正西侦查',
-                        content: $("#display"),
-                        area: ['85%', '90%'],
-                        shade: 0.5,
-                        shadeClose: true,
-                        resize: false,
-                 end:function(){
-                            $("#situation").children().remove()
-                        }
+                type: 1,
+                title: '场景介绍-正西侦查',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
             });
             //定义一个变量：videoObject，用来做为视频初始化配置
             var videoObject = {
@@ -1219,18 +1309,18 @@
             };
             var player = new ckplayer(videoObject);//初始化播放器
         })
-        $("#situation3").click(function(){
+        $("#situation3").click(function () {
             layer.open({
-                        type: 1,
-                        title: '场景介绍-正西DJ莫斯科',
-                        content: $("#display"),
-                        area: ['85%', '90%'],
-                        shade: 0.5,
-                        shadeClose: true,
-                        resize: false,
-                 end:function(){
-                            $("#situation").children().remove()
-                        }
+                type: 1,
+                title: '场景介绍-正西DJ莫斯科',
+                content: $("#display"),
+                area: ['85%', '90%'],
+                shade: 0.5,
+                shadeClose: true,
+                resize: false,
+                end: function () {
+                    $("#situation").children().remove()
+                }
             });
             //定义一个变量：videoObject，用来做为视频初始化配置
             var videoObject = {
