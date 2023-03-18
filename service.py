@@ -10,6 +10,3 @@ def get_echart1_data():
     for leg, per in list(zip(legend_pie, perc_pie)):
         data_pie.append({'value': leg, 'name': per})
     return xAxis_line, series_line, legend_line, data_pie, title_pie
-
-if __name__ == '__main__':
-    print(get_echart1_data())
