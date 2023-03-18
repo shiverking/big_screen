@@ -5,6 +5,8 @@
 # @Site : 
 # @Describe:
 
+from service import get_echart1_data
+
 import json
 
 class SourceDataDemo:
@@ -15,7 +17,7 @@ class SourceDataDemo:
         self.counter2 = {'name': '2018年总支出情况', 'value': 3912410}
         self.echart1_data = {
             'title': '行业分布',
-            'data': [
+            'data': [ 
                 {"name": "商超门店", "value": 47},
                 {"name": "教育培训", "value": 52},
                 {"name": "房地产", "value": 90},
@@ -112,11 +114,12 @@ class SourceDataDemo:
 
     @property
     def echart1(self):
-        data = self.echart1_data
+        xAxis, series, legend = get_echart1_data()
         echart = {
-            'title': data.get('title'),
-            'xAxis': [i.get("name") for i in data.get('data')],
-            'series': [i.get("value") for i in data.get('data')]
+            'title': '各模型的意图识别结果图',
+            'xAxis': xAxis,
+            'series': series,
+            'legend': legend
         }
         return echart
 
