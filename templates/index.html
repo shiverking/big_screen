@@ -98,16 +98,16 @@
             </div>
         </li>
         <li>
-{#            <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">#}
-{#                <div class="alltitle">{{ form.echart4.title }}</div>#}
-{#                <div class="allnav" id="echart4"></div>#}
-{#                <div class="boxfoot"></div>#}
-{#            </div>#}
-{#            <div class="boxall" style="height: 4rem;padding: 0px;margin-bottom: 0px;">#}
+            <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
+                <div class="alltitle">{{ form.echart4_data.title }}</div>
+                <div class="allnav" id="echart4"></div>
+                <div class="boxfoot"></div>
+            </div>
+            <div class="boxall" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
 {#                <div class="alltitle">{{ form.echart5.title }}</div>#}
-{#                <table class="layui-table" id="summaryTable" style="margin: 0;"></table>#}
-{#                <div class="boxfoot"></div>#}
-{#            </div>#}
+                <table class="layui-table" id="summaryTable" style="margin: 0;"></table>
+                <div class="boxfoot"></div>
+            </div>
         </li>
     </ul>
 </div>
@@ -739,113 +739,110 @@
 </script>
 <!--echarts4-->
 <script>
-    {#$(function echarts_4() {#}
-    {#    // 基于准备好的dom，初始化echarts实例#}
-    {#    var myChart = echarts.init(document.getElementById('echart4'));#}
-    {#    option = {#}
-    {#        color: ['#5470C6','#91CC75'],#}
-    {#        tooltip: {#}
-    {#            trigger: 'axis',#}
-    {#            axisPointer: {#}
-    {#                lineStyle: {#}
-    {#                    color: '#dddc6b'#}
-    {#                }#}
-    {#            }#}
-    {#        },#}
-    {#        legend: {#}
-    {#            textStyle: {color: 'rgb(255,255,255,0.9)',},#}
-    {#        },#}
-    {#        grid: {#}
-    {#            left: '0%',#}
-    {#            top: '10px',#}
-    {#            right: '0%',#}
-    {#            bottom: '2%',#}
-    {#            containLabel: true,#}
-    {#            borderWidth: 1,#}
-    {#        },#}
-    {#        xAxis: {#}
-    {#            type: 'value',#}
-    {#            boundaryGap: [0, 0.01],#}
-    {#             axisLine: {#}
-    {#                show: true,#}
-    {#                lineStyle: {#}
-    {#                    color: "rgba(255,255,255,.1)",#}
-    {#                    width: 1,#}
-    {#                    type: "solid"#}
-    {#                },#}
-    {#            },#}
-    {#            axisTick: {#}
-    {#                show: false,#}
-    {#            },#}
-    {#            axisLabel: {#}
-    {#                show: true,#}
-    {#                textStyle: {#}
-    {#                    color: "rgba(255,255,255,.6)",#}
-    {#                    fontSize: '12',#}
-    {#                },#}
-    {#            },#}
-    {#        },#}
-    {#        yAxis: {#}
-    {#            type: 'category',#}
-    {#            data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World'],#}
-    {#            axisLabel: {#}
-    {#                show: true,#}
-    {#                textStyle: {#}
-    {#                    color: "rgba(255,255,255,.6)",#}
-    {#                    fontSize: '12',#}
-    {#                },#}
-    {#            },#}
-    {#            axisTick: {#}
-    {#                show: false,#}
-    {#            },#}
-    {#            axisLine: {#}
-    {#                show: true,#}
-    {#                lineStyle: {#}
-    {#                    color: "rgba(255,255,255,.1	)",#}
-    {#                    width: 1,#}
-    {#                    type: "solid"#}
-    {#                },#}
-    {#            },#}
-    {#            splitLine: {#}
-    {#                lineStyle: {#}
-    {#                    color: "rgba(255,255,255,.1)",#}
-    {#                }#}
-    {#            }#}
-    {#        },#}
-    {#        series: [#}
-    {#            {#}
-    {#                name: '2011',#}
-    {#                type: 'bar',#}
-    {#                data: [18203, 23489, 29034, 104970, 131744, 630230]#}
-    {#            },#}
-    {#            {#}
-    {#                name: '2012',#}
-    {#                type: 'bar',#}
-    {#                data: [19325, 23438, 31000, 121594, 134141, 681807]#}
-    {#            }#}
-    {#        ]#}
-    {#    };#}
-    {#    // 使用刚指定的配置项和数据显示图表。#}
-    {#    myChart.setOption(option);#}
+    $(function echarts_4() {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart4'));
+        option = {
+            color: ['#5470C6','#91CC75'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
+                }
+            },
+            legend: {
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
+            },
+            grid: {
+                left: '0%',
+                top: '10px',
+                right: '0%',
+                bottom: '2%',
+                containLabel: true,
+                borderWidth: 1,
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01],
+                 axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+            },
+            yAxis: {
+                type: 'category',
+                data: {{form.echart4_data.yAxis|safe}},
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1	)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                    }
+                }
+            },
+            series: {{form.echart4_data.series|safe}}
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    })
 </script>
 <script>
     layui.use('table', function(){
-  var table = layui.table;
+    var table = layui.table;
+    var cols = [], data = [];
+    $.ajax({url:"/getTableData", async: false, success:function(re){
+        data = re.data;
+        cols = re.cols;
+    }});
   table.render({
-    elem: '#summaryTable'
-    ,url:'/doc/layui/demo/table/user.json'
-    ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-    ,cols: [[
-      {field:'id', width:80, title: 'ID'}
-      ,{field:'username', width:80, title: '用户名'}
-      ,{field:'sex', width:80, title: '性别'}
-      ,{field:'city', width:80, title: '城市'}
-      ,{field:'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-      ,{field:'experience', title: '积分'}
-      ,{field:'score', title: '评分'}
-      ,{field:'classify', title: '职业'}
-      ,{field:'wealth', width:137, title: '财富'}
-    ]]
+    elem: '#summaryTable',
+    cols: [cols],
+    data: data
+    {#,url:'/doc/layui/demo/table/user.json'#}
+    {#,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增#}
+    {#,cols: [[#}
+    {#  {field:'id', width:80, title: 'ID'}#}
+    {#  ,{field:'username', width:80, title: '用户名'}#}
+    {#  ,{field:'sex', width:80, title: '性别'}#}
+    {#  ,{field:'city', width:80, title: '城市'}#}
+    {#  ,{field:'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增#}
+    {#  ,{field:'experience', title: '积分'}#}
+    {#  ,{field:'score', title: '评分'}#}
+    {#  ,{field:'classify', title: '职业'}#}
+    {#  ,{field:'wealth', width:137, title: '财富'}#}
+    {#]]#}
   });
 });
 </script>
@@ -881,6 +878,13 @@
           tooltip: {
             trigger: 'item'
           },
+        grid: {
+            left: '0%',
+            top: '10px',
+            right: '0%',
+            bottom: '3%',
+            containLabel: true,
+        },
           legend: {
             orient: 'vertical',
             left: 'left',
