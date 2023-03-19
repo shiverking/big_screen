@@ -67,7 +67,7 @@
                 <div class="boxfoot"></div>
             </div>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
-                <div class="alltitle">{{ form.echart2.title }}</div>
+                <div class="alltitle">{{ form.echart2_data.title }}</div>
                 <div class="allnav" id="echart2"></div>
                 <div class="boxfoot"></div>
             </div>
@@ -89,25 +89,25 @@
             </div>
             <div class="map">
                 <div class="boxall" style="height: 6.54rem;width: 7.9rem; margin-bottom: 0;padding: 0px;">
-                    <div class="alltitle">{{ form.echart6.title }}</div>
-{#                    <div class="allnav" id="echart6"></div>#}
-                    <div id="echart6" style="height:60%;"></div>
+                    <div class="alltitle">{{ form.echart6_data.title }}</div>
+                    <div id="echart6" style="height:53%;"></div>
+                    <div class="alltitle">{{ form.echart7_data.title }}</div>
                     <div id="echart7" style="height:32%;"></div>
                     <div class="boxfoot"></div>
                 </div>
             </div>
         </li>
         <li>
-            <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
-                <div class="alltitle">{{ form.echart4.title }}</div>
-                <div class="allnav" id="echart4"></div>
-                <div class="boxfoot"></div>
-            </div>
-            <div class="boxall" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
-                <div class="alltitle">{{ form.echart5.title }}</div>
-                <table class="layui-table" id="summaryTable" style="margin: 0;"></table>
-                <div class="boxfoot"></div>
-            </div>
+{#            <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">#}
+{#                <div class="alltitle">{{ form.echart4.title }}</div>#}
+{#                <div class="allnav" id="echart4"></div>#}
+{#                <div class="boxfoot"></div>#}
+{#            </div>#}
+{#            <div class="boxall" style="height: 4rem;padding: 0px;margin-bottom: 0px;">#}
+{#                <div class="alltitle">{{ form.echart5.title }}</div>#}
+{#                <table class="layui-table" id="summaryTable" style="margin: 0;"></table>#}
+{#                <div class="boxfoot"></div>#}
+{#            </div>#}
         </li>
     </ul>
 </div>
@@ -564,6 +564,8 @@
             legend: {
                 data: {{form.echart1_data.legend|safe}},
                 textStyle: {color: 'rgb(255,255,255,0.9)',},
+                type: 'scroll',
+                orient: 'horizontal'
             },
             grid: {
                 left: '0%',
@@ -655,8 +657,10 @@
                 }
             },
             legend: {
-                data: {{form.echart1_data.legend|safe}},
+                data: {{form.echart2_data.legend|safe}},
                 textStyle: {color: 'rgb(255,255,255,0.9)',},
+                type: 'scroll',
+                orient: 'horizontal'
             },
             grid: {
                 left: '0%',
@@ -667,7 +671,7 @@
                 borderWidth: 1,
             },
             xAxis: [{
-                data:{{form.echart1_data.xAxis|safe}},
+                data:{{form.echart2_data.xAxis|safe}},
                 type: 'category',
                 axisLine: {
                     show: true,
@@ -724,7 +728,7 @@
                     }
                 }
             }],
-            series:{{form.echart1_data.series|safe}},
+            series:{{form.echart2_data.series|safe}},
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
@@ -735,95 +739,94 @@
 </script>
 <!--echarts4-->
 <script>
-    $(function echarts_4() {
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echart4'));
-        option = {
-            color: ['#5470C6','#91CC75'],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    lineStyle: {
-                        color: '#dddc6b'
-                    }
-                }
-            },
-            legend: {
-                textStyle: {color: 'rgb(255,255,255,0.9)',},
-            },
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '2%',
-                containLabel: true,
-                borderWidth: 1,
-            },
-            xAxis: {
-                type: 'value',
-                boundaryGap: [0, 0.01],
-                 axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-            },
-            yAxis: {
-                type: 'category',
-                data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World'],
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                    }
-                }
-            },
-            series: [
-                {
-                    name: '2011',
-                    type: 'bar',
-                    data: [18203, 23489, 29034, 104970, 131744, 630230]
-                },
-                {
-                    name: '2012',
-                    type: 'bar',
-                    data: [19325, 23438, 31000, 121594, 134141, 681807]
-                }
-            ]
-        };
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    })
+    {#$(function echarts_4() {#}
+    {#    // 基于准备好的dom，初始化echarts实例#}
+    {#    var myChart = echarts.init(document.getElementById('echart4'));#}
+    {#    option = {#}
+    {#        color: ['#5470C6','#91CC75'],#}
+    {#        tooltip: {#}
+    {#            trigger: 'axis',#}
+    {#            axisPointer: {#}
+    {#                lineStyle: {#}
+    {#                    color: '#dddc6b'#}
+    {#                }#}
+    {#            }#}
+    {#        },#}
+    {#        legend: {#}
+    {#            textStyle: {color: 'rgb(255,255,255,0.9)',},#}
+    {#        },#}
+    {#        grid: {#}
+    {#            left: '0%',#}
+    {#            top: '10px',#}
+    {#            right: '0%',#}
+    {#            bottom: '2%',#}
+    {#            containLabel: true,#}
+    {#            borderWidth: 1,#}
+    {#        },#}
+    {#        xAxis: {#}
+    {#            type: 'value',#}
+    {#            boundaryGap: [0, 0.01],#}
+    {#             axisLine: {#}
+    {#                show: true,#}
+    {#                lineStyle: {#}
+    {#                    color: "rgba(255,255,255,.1)",#}
+    {#                    width: 1,#}
+    {#                    type: "solid"#}
+    {#                },#}
+    {#            },#}
+    {#            axisTick: {#}
+    {#                show: false,#}
+    {#            },#}
+    {#            axisLabel: {#}
+    {#                show: true,#}
+    {#                textStyle: {#}
+    {#                    color: "rgba(255,255,255,.6)",#}
+    {#                    fontSize: '12',#}
+    {#                },#}
+    {#            },#}
+    {#        },#}
+    {#        yAxis: {#}
+    {#            type: 'category',#}
+    {#            data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World'],#}
+    {#            axisLabel: {#}
+    {#                show: true,#}
+    {#                textStyle: {#}
+    {#                    color: "rgba(255,255,255,.6)",#}
+    {#                    fontSize: '12',#}
+    {#                },#}
+    {#            },#}
+    {#            axisTick: {#}
+    {#                show: false,#}
+    {#            },#}
+    {#            axisLine: {#}
+    {#                show: true,#}
+    {#                lineStyle: {#}
+    {#                    color: "rgba(255,255,255,.1	)",#}
+    {#                    width: 1,#}
+    {#                    type: "solid"#}
+    {#                },#}
+    {#            },#}
+    {#            splitLine: {#}
+    {#                lineStyle: {#}
+    {#                    color: "rgba(255,255,255,.1)",#}
+    {#                }#}
+    {#            }#}
+    {#        },#}
+    {#        series: [#}
+    {#            {#}
+    {#                name: '2011',#}
+    {#                type: 'bar',#}
+    {#                data: [18203, 23489, 29034, 104970, 131744, 630230]#}
+    {#            },#}
+    {#            {#}
+    {#                name: '2012',#}
+    {#                type: 'bar',#}
+    {#                data: [19325, 23438, 31000, 121594, 134141, 681807]#}
+    {#            }#}
+    {#        ]#}
+    {#    };#}
+    {#    // 使用刚指定的配置项和数据显示图表。#}
+    {#    myChart.setOption(option);#}
 </script>
 <script>
     layui.use('table', function(){
@@ -874,36 +877,17 @@
             }
         };
         option = {
-          color:["#5470C6","#73C0DE","#EE6666","#FACB59","#91CC75"],
+          color:["#5470C6","#73C0DE","#EE6666","#FACB59","#91CC75","#7B68EE","#FF1493","#000080"],
           tooltip: {
             trigger: 'item'
           },
           legend: {
             orient: 'vertical',
             left: 'left',
+            type: 'scroll',
             textStyle: {color: 'rgb(255,255,255,0.9)',},
           },
-          series: [
-            {
-              name: 'Access From',
-              type: 'pie',
-              radius: '50%',
-              data: [
-                { value: 1048, name: 'Search Engine' },
-                { value: 735, name: 'Direct' },
-                { value: 580, name: 'Email' },
-                { value: 484, name: 'Union Ads' },
-                { value: 300, name: 'Video Ads' }
-              ],
-              emphasis: {
-                itemStyle: {
-                  shadowBlur: 10,
-                  shadowOffsetX: 0,
-                  shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-              }
-            }
-          ]
+          series:{{ form.echart6_data.series|safe}},
         };
         {#option = {#}
         {#    color: ['#0f63d6', '#0f78d6', '#0f8cd6', '#0fa0d6', '#0fb4d6'],#}
@@ -956,6 +940,7 @@
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart7'));
         option = {
+            color:["#5470C6","#EE6666"],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -965,8 +950,10 @@
                 }
             },
             legend: {
-                data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'],
+                data: {{form.echart7_data.legend|safe}},
                 textStyle: {color: 'rgb(255,255,255,0.9)',},
+                type: 'scroll',
+                orient: 'horizontal'
             },
             grid: {
                 left: '0%',
@@ -977,7 +964,7 @@
                 borderWidth: 1,
             },
             xAxis: [{
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                data: {{form.echart7_data.xAxis|safe}},
                 type: 'category',
                 axisLine: {
                     show: true,
@@ -1034,38 +1021,7 @@
                     }
                 }
             }],
-            series:[
-            {
-              name: 'Email',
-              type: 'line',
-              stack: 'Total',
-              data: [120, 132, 101, 134, 90, 230, 210]
-            },
-            {
-              name: 'Union Ads',
-              type: 'line',
-              stack: 'Total',
-              data: [220, 182, 191, 234, 290, 330, 310]
-            },
-            {
-              name: 'Video Ads',
-              type: 'line',
-              stack: 'Total',
-              data: [150, 232, 201, 154, 190, 330, 410]
-            },
-            {
-              name: 'Direct',
-              type: 'line',
-              stack: 'Total',
-              data: [320, 332, 301, 334, 390, 330, 320]
-            },
-            {
-              name: 'Search Engine',
-              type: 'line',
-              stack: 'Total',
-              data: [820, 932, 901, 934, 1290, 1330, 1320]
-            }
-          ],
+            series: {{form.echart7_data.series|safe}},
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
