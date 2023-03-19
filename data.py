@@ -129,8 +129,8 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn = get_echart1_data()
-        series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm = get_echart2_data()
+        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn, bar_legend, bar_dbn = get_echart1_data()
+        series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm, bar_lstm = get_echart2_data()
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
             'xAxis': xAxis_line,
@@ -167,4 +167,9 @@ class SourceData(SourceDataDemo):
             'xAxis': time_steps,
             'series': time_dbn + time_lstm,
             'legend': ['模型预测时间-DBN', '模型预测时间-LSTM']
+        }
+        self.echart4_data = {
+            'title': '不同模型的预测精度',
+            'yAxis': bar_legend,
+            'series': bar_dbn + bar_lstm,
         }
