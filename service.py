@@ -1,5 +1,6 @@
 from model.DBN import DBN_RES
 from model.LSTM import LSTM_RES
+import math
 
 def get_echart1_data():
     plt_data, legend_line, legend_pie, perc_pie, title_pie, time_sum_DBN, _, times, bar_legend, bar_data = DBN_RES()
@@ -16,11 +17,13 @@ def get_echart1_data():
 
 def get_echart2_data():
     plot_print, legend, time_sum, time_steps, times, bar_data = LSTM_RES()
+    print(bar_data)
     series_line = list()
     for data_list in plot_print:
         series_line.append({'name': data_list['name'],'type': 'line', 'data': data_list['data'], 'smooth': 'true'})
     time_lstm = [{'name':'模型预测时间-LSTM', 'type': 'line', 'data': times}]
-    bar_lstm = [{'name': '预测精度-LSTM', 'type': 'bar', 'data': bar_data}]
+    bar_lstm = [{'name': '预测精度-LSTM', 'type': 'bar', 'data': [0 if math.isnan(x) else x for x in bar_data]}]
+    print(bar_lstm)
     return series_line, legend, time_sum, time_steps, time_lstm, bar_lstm
 
 if __name__ == '__main__':
