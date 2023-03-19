@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.4.js"></script>
+    <link rel="stylesheet" href="../static/css/comon0.css">
+</head>
+<script type="text/javascript" src="../static/js/echarts.min.js"></script>
+<script type="text/javascript" src="../static/js/china.js"></script>
+<script type="text/javascript" src="../static/layui/layui.js"></script>
+<link href="../static/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+<body>
+    <div class="transparentDataTable">
+        <p>测试</p>
+        <table class="layui-table" id="summaryTable2" style="margin: 0;"></table>
+    </div>
+<style>
+    th div span{
+        color: white;
+    }
+    td div{
+        color: white;
+    }
+    /**
+   设置表透明  start====================================================================================================================
+ */
+
+.transparentDataTable .layui-table{
+    background-color: transparent !important;
+
+}
+.transparentDataTable .layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row]{
+     border-color: #ACAFBD;
+}
+.transparentDataTable .layui-table-view{
+    background-color: rgba(0, 0, 0, 0.0) !important;
+}
+.transparentDataTable .layui-table-hover{
+    background-color: rgba(0, 0, 0, 0.0) !important;
+}
+.transparentDataTable .layui-table-tool {
+    background-color: transparent !important;
+
+}
+
+.transparentDataTable .layui-table-tool .layui-icon {
+    color: white;
+}
+
+.transparentDataTable .layui-table-header, .transparentDataTable .layui-table-cell, .layui-table-header thead tr {
+    background-color: transparent !important;
+}
+
+.transparentDataTable .layui-table-header thead th, .transparentDataTable .layui-none {
+    /*border: 1px solid #FFFFFF;*/
+    color: white !important;
+}
+
+.transparentDataTable .layui-table tbody tr {
+    border: 1px solid #FFFFFF;
+    color: white;
+}
+
+.transparentDataTable .layui-table-init, .transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-btn, .transparentDataTable .layui-laypage-skip input {
+    background-color: transparent !important;
+    color: white;
+}
+
+.transparentDataTable .layui-table-page a, .transparentDataTable .layui-table-page span {
+    color: white !important;
+}
+
+
+.transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-limits option {
+    -webkit-appearance: none; /* google */
+    -moz-appearance: none; /* firefox */
+    appearance: none; /* IE */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);   /* 点击去除高亮的颜色*/
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white;
+}
+
+.transparentDataTable .layui-table[lay-even] tr:nth-child(even){
+    background-color: rgba(180, 238, 180, 0.5) !important;
+}
+
+/*静态表格透明*/
+.transparentStaticTable .layui-table{
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.transparentStaticTable .layui-table tbody tr:hover, .statistics_branch_one .layui-table tbody tr:hover {
+    background-color: transparent !important;
+}
+
+</style>
+<!--表格-->
+<script>
+    layui.use('table', function(){
+    var table = layui.table;
+    var cols = [], data = [];
+    $.ajax({url:"/getTableData", async: false, success:function(re){
+        data = re.data;
+        cols = re.cols;
+    }});
+  table.render({
+    elem: '#summaryTable2',
+    cols: [cols],
+    data: data
+  });
+});
+</script>
+</body>
+</html>

@@ -103,8 +103,8 @@
                 <div class="allnav" id="echart4"></div>
                 <div class="boxfoot"></div>
             </div>
-            <div class="boxall" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
-{#                <div class="alltitle">{{ form.echart5.title }}</div>#}
+            <div class="boxall transparentDataTable" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
+{#              <div class="alltitle">{{ form.echart5.title }}</div>#}
                 <table class="layui-table" id="summaryTable" style="margin: 0;"></table>
                 <div class="boxfoot"></div>
             </div>
@@ -505,12 +505,12 @@
         color: white;
     }
 
-    {#表格颜色白色#}
+    /*表格颜色白色*/
     .layui-table td, .layui-table th {
         color: white;
     }
 
-    {#表头白色#}
+    /*表头白色*/
     .layui-form-label {
         color: white;
     }
@@ -546,6 +546,82 @@
     .play-button {
         margin-left: 13px;
     }
+     th div span{
+        color: white;
+    }
+    td div{
+        color: white;
+    }
+    /**
+   设置表透明  start====================================================================================================================
+ */
+
+.transparentDataTable .layui-table{
+    background-color: transparent !important;
+
+}
+.transparentDataTable .layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row]{
+     border-color: #ACAFBD;
+}
+.transparentDataTable .layui-table-view{
+    background-color: rgba(0, 0, 0, 0.0) !important;
+}
+.transparentDataTable .layui-table-hover{
+    background-color: rgba(0, 0, 0, 0.0) !important;
+}
+.transparentDataTable .layui-table-tool {
+    background-color: transparent !important;
+
+}
+
+.transparentDataTable .layui-table-tool .layui-icon {
+    color: white;
+}
+
+.transparentDataTable .layui-table-header, .transparentDataTable .layui-table-cell, .layui-table-header thead tr {
+    background-color: transparent !important;
+}
+
+.transparentDataTable .layui-table-header thead th, .transparentDataTable .layui-none {
+    /*border: 1px solid #FFFFFF;*/
+    color: white !important;
+}
+
+.transparentDataTable .layui-table tbody tr {
+    border: 1px solid #FFFFFF;
+    color: white;
+}
+
+.transparentDataTable .layui-table-init, .transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-btn, .transparentDataTable .layui-laypage-skip input {
+    background-color: transparent !important;
+    color: white;
+}
+
+.transparentDataTable .layui-table-page a, .transparentDataTable .layui-table-page span {
+    color: white !important;
+}
+
+
+.transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-limits option {
+    -webkit-appearance: none; /* google */
+    -moz-appearance: none; /* firefox */
+    appearance: none; /* IE */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);   /* 点击去除高亮的颜色*/
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white;
+}
+
+.transparentDataTable .layui-table[lay-even] tr:nth-child(even){
+    background-color: rgba(180, 238, 180, 0.5) !important;
+}
+
+/*静态表格透明*/
+.transparentStaticTable .layui-table{
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.transparentStaticTable .layui-table tbody tr:hover, .statistics_branch_one .layui-table tbody tr:hover {
+    background-color: transparent !important;
+}
 </style>
 <!--echart1-->
 <script>
@@ -737,7 +813,7 @@
         });
     })
 </script>
-<!--echarts4-->
+<!--echart4-->
 <script>
     $(function echarts_4() {
         // 基于准备好的dom，初始化echarts实例
@@ -818,6 +894,7 @@
         myChart.setOption(option);
     })
 </script>
+<!--表格-->
 <script>
     layui.use('table', function(){
     var table = layui.table;
@@ -830,19 +907,6 @@
     elem: '#summaryTable',
     cols: [cols],
     data: data
-    {#,url:'/doc/layui/demo/table/user.json'#}
-    {#,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增#}
-    {#,cols: [[#}
-    {#  {field:'id', width:80, title: 'ID'}#}
-    {#  ,{field:'username', width:80, title: '用户名'}#}
-    {#  ,{field:'sex', width:80, title: '性别'}#}
-    {#  ,{field:'city', width:80, title: '城市'}#}
-    {#  ,{field:'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增#}
-    {#  ,{field:'experience', title: '积分'}#}
-    {#  ,{field:'score', title: '评分'}#}
-    {#  ,{field:'classify', title: '职业'}#}
-    {#  ,{field:'wealth', width:137, title: '财富'}#}
-    {#]]#}
   });
 });
 </script>
