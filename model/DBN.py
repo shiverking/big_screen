@@ -483,6 +483,7 @@ class KF_DBN:
 
 
 def DBN_RES():
+    time_start = time.time()  # 记录开始时间
     data_orign = pd.read_excel('./data/正南打击利佩茨克机场数据/data_new.xlsx')  # 导入原始数据
     typeName = '战斗机'
     data_proc = DataProcessing(data_orign, typeName)  # 数据预处理
@@ -506,7 +507,8 @@ def DBN_RES():
     Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print, legend = model.accuracy_Test(A, B, C, D, Q, R, w, testName, y_test)   # 模型测试结果
     # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
     # print("Average TestTime:{}".format(Aver_time))
-
+    time_end = time.time()  # 记录结束时间
+    time_sum = time_end - time_start 
     # 【可视化展示2-1】：统计信息图+性能指标值输出+各个模型预测精度对比图
     plt.figure()  # 声明一个新画布
     dis = 0
@@ -561,6 +563,4 @@ def DBN_RES():
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    
-    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})"
-
+    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum

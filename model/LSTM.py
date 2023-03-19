@@ -31,8 +31,8 @@ layer_size = 1  # 模型的层数
 output_size = 8  # 意图的个数
 batch_size_train = 32
 batch_size_test = 1
-sequence_size = 1  # time_step
 epochs = 300  # 训练轮数
+device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
 
 
 def data_rolling(x, seque_size):
@@ -91,7 +91,7 @@ class LSTM(nn.Module):
         return out
 
 
-def accuracy_Train(train_loader, sequence_size, epochMax=30, learning_rate=0.1):
+def accuracy_Train(train_loader, sequence_size, input_size, model, epochMax=30, learning_rate=0.1):
     timeTotal_start = time.time()
     # 损失函数
     loss_function = nn.CrossEntropyLoss()
@@ -153,7 +153,7 @@ def figure_loss(iteration_list, loss_list, accuracy_list, train_name):
     plt.show()
 
 
-def accuracy_Test(test_loader, net, test_name, sequence_size):
+def accuracy_Test(test_loader, net, test_name, sequence_size, input_size):
     Intention = [[] for _ in range(output_size)]
     y_predict, y_test, t_list = [], [], []
 
@@ -193,33 +193,25 @@ def accuracy_Test(test_loader, net, test_name, sequence_size):
     perfor_report = classification_report(y_test, y_predict)
 
     plt.figure()
+    '''陈嘉文加'''
+    plot_print = list() 
+    IntentionName = ['超高空盘旋', '高空盘旋', '中空高速巡航', '中空巡航', '中空盘旋', '低空高速盘旋', '低空盘旋', '低空高速巡航']
     for k in range(output_size):
+        plot_print.append({'name': IntentionName[k], 'data': [float(x) for x in Intention[k]]})
         plt.plot(range(len(y_predict)), Intention[k])
     plt.legend(['超高空盘旋', '高空盘旋', '中空高速巡航', '中空巡航', '中空盘旋', '低空高速盘旋', '低空盘旋', '低空高速巡航'])
     plt.xlabel("Number of Step")
     plt.ylabel("Intention")
     plt.title("model_test LSTM ({})".format(test_name))
 
-    return Aver_testTime, perfor_report, target_num, predict_num, acc_num, plt
-
-class outputOfLSTM:
-    def __init__(self):
-        self.data = pd.read_excel('./data/正南打击利佩茨克机场数据/data_new.xlsx')  # 导入原始数据
-        self.typeName = '战斗机'
-        self.data_proc = DataProcessing(data, typeName)  # 数据预处理
-        self.data_coding = data_proc.data_Code  # 输入模型的数据
-        self.trainName = 'F-22 科加尔尼西亚 #5'  # 输入训练目标
-        self.testName = 'F-22 科加尔尼西亚 #6'  # 输入测试目标——【目标选择】
-        self.trainData, self.testData = data_split(data_coding, trainName, testName, sequence_size)  # 训练/测试集划分
-        self.n_feature = data_coding.iloc[:, 3:]
-        self.input_size = n_feature.shape[1]  # 特征维度
-        self.model = LSTM(input_size, hidden_size, layer_size, output_size)
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
+    return Aver_testTime, perfor_report, target_num, predict_num, acc_num, plt, plot_print, IntentionName
 
 
-if __name__ == '__main__':
+def LSTM_RES():
+    time_start = time.time()  # 记录开始时间
     data = pd.read_excel('./data/正南打击利佩茨克机场数据/data_new.xlsx')  # 导入原始数据
     typeName = '战斗机'
+    sequence_size = 1
     data_proc = DataProcessing(data, typeName)  # 数据预处理
     data_coding = data_proc.data_Code  # 输入模型的数据
     trainName = 'F-22 科加尔尼西亚 #5'  # 输入训练目标
@@ -230,14 +222,15 @@ if __name__ == '__main__':
     input_size = n_feature.shape[1]  # 特征维度
 
     model = LSTM(input_size, hidden_size, layer_size, output_size)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
 
-    modelTr, iter_list, loss_list, acc_list = accuracy_Train(trainData, sequence_size, epochs, 0.01)  # 模型训练结果
-    Aver_time, perform_report, target_num, predict_num, acc_num, plt = accuracy_Test(testData, modelTr, testName,
-                                                                                     sequence_size)  # 模型测试结果
+    modelTr, iter_list, loss_list, acc_list = accuracy_Train(train_loader=trainData, sequence_size=1, input_size=input_size,\
+            model=model, epochMax=30, learning_rate=0.1)  # 模型训练结果
+    Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print, legend = accuracy_Test(testData, modelTr, testName,
+                                                                                     sequence_size, input_size)  # 模型测试结果
     # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
-    print("Average TestTime:{}".format(Aver_time))
-
+    # print("Average TestTime:{}".format(Aver_time))
+    time_end = time.time()  # 记录结束时间
+    time_sum = time_end - time_start 
     # 【可视化展示2-2】：统计信息图（同DBN，展示一次就好）+性能指标值输出+各个模型预测精度对比图
     print("perform_report:'\n' {}".format(perform_report))
 
@@ -261,9 +254,10 @@ if __name__ == '__main__':
     for i in sequence_size:
         trainData, testData = data_split(data_coding, trainName, testName, i)  # 训练/测试集划分
 
-        modelTr, iter_list, loss_list, acc_list = accuracy_Train(trainData, i, epochs, 0.01)  # 模型训练结果
-        Aver_time, perform_report, target_num, predict_num, acc_num, plt = accuracy_Test(testData, modelTr,
-                                                                                         testName, i)  # 模型测试结果
+        modelTr, iter_list, loss_list, acc_list = accuracy_Train(train_loader=trainData, sequence_size=i, input_size=input_size,\
+            model=model, epochMax=30, learning_rate=0.1)  # 模型训练结果
+        Aver_time, perform_report, target_num, predict_num, acc_num, plt, _, _ = accuracy_Test(testData, modelTr,
+                                                                                         testName, i, input_size)  # 模型测试结果
         precision = (acc_num / predict_num * 100).squeeze(0).numpy().tolist()
         precision_list.append(precision)       # 各类精确率
         accuracy = (100. * acc_num.sum(1) / target_num.sum(1)).numpy()
@@ -294,3 +288,8 @@ if __name__ == '__main__':
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
     plt.show()
+    print(plot_print, legend, time_sum)
+    return plot_print, legend, time_sum
+
+if __name__ == '__main__':
+    LSTM_RES()

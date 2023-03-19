@@ -5,7 +5,7 @@
 # @Site : 
 # @Describe:
 
-from service import get_echart1_data
+from service import get_echart1_data, get_echart2_data
 
 import json
 
@@ -119,7 +119,8 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        xAxis_line, series_line, legend_line, data_pie, title_pie = get_echart1_data()
+        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN = get_echart1_data()
+        series_line_LSTM, legend_LSTM, time_sum_LSTM = get_echart2_data()
         self.echart1_data = {
             'title': '各模型的意图识别结果图',
             'xAxis': xAxis_line,
@@ -142,4 +143,12 @@ class SourceData(SourceDataDemo):
                         }
                         }
                     ]
+        }
+        self.counter = time_sum_DBN
+        self.counter2 = time_sum_LSTM
+        self.echart2_data = {
+            'title': '各模型的意图识别结果图',
+            'xAxis': xAxis_line,
+            'series': series_line_LSTM,
+            'legend': legend_LSTM
         }
