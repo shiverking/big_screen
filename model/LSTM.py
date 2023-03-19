@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import *
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import classification_report
-from DBN import DataProcessing
+from model.DBN import DataProcessing
 import warnings
 
 warnings.filterwarnings("ignore")

@@ -22,20 +22,7 @@ def index():
 
 @app.route('/')
 def home():
-    data = SourceData()
-    return render_template('home.html', form=data, title=data.title)
-
-# @app.route('/corp')
-# def corp():
-#     data = CorpData()
-#     return render_template('index.html', form=data, title=data.title)
-#
-#
-# @app.route('/job')
-# def job():
-#     data = JobData()
-#     return render_template('index.html', form=data, title=data.title)
-
+    return render_template('home.html', title='智能方法性能边界对比分析原理验证系统')
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=False)

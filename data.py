@@ -122,7 +122,7 @@ class SourceData(SourceDataDemo):
         xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN = get_echart1_data()
         series_line_LSTM, legend_LSTM, time_sum_LSTM = get_echart2_data()
         self.echart1_data = {
-            'title': '各模型的意图识别结果图',
+            'title': 'DBN意图识别结果图',
             'xAxis': xAxis_line,
             'series': series_line,
             'legend': legend_line
@@ -144,10 +144,10 @@ class SourceData(SourceDataDemo):
                         }
                     ]
         }
-        self.counter = time_sum_DBN
-        self.counter2 = time_sum_LSTM
+        self.counter = {'value':time_sum_DBN, 'name': 'DBN运行时间'}
+        self.counter2 = {'value':time_sum_LSTM, 'name': 'LSTM运行时间'}
         self.echart2_data = {
-            'title': '各模型的意图识别结果图',
+            'title': 'LSTM意图识别结果图',
             'xAxis': xAxis_line,
             'series': series_line_LSTM,
             'legend': legend_LSTM
