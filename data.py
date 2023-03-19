@@ -129,7 +129,7 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn, bar_legend, bar_dbn = get_echart1_data()
+        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn, bar_legend, bar_dbn,_ = get_echart1_data()
         series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm, bar_lstm = get_echart2_data()
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
