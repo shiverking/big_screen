@@ -549,6 +549,7 @@ def DBN_RES():
     precision_data = np.vstack((np.array(precision_list).T, np.array(accuracy_list)))
 
     ax.axis('off')
+    dbn_table = {'colLabels': column_labels, 'rowLabels' :model.IntentionName, 'data':np.round(precision_data, 2)}
     ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
              rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
     ax.set_title('不同模型在不同冷启动时间下的准确率表')
@@ -564,4 +565,4 @@ def DBN_RES():
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
     print(model.IntentionName, precision)
-    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y, model.IntentionName, precision_dbn
+    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y, model.IntentionName, precision_dbn, dbn_table
