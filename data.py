@@ -154,8 +154,8 @@ class SourceData(SourceDataDemo):
                         }
                     ]
         }
-        self.counter = {'value':f'{time_sum_DBN:.2f}' + 's', 'name': 'DBN运行时间'}
-        self.counter2 = {'value':f'{time_sum_LSTM: .2f}' + 's', 'name': 'LSTM运行时间'}
+        self.counter = {'value':f'{time_sum_DBN:.2f}', 'name': 'DBN运行时间(单位：秒)'}
+        self.counter2 = {'value':f'{time_sum_LSTM: .2f}', 'name': 'LSTM运行时间(单位：秒)'}
         self.echart2_data = {
             'title': 'LSTM意图识别结果图',
             'xAxis': xAxis_line,
