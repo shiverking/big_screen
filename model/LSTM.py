@@ -288,7 +288,7 @@ def LSTM_RES():
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    plt.show()
+    # plt.show()
     return plot_print, legend, time_sum, x, y, precision_lstm, lstm_table
 
 if __name__ == '__main__':

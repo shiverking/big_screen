@@ -132,10 +132,11 @@ class SourceData(SourceDataDemo):
         xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn, bar_legend, bar_dbn, dbn_table = get_echart1_data()
         series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm, bar_lstm, lstm_table = get_echart2_data()
         double_table = {}
-        double_table['cols'] = dbn_table['cols'] + lstm_table['cols']
+        double_table['cols'] = dbn_table['cols'] + lstm_table['cols'][1:]
         for idx, col_dict in enumerate(dbn_table['data']):
             for key, value in lstm_table['data'][idx].items():
-                col_dict[key] = value
+                if key != 'zero2':
+                    col_dict[key] = value
         double_table['data'] = dbn_table['data']
 
         self.echart1_data = {

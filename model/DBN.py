@@ -552,7 +552,7 @@ def DBN_RES():
     ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
              rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
     ax.set_title('不同模型在不同冷启动时间下的准确率表')
-    plt.show()
+    # plt.show()
 
     # 【可视化展示4】：运行时间
     plt.figure()  # 声明一个新画布
