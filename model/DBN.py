@@ -514,7 +514,6 @@ def DBN_RES():
     dis = 0
     separate1 = (dis, dis + 0.05, dis + 0.2, dis + 0.35, dis + 0, dis + 0.45, dis + 0.5, dis + 0)
     plt.pie(target_num, autopct='%.01f%%', explode=separate1, radius=1.0, textprops={'fontsize': 8})
-    print('饼图数据')
     plt.legend(model.IntentionName, frameon=False, bbox_to_anchor=(-0.35, 0.5), loc=6)
     plt.title("统计信息({})".format(testName), loc="center")
     # plt.show()
@@ -564,5 +563,4 @@ def DBN_RES():
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    print(model.IntentionName, precision)
     return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y, model.IntentionName, precision_dbn, dbn_table
