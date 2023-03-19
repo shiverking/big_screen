@@ -563,4 +563,4 @@ def DBN_RES():
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum
+    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y

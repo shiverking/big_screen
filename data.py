@@ -111,6 +111,16 @@ class SourceDataDemo:
                 {'name': '招远', 'value': 203},
             ]
         }
+        self.echart7_data = {
+            'title': '一线城市情况',
+            'data': [
+                {"name": "浙江", "value": 80, "value2": 20, "color": "01", "radius": ['59%', '70%']},
+                {"name": "上海", "value": 70, "value2": 30, "color": "02", "radius": ['49%', '60%']},
+                {"name": "广东", "value": 65, "value2": 35, "color": "03", "radius": ['39%', '50%']},
+                {"name": "北京", "value": 60, "value2": 40, "color": "04", "radius": ['29%', '40%']},
+                {"name": "深圳", "value": 50, "value2": 50, "color": "05", "radius": ['20%', '30%']},
+            ]
+        }
 
 class SourceData(SourceDataDemo):
 
@@ -119,8 +129,8 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN = get_echart1_data()
-        series_line_LSTM, legend_LSTM, time_sum_LSTM = get_echart2_data()
+        xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn = get_echart1_data()
+        series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm = get_echart2_data()
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
             'xAxis': xAxis_line,
@@ -144,11 +154,17 @@ class SourceData(SourceDataDemo):
                         }
                     ]
         }
-        self.counter = {'value':f'{time_sum_DBN:.2f}' + '秒', 'name': 'DBN运行时间'}
-        self.counter2 = {'value':f'{time_sum_LSTM: .2f}' + '秒', 'name': 'LSTM运行时间'}
+        self.counter = {'value':f'{time_sum_DBN:.2f}' + 's', 'name': 'DBN运行时间'}
+        self.counter2 = {'value':f'{time_sum_LSTM: .2f}' + 's', 'name': 'LSTM运行时间'}
         self.echart2_data = {
             'title': 'LSTM意图识别结果图',
             'xAxis': xAxis_line,
             'series': series_line_LSTM,
             'legend': legend_LSTM
+        }
+        self.echart7_data = {
+            'title': '不同模型的预测时间',
+            'xAxis': time_steps,
+            'series': time_dbn + time_lstm,
+            'legend': ['模型预测时间-DBN', '模型预测时间-LSTM']
         }

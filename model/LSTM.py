@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import *
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.metrics import classification_report
-from model.DBN import DataProcessing
+from DBN import DataProcessing
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -289,7 +289,7 @@ def LSTM_RES():
     plt.title("各模型的预测时间", color='k')
     plt.show()
     print(plot_print, legend, time_sum)
-    return plot_print, legend, time_sum
+    return plot_print, legend, time_sum, x, y
 
 if __name__ == '__main__':
     LSTM_RES()
