@@ -525,7 +525,7 @@ def DBN_RES():
     # 【可视化展示2-3】：统计信息图+性能指标值输出+各个模型预测精度对比图
     precision = (acc_num / predict_num * 100).numpy().tolist()
     precision = [0 if math.isnan(x) else x for x in precision]
-
+    precision_dbn = precision
     fig, ax = plt.subplots()
     ax.barh(model.IntentionName, precision, align='center', label='KF-DBN')
     for a, b in zip(model.IntentionName, precision):
@@ -564,4 +564,4 @@ def DBN_RES():
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
     print(model.IntentionName, precision)
-    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y, model.IntentionName, precision
+    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y, model.IntentionName, precision_dbn

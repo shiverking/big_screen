@@ -238,7 +238,7 @@ def LSTM_RES():
     precision = (acc_num / predict_num * 100).squeeze(0).numpy().tolist()
     precision = [0 if math.isnan(x) else x for x in precision]
     IntentionName = ['超高空盘旋', '高空盘旋', '中空高速巡航', '中空巡航', '中空盘旋', '低空高速盘旋', '低空盘旋', '低空高速巡航']
-
+    precision_lstm = precision
     fig, ax = plt.subplots()
     ax.barh(IntentionName, precision, align='center', label='LSTM', color='orange')
     for a, b in zip(IntentionName, precision):
@@ -289,7 +289,7 @@ def LSTM_RES():
     plt.title("各模型的预测时间", color='k')
     plt.show()
     print(plot_print, legend, time_sum)
-    return plot_print, legend, time_sum, x, y, IntentionName, precision
+    return plot_print, legend, time_sum, x, y, precision_lstm
 
 if __name__ == '__main__':
     LSTM_RES()
