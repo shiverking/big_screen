@@ -24,10 +24,5 @@ def index():
 def home():
     return render_template('home.html', title='智能方法性能边界对比分析原理验证系统')
 
-@app.route('/getTableData')
-def getTableData():
-    _, _, _ ,_, _, _, _, _,_, dbn_table = get_echart1_data()
-    return dbn_table
-
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=False)
