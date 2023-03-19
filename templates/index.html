@@ -103,7 +103,7 @@
                 <div class="allnav" id="echart4"></div>
                 <div class="boxfoot"></div>
             </div>
-            <div class="boxall transparentDataTable" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
+            <div id="tableDiv" class="boxall transparentDataTable" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
 {#              <div class="alltitle">{{ form.echart5.title }}</div>#}
                 <table class="layui-table" id="summaryTable" style="margin: 0;"></table>
                 <div class="boxfoot"></div>
@@ -901,9 +901,10 @@
     var table_data = JSON.parse('{{ form.table_data|tojson|safe }}');
     var cols = table_data.cols;
     var data = table_data.data;
+    var height = document.getElementById("tableDiv").offsetHeight;
   table.render({
     elem: '#summaryTable',
-    height: 307,
+    height: height,
     cols: [cols],
     data: data
   });
