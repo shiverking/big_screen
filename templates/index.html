@@ -898,11 +898,9 @@
 <script>
     layui.use('table', function(){
     var table = layui.table;
-    var cols = [], data = [];
-    $.ajax({url:"/getTableData", async: false, success:function(re){
-        data = re.data;
-        cols = re.cols;
-    }});
+    var table_data = JSON.parse('{{ form.table_data|tojson|safe }}');
+    var cols = table_data.cols;
+    var data = table_data.data;
   table.render({
     elem: '#summaryTable',
     height: 307,
