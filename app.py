@@ -26,13 +26,8 @@ def home():
 
 @app.route('/getTableData')
 def getTableData():
-    cols = []
-    data = []
-    data.append({"id":1,"username":"user1","sex":"男"})
-    cols.append({"field":'id', "title": 'ID'})
-    cols.append({"field":'username', "title": '用户名'})
-    cols.append({"field":'sex', "title": '性别'})
-    return {"cols":cols,"data":data}
+    _, _, _ ,_, _, _, _, _,_, dbn_table = get_echart1_data()
+    return dbn_table
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', debug=False)
