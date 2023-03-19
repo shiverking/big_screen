@@ -130,7 +130,15 @@ class SourceData(SourceDataDemo):
         """
         super().__init__()
         xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn, bar_legend, bar_dbn, dbn_table = get_echart1_data()
-        series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm, bar_lstm = get_echart2_data()
+        series_line_LSTM, legend_LSTM, time_sum_LSTM, time_steps, time_lstm, bar_lstm, lstm_table = get_echart2_data()
+        double_table = {}
+        double_table['cols'] = dbn_table['cols'] + lstm_table['cols']
+        for idx, col_dict in enumerate(dbn_table['data']):
+            print("lstm_table['data'][idx]", lstm_table['data'][idx])
+            for key, value in lstm_table['data'][idx].items():
+                col_dict[key] = value
+        double_table['data'] = dbn_table['data']
+
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
             'xAxis': xAxis_line,
@@ -173,4 +181,4 @@ class SourceData(SourceDataDemo):
             'yAxis': bar_legend,
             'series': bar_dbn + bar_lstm,
         }
-        self.table_data = dbn_table
+        self.table_data = double_table

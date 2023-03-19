@@ -275,6 +275,7 @@ def LSTM_RES():
     ax.axis('off')       # 取消坐标轴
     ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
              rowLabels=IntentionName, cellLoc='center', rowLoc='center', loc="center")
+    lstm_table = {'colLabels': column_labels, 'rowLabels' :IntentionName, 'data':np.round(precision_data, 2)}
     ax.set_title('不同模型在不同冷启动时间下的准确率表')
     # plt.show()
 
@@ -289,7 +290,7 @@ def LSTM_RES():
     plt.title("各模型的预测时间", color='k')
     plt.show()
     print(plot_print, legend, time_sum)
-    return plot_print, legend, time_sum, x, y, precision_lstm
+    return plot_print, legend, time_sum, x, y, precision_lstm, lstm_table
 
 if __name__ == '__main__':
     LSTM_RES()
