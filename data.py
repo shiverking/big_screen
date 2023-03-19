@@ -134,7 +134,6 @@ class SourceData(SourceDataDemo):
         double_table = {}
         double_table['cols'] = dbn_table['cols'] + lstm_table['cols']
         for idx, col_dict in enumerate(dbn_table['data']):
-            print("lstm_table['data'][idx]", lstm_table['data'][idx])
             for key, value in lstm_table['data'][idx].items():
                 col_dict[key] = value
         double_table['data'] = dbn_table['data']

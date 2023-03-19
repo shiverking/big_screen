@@ -28,7 +28,6 @@ def get_echart1_data():
             col_dict[field_list[j]] = dbn_table['data'][i][j-1]
         data.append(col_dict)
     dbn_table = {"cols":cols,"data":data}
-    print(dbn_table)
     return xAxis_line, series_line, legend_line, data_pie, title_pie, time_sum_DBN, time_dbn, bar_legend, bar_dbn, dbn_table
 
 def get_echart2_data():
@@ -53,7 +52,6 @@ def get_echart2_data():
             col_dict[field_list[j]] = 0 if math.isnan(lstm_table['data'][i][j-1]) else lstm_table['data'][i][j-1]
         data.append(col_dict)
     lstm_table = {"cols":cols,"data":data}
-    print(lstm_table)
     return series_line, legend, time_sum, time_steps, time_lstm, bar_lstm, lstm_table
 
 if __name__ == '__main__':
