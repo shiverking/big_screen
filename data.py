@@ -142,7 +142,7 @@ class SourceData(SourceDataDemo):
             'series': [
                         {
                         'type': 'pie',
-                        'radius': '40%',
+                        'radius': '60%',
                         'data': data_pie,
                         'emphasis': {
                             'itemStyle': {
