@@ -130,7 +130,19 @@ class SourceData(SourceDataDemo):
         """
         super().__init__()
         upper_left_corner, data_pie, time_sum_dbn, x, time_line_dbn, upper_right_corner_dbn, lower_right_corner_dbn = get_dbnModel_res()
-        bottom_left_corner, time_sum_lstm, x, time_line_lstm, upper_right_corner_lstm, lower_right_cornerlstm = get_lstmModel_res()
+        bottom_left_corner, time_sum_lstm, x, time_line_lstm, upper_right_corner_lstm, lower_right_corner_lstm = get_lstmModel_res()
+        upper_right_corner = dict()
+        upper_right_corner['dbn'] = upper_right_corner_dbn
+        upper_right_corner['lstm'] = upper_right_corner_lstm
+        for key in upper_right_corner_dbn:
+            upper_right_corner_dbn[key]['series'] += upper_right_corner_lstm[key]['series']
+        upper_right_corner['dbn_and_lstm'] = upper_right_corner_dbn
+        lower_right_corner = dict()
+        lower_right_corner['dbn'] = lower_right_corner_dbn
+        lower_right_corner['lstm'] = lower_right_corner_lstm
+        for key in lower_right_corner_dbn:
+            lower_right_corner_dbn[key]['series'] += lower_right_corner_lstm[key]['series']
+        lower_right_corner['dbn_and_lstm'] = lower_right_corner_dbn
 
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
@@ -175,11 +187,9 @@ class SourceData(SourceDataDemo):
         }
         self.echart5_data = {
             'title': '不同模型的预测精度',
-            'yAxis': upper_right_corner_dbn['time_step=1']['yAxis'],
-            'series': upper_right_corner_dbn['time_step=1']['series']
+            'data': upper_right_corner
         }
         self.echart4_data = {
             'title': '不同模型的预测精度',
-            'yAxis': lower_right_corner_dbn['precision']['time_step=1']['yAxis'],
-            'series': lower_right_corner_dbn['precision']['time_step=1']['series']
+            'data': lower_right_corner
         }
