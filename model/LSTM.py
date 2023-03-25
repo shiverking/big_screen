@@ -291,10 +291,10 @@ def LSTM_RES():
         trainData, testData = data_split(data_coding, trainName, testName, i)  # 训练/测试集划分
         modelTr, iter_list, loss_list, acc_list = accuracy_Train(train_loader=trainData, sequence_size=i, input_size=input_size, model=model, epochMax=30, learning_rate=0.01)  # 模型训练结果
         Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print = accuracy_Test(testData, modelTr, testName, i, input_size)  # 模型测试结果
-        bottom_left_corner[column_labels[idx]] = dict()
-        bottom_left_corner[column_labels[idx]]['series'] = plot_print
-        bottom_left_corner[column_labels[idx]]['legend'] = IntentionName
-        bottom_left_corner[column_labels[idx]]['xAxis'] = {
+        bottom_left_corner[i] = dict()
+        bottom_left_corner[i]['series'] = plot_print
+        bottom_left_corner[i]['legend'] = IntentionName
+        bottom_left_corner[i]['xAxis'] = {
                                                             'type': 'category',
                                                             'boundaryGap': 'false',
                                                             'data': [x for x in range(200)]
