@@ -527,7 +527,7 @@ def DBN_RES():
                                     'boundaryGap': 'false',
                                     'data': [x for x in range(200)]
                                 }
-    print(upper_left_corner)
+    # print(upper_left_corner)
     # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
     print("Average TestTime:{}".format(Aver_time))
 
@@ -544,7 +544,7 @@ def DBN_RES():
     for leg, per in list(zip(model.IntentionName, target_num.tolist())):
         data_pie['series'].append({'value': per, 'name': leg})
     data_pie['title'] = f"统计信息({testName})"
-    print(data_pie)
+    # print(data_pie)
     # plt.show()
 
     # # 【可视化展示2-2】：统计信息图+性能指标值输出+各个模型预测精度对比图
@@ -601,7 +601,7 @@ def DBN_RES():
         upper_right_corner[f'timeStep{i}'] = dict()
         upper_right_corner[f'timeStep{i}']['series'] = [
             {   
-                'name': 'LSTM',
+                'name': 'DBN',
                 'data': weMetric_list,
                 'type': 'bar',
             }
@@ -616,7 +616,7 @@ def DBN_RES():
         axes[i].set_yticks(weMetricName)
         axes[i].set_xlabel('percent(%)', fontsize=8)
         axes[i].set_title('冷启动时间{}的整体性能指标值'.format(column_labels[i]), fontsize=8)
-    print(upper_right_corner)
+    # print(upper_right_corner)
         
     # 【可视化展示3——更新版本（原先可视化展示2-3和可视化展示3的结合），展示在右下角】
     lower_right_corner = dict() ## 右下角条形图
@@ -630,7 +630,7 @@ def DBN_RES():
             lower_right_corner[metricName[j]][f'timeStep{i}'] = dict()
             lower_right_corner[metricName[j]][f'timeStep{i}']['series'] = [
                 {
-                    'name': 'LSTM',
+                    'name': 'DBN',
                     'data': metric_list[j][i],
                     'type': 'bar',
                 }
@@ -645,7 +645,7 @@ def DBN_RES():
             axes[i].set_yticks(model.IntentionName)
             axes[i].set_xlabel('percent(%)', fontsize=8)
             axes[i].set_title('冷启动时间{}的各类别性能指标值-{}'.format(column_labels[i], metricName[j]), fontsize=8)
-    print(lower_right_corner)
+    # print(lower_right_corner)
             
     # 【可视化展示4】：运行时间
     plt.figure()  # 声明一个新画布
