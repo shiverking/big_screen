@@ -183,5 +183,5 @@ class SourceData(SourceDataDemo):
         self.echart4_data = {
             'title': '不同模型的预测精度',
             'yAxis': lower_right_corner_dbn['precision']['time_step=1']['yAxis'],
-            'series': upper_right_corner_dbn['precision']['time_step=1']['series']
+            'series': lower_right_corner_dbn['precision']['time_step=1']['series']
         }

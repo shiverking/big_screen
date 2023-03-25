@@ -116,15 +116,16 @@
             </div>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
                 <div class="alltitle">
-            <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown4">
+                <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown5">
+                    metrics
+                    <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                </button>
+                 {{ form.echart4_data.title }}
+                <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class-right-top" id="dropdown4">
                     time_step
                     <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
                 </button>
-                    {{ form.echart4_data.title }}
-                <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class-right-top" id="dropdown5">
-                    metrics
-                    <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
-                </button></div>
+                </div>
                 <div class="allnav" id="echart4"></div>
                 <div class="boxfoot"></div>
             </div>
@@ -760,6 +761,98 @@
                 }
             },
             legend: {
+                data: {{form.echart2_data["time_step=1"].legend|safe}},
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
+                type: 'scroll',
+                orient: 'horizontal'
+            },
+            grid: {
+                left: '0%',
+                top: '10px',
+                right: '0%',
+                bottom: '3%',
+                containLabel: true,
+                borderWidth: 1,
+            },
+            xAxis: [{
+                data:{{form.echart2_data["time_step=1"].xAxis|safe}},
+                type: 'category',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLabel: {
+                    interval: 25,
+                    // rotate:50,
+                    show: true,
+                    //splitNumber: 15,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+            }],
+            yAxis: [{
+                type: 'value',
+                min: 'dataMin', //取最小值为最小刻度
+                max: 'dataMax', //取最大值为最大刻度
+                minInterval: 0.0001, //分隔刻度
+                axisLabel: {
+                    show: true,
+                    // 内容格式器
+                    formatter: function (value, index) {
+                        return value.toFixed(4)
+                    },
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1	)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                    }
+                }
+            }],
+            series:{{form.echart2_data["time_step=1"].series|safe}},
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+    })
+    function change_echarts_2(data) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart2'));
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
+                }
+            },
+            legend: {
                 data: {{form.echart2_data.legend|safe}},
                 textStyle: {color: 'rgb(255,255,255,0.9)',},
                 type: 'scroll',
@@ -838,7 +931,7 @@
         window.addEventListener("resize", function () {
             myChart.resize();
         });
-    })
+    }
 </script>
 <!--echart4-->
 <script>
@@ -1318,6 +1411,9 @@
             , id: 'dropdown2'
             //菜单被点击的事件
             , click: function (obj) {
+                if(obj.title == "1"){
+
+                }
             }
         });
         //dorpdown3
