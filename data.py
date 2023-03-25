@@ -134,17 +134,17 @@ class SourceData(SourceDataDemo):
 
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
-            'xAxis': upper_left_corner.xAxis,
-            'series': upper_left_corner.series,
-            'legend': upper_left_corner.legend
+            'xAxis': upper_left_corner['xAxis'],
+            'series': upper_left_corner['series'],
+            'legend': upper_left_corner['legend']
         }
         self.echart6_data = {
-            'title': data_pie.title,
+            'title': data_pie['title'],
             'series': [
                         {
                         'type': 'pie',
                         'radius': '60%',
-                        'data': data_pie.series,
+                        'data': data_pie['series'],
                         'emphasis': {
                             'itemStyle': {
                             'shadowBlur': 10,
@@ -165,9 +165,9 @@ class SourceData(SourceDataDemo):
         self.counter2 = {'value':f'{time_sum_lstm: .2f}', 'name': 'LSTM运行时间(单位：秒)'}
         self.echart2_data = {
             'title': 'LSTM意图识别结果图',
-            'xAxis': bottom_left_corner['time_step=1'].xAxis,
-            'series': bottom_left_corner['time_step=1'].series,
-            'legend': bottom_left_corner['time_step=1'].legend
+            'xAxis': bottom_left_corner['time_step=1']['xAxis'],
+            'series': bottom_left_corner['time_step=1']['series'],
+            'legend': bottom_left_corner['time_step=1']['legend']
         }
         self.echart7_data = {
             'title': '不同模型的预测时间',
@@ -177,11 +177,11 @@ class SourceData(SourceDataDemo):
         }
         self.echart5_data = {
             'title': '不同模型的预测精度',
-            'yAxis': upper_right_corner_dbn['time_step=1'].yAxis,
-            'series': upper_right_corner_dbn['time_step=1'].series
+            'yAxis': upper_right_corner_dbn['time_step=1']['yAxis'],
+            'series': upper_right_corner_dbn['time_step=1']['series']
         }
         self.echart4_data = {
             'title': '不同模型的预测精度',
-            'yAxis': lower_right_corner_dbn['precision']['time_step=1'].yAxis,
-            'series': upper_right_corner_dbn['precision']['time_step=1'].series
+            'yAxis': lower_right_corner_dbn['precision']['time_step=1']['yAxis'],
+            'series': upper_right_corner_dbn['precision']['time_step=1']['series']
         }

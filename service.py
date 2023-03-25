@@ -14,4 +14,4 @@ def get_lstmModel_res():
     return bottom_left_corner, time_sum, x, time_line_lstm, upper_right_corner, lower_right_corner
 
 if __name__ == '__main__':
-    get_lstmModel_res()
+    get_dbnModel_res()
