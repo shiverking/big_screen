@@ -22,17 +22,17 @@ plt.rcParams['font.sans-serif'] = "Microsoft YaHei"  # 正常显示中文标签
 
 class DataProcessing:
     def __init__(self, data, Label):
-        global data_Lab
-        data_Dist = self.data_distance(data)
+        self.L = data.shape[0]
+        self.data_Dist = self.data_distance(data)
         if Label == '战斗机':
-            data_Lab = self.data_label_zdj(data_Dist)
+            self.data_Lab = self.data_label_zdj(self.data_Dist)
         elif Label == '轰炸机':
-            data_Lab = self.data_label_hzj(data_Dist)
+            self.data_Lab = self.data_label_hzj(self.data_Dist)
         elif Label == '无人机':
-            data_Lab = self.data_label_wrj(data_Dist)
+            self.data_Lab = self.data_label_wrj(self.data_Dist)
         elif Label == '侦察机':
-            data_Lab = self.data_label_zcj(data_Dist)
-        self.data_Code = self.data_coding(data_Lab)
+            self.data_Lab = self.data_label_zcj(self.data_Dist)
+        self.data_Code = self.data_coding(self.data_Lab)
 
     def data_distance(self, data):
         location_Petersburg = (60.109679822132, 30.3128465163732)  # Levashovo air base （圣彼得堡）(纬度，经度)
@@ -40,7 +40,7 @@ class DataProcessing:
         location_Lipetsk = (52.63728683057108, 39.44316608579129)  # 利佩茨克空军机场 （利佩茨克州）
         location_Crimea = (45.09695744641434, 33.66372515706009)  # 萨基空军基地 （克里米亚）
         col_1, col_2, col_3, col_4 = [], [], [], []
-        for i in range(data.shape[0]):
+        for i in range(self.L):
             location_a = (data.loc[i]['当前纬度'], data.loc[i]['当前经度'])
             col1, col2 = haversine(location_a, location_Petersburg), haversine(location_a, location_Moscow)
             col3, col4 = haversine(location_a, location_Lipetsk), haversine(location_a, location_Crimea)
@@ -50,8 +50,8 @@ class DataProcessing:
         return data
 
     def data_label_zdj(self, data):
-        label = [] * data.shape[0]
-        for i in range(data.shape[0]):
+        label = [] * self.L
+        for i in range(self.L):
             if data.loc[i]['当前海拔高度'] > 11000:
                 label.insert(i, '超高空盘旋')
             elif 7620 < data.loc[i]['当前海拔高度'] <= 11000:
@@ -92,8 +92,8 @@ class DataProcessing:
         return data
 
     def data_label_zcj(self, data):
-        label = [] * data.shape[0]
-        for i in range(data.shape[0]):
+        label = [] * self.L
+        for i in range(self.L):
             if data.loc[i]['当前海拔高度'] > 11000:
                 label.insert(i, '超高空盘旋')
             elif 7620 < data.loc[i]['当前海拔高度'] <= 11000:
@@ -134,8 +134,8 @@ class DataProcessing:
         return data
 
     def data_label_wrj(self, data):
-        label = [] * data.shape[0]
-        for i in range(data.shape[0]):
+        label = [] * self.L
+        for i in range(self.L):
             if data.loc[i]['当前海拔高度'] > 11000:
                 label.insert(i, '超高空盘旋')
             elif 7620 < data.loc[i]['当前海拔高度'] <= 11000:
@@ -176,8 +176,8 @@ class DataProcessing:
         return data
 
     def data_label_hzj(self, data):
-        label = [] * data.shape[0]
-        for i in range(data.shape[0]):
+        label = [] * self.L
+        for i in range(self.L):
             if data.loc[i]['名称'] == 'B-52 RAF Fairford #3' or data.loc[i]['名称'] == 'B-52 RAF Fairford #2' or \
                     data.loc[i]['名称'] == 'B-52 RAF Fairford #1':
                 if data.loc[i]['当前海拔高度'] > 11000:
@@ -317,7 +317,8 @@ class KF_DBN:
             loss = 0.0
             for t in range(self.T):
                 loss = loss + 0.5 * torch.log(torch.det(R)) + 0.5 * torch.mm(
-                    torch.mm((self.o[t].unsqueeze(1) - torch.mm(C, s[t].unsqueeze(1)) - D.unsqueeze(1)).t(), R.inverse()),
+                    torch.mm((self.o[t].unsqueeze(1) - torch.mm(C, s[t].unsqueeze(1)) - D.unsqueeze(1)).t(),
+                             R.inverse()),
                     (self.o[t].unsqueeze(1) - torch.mm(C, s[t].unsqueeze(1)) - D.unsqueeze(1))).squeeze(0)
 
             for t in range(self.T - 1):
@@ -380,9 +381,9 @@ class KF_DBN:
                                 (r + torch.mm(torch.mm(c, Sigma_pre[t + 1]), c.t())).inverse())  # 卡尔曼增益
             Sigma_pre[t + 1] = torch.mm((torch.eye(self.n_feature) - torch.mm(K[t + 1], c)), Sigma_pre[t + 1])
             Mu_pre[t + 1] = (torch.mm((torch.eye(self.n_feature) - torch.mm(K[t + 1], c)),
-                                         Mu_pre[t + 1].unsqueeze(1)) - torch.mm(K[t + 1],
-                                                                                (d - data_o[t + 1]).unsqueeze(
-                                                                                    1))).squeeze()
+                                      Mu_pre[t + 1].unsqueeze(1)) - torch.mm(K[t + 1],
+                                                                             (d - data_o[t + 1]).unsqueeze(
+                                                                                 1))).squeeze()
         return Mu_pre, Sigma_pre
 
     def train_accuracy(self, a, b, c, d, q, r, W, train_name):
@@ -421,8 +422,8 @@ class KF_DBN:
         # plt.title("model_train MF-DBN ({})".format(train_name))
         # plt.show()
 
-    def accuracy_Test(self, y_test_num, b, c, d, q, r, W, test_name, y_test):
-        Mu_update, Sigma_update = self.kf_update(self.X_test.float(), self.T_test, y_test_num, b, c, d, q, r)
+    def accuracy_Test(self, a, b, c, d, q, r, W, test_name):
+        Mu_update, Sigma_update = self.kf_update(self.X_test.float(), self.T_test, a, b, c, d, q, r)
         # computer the intention
         z_kf = torch.randint(0, self.K, (self.T_test,))
         z_probs = torch.ones((self.K,)) * torch.ones((self.T_test, 1))
@@ -437,7 +438,7 @@ class KF_DBN:
                 time_end = time.time()  # 记录结束时间
                 t_list.append(time_end - time_start)
         # computer the accuracy
-        acc_num = torch.zeros(self.K,)  # 各类别分类正确的样本数量
+        acc_num = torch.zeros(self.K, )  # 各类别分类正确的样本数量
         count = 0
         for i in range(len(self.Y_test)):
             for k in range(self.K):
@@ -445,7 +446,7 @@ class KF_DBN:
                     acc_num[k] += 1
                     count += 1
 
-        target_num, predict_num = torch.zeros(self.K,), torch.zeros(self.K,)   # 各类别真实的样本数量, 各类别预测的样本数量
+        target_num, predict_num = torch.zeros(self.K, ), torch.zeros(self.K, )  # 各类别真实的样本数量, 各类别预测的样本数量
         y_test_num, z_kf_num = torch.unique(self.Y_test, return_counts=True), torch.unique(z_kf, return_counts=True)
         target_dic, predict_dic = {}, {}
         for i in range(y_test_num[0].shape[0]):
@@ -465,21 +466,30 @@ class KF_DBN:
                 predict_num[k] = 0
 
         Aver_testTime = np.average(t_list)
-        perfor_report = classification_report(y_test, z_kf)
+        perfor_report = classification_report(self.Y_test, z_kf, output_dict=True)
 
         # figure1 （意图识别结果）
         plt.figure()  # 声明一个新画布
-        '''陈嘉文加'''
-        plot_print = list() 
+        plot_print = list()
         for k in range(self.K):
-            plot_print.append({'name': self.IntentionName[k], 'data': Intention[k]})
+            plot_print.append({'name': self.IntentionName[k], 'smooth': 'true', 'type': 'line', 'data': Intention[k]})
             plt.plot(range(self.T_test), Intention[k])
         plt.legend(self.IntentionName)
         plt.xlabel("Number of Step")
         plt.ylabel("Intention")
         plt.title("model_test MF-DBN ({})".format(test_name))
 
-        return Aver_testTime, perfor_report, target_num, predict_num, acc_num, plt, plot_print, self.IntentionName
+        return Aver_testTime, perfor_report, target_num, predict_num, acc_num, z_probs, plt, plot_print
+
+
+def metric_compute(accNum, preNum, tarNum):
+    pre = (accNum / preNum * 100)
+    rec = (accNum / tarNum * 100)
+    F = 2 * rec * pre / (rec + pre)
+    pre = [0 if math.isnan(p) else p for p in pre.squeeze(0).numpy().tolist()]
+    rec = [0 if math.isnan(r) else r for r in rec.squeeze(0).numpy().tolist()]
+    F = [0 if math.isnan(f) else f for f in F.squeeze(0).numpy().tolist()]
+    return pre, rec, F
 
 
 def DBN_RES():
@@ -503,12 +513,24 @@ def DBN_RES():
                              torch.load('./parameters/Q({}).pt'.format(typeName)), \
                              torch.load('./parameters/R({}).pt'.format(typeName))
     model.train_accuracy(A, B, C, D, Q, R, w, trainName)  # 模型训练结果
-
-    Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print, legend = model.accuracy_Test(A, B, C, D, Q, R, w, testName, y_test)   # 模型测试结果
-    # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
-    # print("Average TestTime:{}".format(Aver_time))
     time_end = time.time()  # 记录结束时间
     time_sum = time_end - time_start 
+
+    Aver_time, perform_report, target_num, predict_num, acc_num, z_probs, plt, plot_print = model.accuracy_Test(A, B, C, D, Q, R, w,
+                                                                                                    testName)  # 模型测试结果
+    ## 左上角折线图
+    upper_left_corner = dict()
+    upper_left_corner['series'] = plot_print
+    upper_left_corner['legend'] = model.IntentionName
+    upper_left_corner['xAxis'] = {
+                                    'type': 'category',
+                                    'boundaryGap': 'false',
+                                    'data': [x for x in range(200)]
+                                }
+    print(upper_left_corner)
+    # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
+    print("Average TestTime:{}".format(Aver_time))
+
     # 【可视化展示2-1】：统计信息图+性能指标值输出+各个模型预测精度对比图
     plt.figure()  # 声明一个新画布
     dis = 0
@@ -516,44 +538,115 @@ def DBN_RES():
     plt.pie(target_num, autopct='%.01f%%', explode=separate1, radius=1.0, textprops={'fontsize': 8})
     plt.legend(model.IntentionName, frameon=False, bbox_to_anchor=(-0.35, 0.5), loc=6)
     plt.title("统计信息({})".format(testName), loc="center")
+    ## 最中心的饼图
+    data_pie = dict()
+    data_pie['series'] = list()
+    for leg, per in list(zip(model.IntentionName, target_num.tolist())):
+        data_pie['series'].append({'value': per, 'name': leg})
+    data_pie['title'] = f"统计信息({testName})"
+    print(data_pie)
     # plt.show()
 
-    # 【可视化展示2-2】：统计信息图+性能指标值输出+各个模型预测精度对比图
-    print("perform_report:'\n' {}".format(perform_report))
+    # # 【可视化展示2-2】：统计信息图+性能指标值输出+各个模型预测精度对比图
+    # print("perform_report:'\n' {}".format(perform_report))
 
-    # 【可视化展示2-3】：统计信息图+性能指标值输出+各个模型预测精度对比图
-    precision = (acc_num / predict_num * 100).numpy().tolist()
-    precision = [0 if math.isnan(x) else x for x in precision]
-    precision_dbn = precision
-    fig, ax = plt.subplots()
-    ax.barh(model.IntentionName, precision, align='center', label='KF-DBN')
-    for a, b in zip(model.IntentionName, precision):
-        plt.text(b+1, a, "%.2f%%" % b, ha='center', va='center', fontsize=8, color='k')
-    ax.set_yticks(model.IntentionName)
-    ax.set_xlabel('precision(%)')
-    ax.set_title('各个模型预测精度对比图')
-    # plt.show()
+    # # 【可视化展示2-3】：统计信息图+性能指标值输出+各个模型预测精度对比图
+    # precision = (acc_num / predict_num * 100).numpy().tolist()
+    # precision = [0 if math.isnan(x) else x for x in precision]
+    #
+    # fig, ax = plt.subplots()
+    # ax.barh(model.IntentionName, precision, align='center', label='KF-DBN')
+    # for a, b in zip(model.IntentionName, precision):
+    #     plt.text(b + 1, a, "%.2f%%" % b, ha='center', va='center', fontsize=8, color='k')
+    # ax.set_yticks(model.IntentionName)
+    # ax.set_xlabel('precision(%)')
+    # ax.set_title('各个模型预测精度对比图')
 
-    # 【可视化展示3】：不同模型在不同冷启动时间下的准确率表
-    fig, ax = plt.subplots()
-    model.IntentionName.append('整体')
-    rowColours = ["#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F2F2F2"]
+    # # 【可视化展示3】：不同模型在不同冷启动时间下的准确率表
+    # fig, ax = plt.subplots()
+    # model.IntentionName.append('整体')
+    # rowColours = ["#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F0C9C0", "#F2F2F2"]
+    #
+    # column_labels = ["KF-DBN(t=1)", "KF-DBN(t=5)", "KF-DBN(t=10)", "KF-DBN(t=15)", "KF-DBN(t=20)"]
+    # colColors = ["#377eb8"] * len(column_labels)
+    #
+    # accuracy = (100. * acc_num.sum() / target_num.sum()).numpy()
+    # precision_list = [precision] * len(column_labels)
+    # accuracy_list = [accuracy] * len(column_labels)
+    # precision_data = np.vstack((np.array(precision_list).T, np.array(accuracy_list)))
+    #
+    # ax.axis('off')
+    # ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
+    #          rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
+    # ax.set_title('不同模型在不同冷启动时间下的准确率表')
 
-    column_labels = ["KF-DBN(t=1)", "KF-DBN(t=5)", "KF-DBN(t=10)", "KF-DBN(t=15)", "KF-DBN(t=20)"]
-    colColors = ["#377eb8"] * len(column_labels)
+    column_labels = ["time_step=1", "time_step=5", "time_step=10", "time_step=15", "time_step=20"]
+    accur_list = [perform_report['accuracy'] * 100] * len(column_labels)
+    wePre_list = [perform_report['weighted avg']['precision'] * 100] * len(column_labels)
+    weRec_list = [perform_report['weighted avg']['recall'] * 100] * len(column_labels)
+    weF_list = [perform_report['weighted avg']['f1-score'] * 100] * len(column_labels)
 
-    accuracy = (100. * acc_num.sum() / target_num.sum()).numpy()
-    precision_list = [precision] * len(column_labels)
-    accuracy_list = [accuracy] * len(column_labels)
-    precision_data = np.vstack((np.array(precision_list).T, np.array(accuracy_list)))
+    precision, recall, F1 = metric_compute(acc_num, predict_num, target_num)
+    prec_list = [precision] * len(column_labels)
+    rec_list = [recall] * len(column_labels)
+    F_list = [F1] * len(column_labels)
 
-    ax.axis('off')
-    dbn_table = {'colLabels': column_labels, 'rowLabels' :model.IntentionName, 'data':np.round(precision_data, 2)}
-    ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
-             rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
-    ax.set_title('不同模型在不同冷启动时间下的准确率表')
-    # plt.show()
-
+    upper_right_corner = dict() ## 右上角的条形图
+    # 【可视化展示——更新版本，展示在右上角】
+    weMetricName = ['accuracy', 'weighted precision', 'weighted recall', 'weighted f1-score']
+    fig, axes = plt.subplots(len(column_labels), 1, figsize=(11, 10))
+    plt.title('不同模型的整体性能指标分析', fontsize=8)
+    for i in range(len(column_labels)):
+        weMetric_list = [accur_list[i], wePre_list[i], weRec_list[i], weF_list[i]]
+        upper_right_corner[column_labels[i]] = dict()
+        upper_right_corner[column_labels[i]]['series'] = [
+            {   
+                'name': 'LSTM',
+                'data': weMetric_list,
+                'type': 'bar',
+            }
+        ]
+        upper_right_corner[column_labels[i]]['yAxis'] = {
+                                                            'type': 'category',
+                                                            'data': weMetricName
+                                                        }
+        axes[i].barh(weMetricName, weMetric_list, align='center', label='KF-DBN')
+        for a, b in zip(weMetricName, weMetric_list):
+            axes[i].text(b + 1, a, "%.2f%%" % b, ha='center', va='center', fontsize=8, color='k')
+        axes[i].set_yticks(weMetricName)
+        axes[i].set_xlabel('percent(%)', fontsize=8)
+        axes[i].set_title('冷启动时间{}的整体性能指标值'.format(column_labels[i]), fontsize=8)
+    print(upper_right_corner)
+        
+    # 【可视化展示3——更新版本（原先可视化展示2-3和可视化展示3的结合），展示在右下角】
+    lower_right_corner = dict() ## 右下角条形图
+    metricName = ['precision', 'recall', 'f1-score']
+    metric_list = [prec_list, rec_list, F_list]
+    for j in range(len(metricName)):
+        lower_right_corner[metricName[j]] = dict()
+        fig, axes = plt.subplots(len(column_labels), 1, figsize=(11, 10))
+        plt.title('不同模型的各类别性能指标分析-{}'.format(metricName[j]), fontsize=8)
+        for i in range(len(column_labels)):
+            lower_right_corner[metricName[j]][column_labels[i]] = dict()
+            lower_right_corner[metricName[j]][column_labels[i]]['series'] = [
+                {
+                    'name': 'LSTM',
+                    'data': metric_list[j][i],
+                    'type': 'bar',
+                }
+            ]
+            lower_right_corner[metricName[j]][column_labels[i]]['yAxis'] = {
+                                                                                'type': 'category',
+                                                                                'data': model.IntentionName
+                                                                            }
+            axes[i].barh(model.IntentionName, metric_list[j][i], align='center', label='KF-DBN')
+            for a, b in zip(model.IntentionName, metric_list[j][i]):
+                axes[i].text(b + 1, a, "%.2f%%" % b, ha='center', va='center', fontsize=8, color='k')
+            axes[i].set_yticks(model.IntentionName)
+            axes[i].set_xlabel('percent(%)', fontsize=8)
+            axes[i].set_title('冷启动时间{}的各类别性能指标值-{}'.format(column_labels[i], metricName[j]), fontsize=8)
+    print(lower_right_corner)
+            
     # 【可视化展示4】：运行时间
     plt.figure()  # 声明一个新画布
     x = ['time_step=1', 'time_step=5', 'time_step=10', 'time_step=15', 'time_step=20']
@@ -563,4 +656,9 @@ def DBN_RES():
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    return plot_print, legend, model.IntentionName, target_num.tolist(), f"统计信息({testName})", time_sum, x, y, model.IntentionName, precision_dbn, dbn_table
+    # plt.show()
+
+    return upper_left_corner, data_pie, time_sum, x, y, upper_right_corner, lower_right_corner
+
+if __name__ == '__main__':
+    DBN_RES()
