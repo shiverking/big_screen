@@ -134,14 +134,15 @@ class SourceData(SourceDataDemo):
         upper_right_corner = dict()
         upper_right_corner['dbn'] = upper_right_corner_dbn
         upper_right_corner['lstm'] = upper_right_corner_lstm
-        for key in upper_right_corner_dbn:
+        for key in upper_right_corner_dbn.keys():
             upper_right_corner_dbn[key]['series'] += upper_right_corner_lstm[key]['series']
         upper_right_corner['dbn_and_lstm'] = upper_right_corner_dbn
         lower_right_corner = dict()
         lower_right_corner['dbn'] = lower_right_corner_dbn
         lower_right_corner['lstm'] = lower_right_corner_lstm
-        for key in lower_right_corner_dbn:
-            lower_right_corner_dbn[key]['series'] += lower_right_corner_lstm[key]['series']
+        for key in lower_right_corner_dbn.keys():
+            for key2 in lower_right_corner_dbn[key].keys():
+                lower_right_corner_dbn[key][key2]['series'] += lower_right_corner_lstm[key][key2]['series']
         lower_right_corner['dbn_and_lstm'] = lower_right_corner_dbn
 
         self.echart1_data = {
