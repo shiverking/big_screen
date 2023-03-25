@@ -360,7 +360,7 @@ def LSTM_RES():
                     'type': 'bar',
                 }
             ]
-            lower_right_corner[metricName[j]][f'timeStep{i}']['yAxis'] = {
+            lower_right_corner[metricName[j]][f'timeStep{sequence_size[i]}']['yAxis'] = {
                                                                                 'type': 'category',
                                                                                 'data': IntentionName
                                                                             }

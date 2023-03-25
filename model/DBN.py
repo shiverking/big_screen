@@ -606,7 +606,7 @@ def DBN_RES():
                 'type': 'bar',
             }
         ]
-        upper_right_corner[f'timeStep{i}']['yAxis'] = {
+        upper_right_corner[f'timeStep{sequence_size[i]}']['yAxis'] = {
                                                             'type': 'category',
                                                             'data': weMetricName
                                                         }
