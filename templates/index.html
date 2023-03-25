@@ -32,8 +32,7 @@
     <div class="loadbox"><img src="../static/picture/loading.gif"> 页面加载中...</div>
 </div>
 <div class="head">
-    <button class="layui-btn layui-btn-primary layui-border-blue" id="dropdown"
-            style="position: absolute;top: 8px;left: 5px;">
+    <button class="layui-btn layui-btn-primary layui-border-blue dropdown-button-class" id="dropdown">
         选项
         <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
     </button>
@@ -67,8 +66,13 @@
                 <div class="boxfoot"></div>
             </div>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
-                <div class="alltitle">{{ form.echart2_data.title }}</div>
-                <div class="allnav" id="echart2"></div>
+                <div class="alltitle">
+                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown2">
+                        time_step
+                        <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                    </button>{{ form.echart2_data.title }}</div>
+                <div class="allnav" id="echart2">
+                </div>
                 <div class="boxfoot"></div>
             </div>
         </li>
@@ -89,8 +93,10 @@
             </div>
             <div class="map">
                 <div class="boxall" style="height: 6.54rem;width: 7.9rem; margin-bottom: 0;padding: 0px;">
-                    <div class="alltitle">{{ form.echart6_data.title }}</div>
-                    <div id="echart6" style="height:53%;"></div>
+                    <div class="alltitle">{{ form.echart6_data.title }}
+                    </div>
+                    <div id="echart6" style="height:53%;">
+                    </div>
                     <div class="alltitle">{{ form.echart7_data.title }}</div>
                     <div id="echart7" style="height:32%;"></div>
                     <div class="boxfoot"></div>
@@ -99,13 +105,27 @@
         </li>
         <li>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
-                <div class="alltitle">{{ form.echart4_data.title }}</div>
-                <div class="allnav" id="echart4"></div>
+                <div class="alltitle">
+                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown3">
+                            time_step
+                            <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                        </button>
+                    {{ form.echart4_data.title }}</div>
+                <div class="allnav" id="echart5"></div>
                 <div class="boxfoot"></div>
             </div>
-            <div id="tableDiv" class="boxall transparentDataTable" style="height: 4rem;padding: 0px;margin-bottom: 0px;">
-{#              <div class="alltitle">{{ form.echart5.title }}</div>#}
-                <table class="layui-table" id="summaryTable" style="margin: 0;"></table>
+            <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
+                <div class="alltitle">
+            <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown4">
+                    time_step
+                    <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                </button>
+                    {{ form.echart4_data.title }}
+                <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class-right-top" id="dropdown5">
+                    metrics
+                    <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                </button></div>
+                <div class="allnav" id="echart4"></div>
                 <div class="boxfoot"></div>
             </div>
         </li>
@@ -113,11 +133,12 @@
 </div>
 <div class="back"></div>
 <!--设置的表单-->
-<form class="layui-form" action="" id="settingForm" style="display:none;padding:13px;" >
+<form class="layui-form" action="" id="settingForm" style="display:none;padding:13px;">
     <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 90px;">场景选择</label>
+        <label class="layui-form-label" style="width: 110px;">场景选择</label>
         <div class="layui-input-block">
-            <select name="situation" id="situationSelect" lay-filter="selectChange" lay-verify="required" lay-verType="alert">
+            <select name="situation" id="situationSelect" lay-filter="selectChange" lay-verify="required"
+                    lay-verType="alert">
                 <option value=""></option>
                 <option value="0">正南战斗机DD利佩茨克机场</option>
                 <option value="1">正西无人机DD圣彼得堡</option>
@@ -149,7 +170,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 90px;">目标选择</label>
+        <label class="layui-form-label" style="width: 110px;">目标选择</label>
         <div class="layui-input-block">
             <select name="target" lay-verify="required" lay-verType="alert">
                 <option value=""></option>
@@ -181,7 +202,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 90px;">选择算法</label>
+        <label class="layui-form-label" style="width: 110px;">选择算法</label>
         <div class="layui-input-block">
             <input type="checkbox" name="LSTM" title="LSTM">
             <input type="checkbox" name="MF-DBN" title="MF-DBN">
@@ -189,7 +210,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formProcess" >确定</button>
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formProcess">确定</button>
             <button type="reset" class="layui-btn layui-btn-primary layui-border-blue">重置</button>
         </div>
     </div>
@@ -461,6 +482,16 @@
     <div id="situation" style="height: 600px;"></div>
 </div>
 <style>
+    .dropdown-button-class{
+        position: absolute;
+        top: 9px;
+        left: 11px;
+    }
+    .dropdown-button-class-right-top{
+        position: absolute;
+        top: 9px;
+        right: 11px;
+    }
     .layui-form-checked[lay-skin=primary] i {
         border-color: #597FC0 !important;
         background-color: #FFF !important;
@@ -546,82 +577,78 @@
     .play-button {
         margin-left: 13px;
     }
-     th div span{
+
+    th div span {
         color: white;
     }
-    td div{
+
+    td div {
         color: white;
+    }
+    .layui-menu {
+        background-color: transparent !important;
     }
     /**
    设置表透明  start====================================================================================================================
  */
 
-.transparentDataTable .layui-table{
-    background-color: transparent !important;
+    .transparentDataTable .layui-table {
+        background-color: transparent !important;
 
-}
-.transparentDataTable .layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row]{
-     border-color: #ACAFBD;
-}
-.transparentDataTable .layui-table-view{
-    background-color: rgba(0, 0, 0, 0.0) !important;
-}
-.transparentDataTable .layui-table-hover{
-    background-color: rgba(0, 0, 0, 0.0) !important;
-}
-.transparentDataTable .layui-table-tool {
-    background-color: transparent !important;
+    }
 
-}
+    .transparentDataTable .layui-table td, .layui-table th, .layui-table-col-set, .layui-table-fixed-r, .layui-table-grid-down, .layui-table-header, .layui-table-page, .layui-table-tips-main, .layui-table-tool, .layui-table-total, .layui-table-view, .layui-table[lay-skin=line], .layui-table[lay-skin=row] {
+        border-color: #ACAFBD;
+    }
 
-.transparentDataTable .layui-table-tool .layui-icon {
-    color: white;
-}
+    .transparentDataTable .layui-table-view {
+        background-color: rgba(0, 0, 0, 0.0) !important;
+    }
 
-.transparentDataTable .layui-table-header, .transparentDataTable .layui-table-cell, .layui-table-header thead tr {
-    background-color: transparent !important;
-}
+    .transparentDataTable .layui-table-hover {
+        background-color: rgba(0, 0, 0, 0.0) !important;
+    }
 
-.transparentDataTable .layui-table-header thead th, .transparentDataTable .layui-none {
-    /*border: 1px solid #FFFFFF;*/
-    color: white !important;
-}
+    .transparentDataTable .layui-table-tool {
+        background-color: transparent !important;
 
-.transparentDataTable .layui-table tbody tr {
-    border: 1px solid #FFFFFF;
-    color: white;
-}
+    }
 
-.transparentDataTable .layui-table-init, .transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-btn, .transparentDataTable .layui-laypage-skip input {
-    background-color: transparent !important;
-    color: white;
-}
+    .transparentDataTable .layui-table-tool .layui-icon {
+        color: white;
+    }
 
-.transparentDataTable .layui-table-page a, .transparentDataTable .layui-table-page span {
-    color: white !important;
-}
+    .transparentDataTable .layui-table-header, .transparentDataTable .layui-table-cell, .layui-table-header thead tr {
+        background-color: transparent !important;
+    }
 
+    .transparentDataTable .layui-table-header thead th, .transparentDataTable .layui-none {
+        /*border: 1px solid #FFFFFF;*/
+        color: white !important;
+    }
 
-.transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-limits option {
-    -webkit-appearance: none; /* google */
-    -moz-appearance: none; /* firefox */
-    appearance: none; /* IE */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);   /* 点击去除高亮的颜色*/
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    color: white;
-}
+    .transparentDataTable .layui-table tbody tr {
+        border: 1px solid #FFFFFF;
+        color: white;
+    }
 
-.transparentDataTable .layui-table[lay-even] tr:nth-child(even){
-    background-color: rgba(180, 238, 180, 0.5) !important;
-}
+    .transparentDataTable .layui-table-init, .transparentDataTable .layui-laypage-limits select, .transparentDataTable .layui-laypage-btn, .transparentDataTable .layui-laypage-skip input {
+        background-color: transparent !important;
+        color: white;
+    }
 
-/*静态表格透明*/
-.transparentStaticTable .layui-table{
-    background-color: rgba(0, 0, 0, 0.5) !important;
-}
-.transparentStaticTable .layui-table tbody tr:hover, .statistics_branch_one .layui-table tbody tr:hover {
-    background-color: transparent !important;
-}
+    .transparentDataTable .layui-table-page a, .transparentDataTable .layui-table-page span {
+        color: white !important;
+    }
+
+    /*静态表格透明*/
+    .transparentStaticTable .layui-table {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .transparentStaticTable .layui-table tbody tr:hover, .statistics_branch_one .layui-table tbody tr:hover {
+        background-color: transparent !important;
+    }
 </style>
 <!--echart1-->
 <script>
@@ -819,7 +846,7 @@
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart4'));
         option = {
-            color: ['#5470C6','#91CC75'],
+            color: ['#5470C6', '#91CC75'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -835,14 +862,15 @@
                 left: '0%',
                 top: '10px',
                 right: '0%',
-                bottom: '2%',
+                bottom: '3%',
                 containLabel: true,
                 borderWidth: 1,
             },
             xAxis: {
+                max:105,
                 type: 'value',
                 boundaryGap: [0, 0.01],
-                 axisLine: {
+                axisLine: {
                     show: true,
                     lineStyle: {
                         color: "rgba(255,255,255,.1)",
@@ -858,6 +886,9 @@
                     textStyle: {
                         color: "rgba(255,255,255,.6)",
                         fontSize: '12',
+                    },
+                    formatter: function (val){
+                        return val +"%";
                     },
                 },
             },
@@ -894,21 +925,90 @@
         myChart.setOption(option);
     })
 </script>
-<!--表格-->
+<!--echart5-->
 <script>
-    layui.use('table', function(){
-    var table = layui.table;
-    var table_data = JSON.parse('{{ form.table_data|tojson|safe }}');
-    var cols = table_data.cols;
-    var data = table_data.data;
-    var height = document.getElementById("tableDiv").offsetHeight;
-  table.render({
-    elem: '#summaryTable',
-    height: height,
-    cols: [cols],
-    data: data
-  });
-});
+  $(function echarts_5() {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart5'));
+        option = {
+            color: ['#5470C6', '#91CC75'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
+                }
+            },
+            legend: {
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
+            },
+            grid: {
+                left: '0%',
+                top: '10px',
+                right: '0%',
+                bottom: '3%',
+                containLabel: true,
+                borderWidth: 1,
+            },
+            xAxis: {
+                max:105,
+                type: 'value',
+                boundaryGap: [0, 0.01],
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                    formatter: function (val){
+                        return val +"%";
+                    },
+                },
+            },
+            yAxis: {
+                type: 'category',
+                data: {{form.echart4_data.yAxis|safe}},
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1	)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                    }
+                }
+            },
+            series: {{form.echart4_data.series|safe}}
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    })
 </script>
 <!--echarts6-->
 <script>
@@ -938,24 +1038,24 @@
             }
         };
         option = {
-          color:["#5470C6","#73C0DE","#EE6666","#FACB59","#91CC75","#7B68EE","#FF1493","#000080"],
-          tooltip: {
-            trigger: 'item'
-          },
-        grid: {
-            left: '0%',
-            top: '10px',
-            right: '0%',
-            bottom: '3%',
-            containLabel: true,
-        },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-            type: 'scroll',
-            textStyle: {color: 'rgb(255,255,255,0.9)',},
-          },
-          series:{{ form.echart6_data.series|safe}},
+            color: ["#5470C6", "#73C0DE", "#EE6666", "#FACB59", "#91CC75", "#7B68EE", "#FF1493", "#000080"],
+            tooltip: {
+                trigger: 'item'
+            },
+            grid: {
+                left: '0%',
+                top: '10px',
+                right: '0%',
+                bottom: '3%',
+                containLabel: true,
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                type: 'scroll',
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
+            },
+            series:{{ form.echart6_data.series|safe}},
         };
         {#option = {#}
         {#    color: ['#0f63d6', '#0f78d6', '#0f8cd6', '#0fa0d6', '#0fb4d6'],#}
@@ -1004,11 +1104,11 @@
 </script>
 <!--echarts7-->
 <script>
-     $(function echarts_7() {
+    $(function echarts_7() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart7'));
         option = {
-            color:["#5470C6","#EE6666"],
+            color: ["#5470C6", "#EE6666"],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -1147,19 +1247,16 @@
         });
         dropdown.render({
             elem: '#dropdown',//可绑定在任意元素中，此处以上述按钮为例
-            style: 'opacity:0.5;'
+            style: 'background-color: rgba(0, 0, 0, 0.0) !important;border-color:#1E9FFF;'
             , data: [{
                 title: '验证场景设定'
                 , id: 1
-                , href: '#'
             }, {
                 title: '专家经验知识'
                 , id: 2
-                , target: '_blank' //新窗口方式打开
             }, {
                 title: '设置'
                 , id: 3
-                , target: '_blank' //新窗口方式打开
             }]
             , id: 'dropdown'
             //菜单被点击的事件
@@ -1195,6 +1292,104 @@
                         resize: false
                     });
                 }
+            }
+        });
+        //dorpdown2
+        dropdown.render({
+            elem: '#dropdown2',//可绑定在任意元素中，此处以上述按钮为例
+            style: 'background-color: rgba(0, 0, 0, 0.0) !important;border-color:#1E9FFF;'
+            , data: [{
+                title: '1'
+                , id: 1
+            }, {
+                title: '5'
+                , id: 2
+            }, {
+                title: '10'
+                , id: 3
+            }, {
+                title: '15'
+                , id: 4
+            }, {
+                title: '20'
+                , id: 5
+                }
+            ]
+            , id: 'dropdown2'
+            //菜单被点击的事件
+            , click: function (obj) {
+            }
+        });
+        //dorpdown3
+        dropdown.render({
+            elem: '#dropdown3',//可绑定在任意元素中，此处以上述按钮为例
+            style: 'background-color: rgba(0, 0, 0, 0.0) !important;border-color:#1E9FFF;'
+            , data: [{
+                title: '1'
+                , id: 1
+            }, {
+                title: '5'
+                , id: 2
+            }, {
+                title: '10'
+                , id: 3
+            }, {
+                title: '15'
+                , id: 4
+            }, {
+                title: '20'
+                , id: 5
+                }
+            ]
+            , id: 'dropdown3'
+            //菜单被点击的事件
+            , click: function (obj) {
+            }
+        });
+        //dorpdown4
+        dropdown.render({
+            elem: '#dropdown4',//可绑定在任意元素中，此处以上述按钮为例
+            style: 'background-color: rgba(0, 0, 0, 0.0) !important;border-color:#1E9FFF;'
+            , data: [{
+                title: '1'
+                , id: 1
+            }, {
+                title: '5'
+                , id: 2
+            }, {
+                title: '10'
+                , id: 3
+            }, {
+                title: '15'
+                , id: 4
+            }, {
+                title: '20'
+                , id: 5
+                }
+            ]
+            , id: 'dropdown4'
+            //菜单被点击的事件
+            , click: function (obj) {
+            }
+        });
+        //dorpdown5
+        dropdown.render({
+            elem: '#dropdown5',//可绑定在任意元素中，此处以上述按钮为例
+            style: 'background-color: rgba(0, 0, 0, 0.0) !important;border-color:#1E9FFF;'
+            , data: [{
+                title: 'precision'
+                , id: 1
+            }, {
+                title: 'recall'
+                , id: 2
+            }, {
+                title: 'f1-score'
+                , id: 3
+            }
+            ]
+            , id: 'dropdown5'
+            //菜单被点击的事件
+            , click: function (obj) {
             }
         });
         //播放器
