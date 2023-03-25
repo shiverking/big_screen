@@ -761,7 +761,7 @@
                 }
             },
             legend: {
-                data: {{form.echart2_data.data.1.legend|safe}},
+                data: {{form.echart2_data.data.timeStep1.legend|safe}},
                 textStyle: {color: 'rgb(255,255,255,0.9)',},
                 type: 'scroll',
                 orient: 'horizontal'
@@ -775,7 +775,7 @@
                 borderWidth: 1,
             },
             xAxis: [{
-                data:{{form.echart2_data.data.1.xAxis|safe}},
+                data:{{form.echart2_data.data.timeStep1.xAxis|safe}},
                 type: 'category',
                 axisLine: {
                     show: true,
@@ -832,7 +832,7 @@
                     }
                 }
             }],
-            series:{{form.echart2_data.data.1.series|safe}},
+            series:{{form.echart2_data.data.timeStep1.series|safe}},
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
