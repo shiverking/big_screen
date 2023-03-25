@@ -584,7 +584,7 @@ def DBN_RES():
     accur_list = [perform_report['accuracy'] * 100] * len(column_labels)
     wePre_list = [perform_report['weighted avg']['precision'] * 100] * len(column_labels)
     weRec_list = [perform_report['weighted avg']['recall'] * 100] * len(column_labels)
-    weF_list = [perform_report['weighted avg']['f1-score'] * 100] * len(column_labels)
+    weF_list = [perform_report['weighted avg']['f1score'] * 100] * len(column_labels)
 
     precision, recall, F1 = metric_compute(acc_num, predict_num, target_num)
     prec_list = [precision] * len(column_labels)
@@ -593,7 +593,7 @@ def DBN_RES():
 
     upper_right_corner = dict() ## 右上角的条形图
     # 【可视化展示——更新版本，展示在右上角】
-    weMetricName = ['accuracy', 'weighted precision', 'weighted recall', 'weighted f1-score']
+    weMetricName = ['accuracy', 'weighted precision', 'weighted recall', 'weighted f1score']
     fig, axes = plt.subplots(len(column_labels), 1, figsize=(11, 10))
     plt.title('不同模型的整体性能指标分析', fontsize=8)
     for i in range(len(column_labels)):
@@ -620,7 +620,7 @@ def DBN_RES():
         
     # 【可视化展示3——更新版本（原先可视化展示2-3和可视化展示3的结合），展示在右下角】
     lower_right_corner = dict() ## 右下角条形图
-    metricName = ['precision', 'recall', 'f1-score']
+    metricName = ['precision', 'recall', 'f1score']
     metric_list = [prec_list, rec_list, F_list]
     for j in range(len(metricName)):
         lower_right_corner[metricName[j]] = dict()
