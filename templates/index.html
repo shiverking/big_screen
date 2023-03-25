@@ -120,7 +120,7 @@
                     metrics
                     <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
                 </button>
-                 {{ form.echart4_data.title }}
+                {{ form.echart4_data.title }}
                 <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class-right-top" id="dropdown4">
                     time_step
                     <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
@@ -935,6 +935,9 @@
 </script>
 <!--echart4-->
 <script>
+    //记录当前的
+    var echart4_mertic = "";
+    var echart4_timestep = "";
     $(function echarts_4() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart4'));
@@ -1016,7 +1019,92 @@
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
+        //记录当前选项
+        echart4_mertic = "precision";
+        echart4_mertic = "1";
     })
+    function redraw_echart_4(yAxis,series) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart4'));
+        option = {
+            color: ['#5470C6', '#91CC75'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
+                }
+            },
+            legend: {
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
+            },
+            grid: {
+                left: '0%',
+                top: '10px',
+                right: '0%',
+                bottom: '3%',
+                containLabel: true,
+                borderWidth: 1,
+            },
+            xAxis: {
+                max:105,
+                type: 'value',
+                boundaryGap: [0, 0.01],
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                    formatter: function (val){
+                        return val +"%";
+                    },
+                },
+            },
+            yAxis: {
+                type: 'category',
+                data: yAxis,
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1	)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                    }
+                }
+            },
+            series: series,
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
 </script>
 <!--echart5-->
 <script>
@@ -1102,6 +1190,88 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     })
+  function redraw_echart_5(yAxis,series) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart5'));
+        option = {
+            color: ['#5470C6', '#91CC75'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    lineStyle: {
+                        color: '#dddc6b'
+                    }
+                }
+            },
+            legend: {
+                textStyle: {color: 'rgb(255,255,255,0.9)',},
+            },
+            grid: {
+                left: '0%',
+                top: '10px',
+                right: '0%',
+                bottom: '3%',
+                containLabel: true,
+                borderWidth: 1,
+            },
+            xAxis: {
+                max:105,
+                type: 'value',
+                boundaryGap: [0, 0.01],
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                    formatter: function (val){
+                        return val +"%";
+                    },
+                },
+            },
+            yAxis: {
+                type: 'category',
+                data: yAxis,
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: "rgba(255,255,255,.6)",
+                        fontSize: '12',
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1	)",
+                        width: 1,
+                        type: "solid"
+                    },
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "rgba(255,255,255,.1)",
+                    }
+                }
+            },
+            series: series,
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
 </script>
 <!--echarts6-->
 <script>
@@ -1412,6 +1582,7 @@
             , id: 'dropdown2'
             //菜单被点击的事件
             , click: function (obj) {
+                $("#dropdown2").text(obj.title);
                 if(obj.id == 1){
                     redraw_echart_2({{form.echart2_data.data.timeStep1.legend|safe}},{{form.echart2_data.data.timeStep1.xAxis|safe}},{{form.echart2_data.data.timeStep1.series|safe}})
                 }
@@ -1453,6 +1624,23 @@
             , id: 'dropdown3'
             //菜单被点击的事件
             , click: function (obj) {
+                $("#dropdown3").text(obj.title);
+                //先这么写，回头还要判断是哪个模型
+                if(obj.id == 1){
+                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep1.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep1.series|safe}})
+                }
+                else if(obj.id == 2){
+                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep5.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep5.series|safe}})
+                }
+                else if(obj.id == 3){
+                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep10.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep10.series|safe}})
+                }
+                else if(obj.id == 4){
+                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep15.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep15.series|safe}})
+                }
+                else if(obj.id == 5){
+                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep20.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep20.series|safe}})
+                }
             }
         });
         //dorpdown4
@@ -1479,6 +1667,60 @@
             , id: 'dropdown4'
             //菜单被点击的事件
             , click: function (obj) {
+                $("#dropdown4").text(obj.title);
+                if(echart4_mertic == "precision"){
+                    if(obj.id==1){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                    }
+                    else if(obj.id==2){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.series|safe}});
+                    }
+                    else if(obj.id==3){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.series|safe}});
+                    }
+                    else if(obj.id==4){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.series|safe}});
+                    }
+                    else if(obj.id==4){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                    }
+                }
+                else if(echart4_mertic == "recall"){
+                    if(obj.id==1){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                    }
+                    else if(obj.id==2){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.series|safe}});
+                    }
+                    else if(obj.id==3){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.series|safe}});
+                    }
+                    else if(obj.id==4){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.series|safe}});
+                    }
+                    else if(obj.id==4){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                    }
+                }
+                else if(echart4_mertic == "f1score"){
+                    if(obj.id==1){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                    }
+                    else if(obj.id==2){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.series|safe}});
+                    }
+                    else if(obj.id==3){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.series|safe}});
+                    }
+                    else if(obj.id==4){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.series|safe}});
+                    }
+                    else if(obj.id==4){
+                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                    }
+                }
+                //修改标志
+                echart4_timestep = obj.title;
             }
         });
         //dorpdown5
@@ -1499,6 +1741,72 @@
             , id: 'dropdown5'
             //菜单被点击的事件
             , click: function (obj) {
+                //同样先不判断模型
+                $("#dropdown5").text(obj.title);
+                if(echart4_timestep == "1"){
+                    if(obj.id == 1){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                    }
+                    else if(obj.id == 2){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                    }
+                    else if(obj.id == 3){
+                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                    }
+                }
+                else if(echart4_timestep == "5"){
+                    if(obj.id == 1){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.series|safe}});
+                    }
+                    else if(obj.id == 2){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.series|safe}});
+                    }
+                    else if(obj.id == 3){
+                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.series|safe}});
+                    }
+                }
+                else if(echart4_timestep == "10"){
+                    if(obj.id == 1){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.series|safe}});
+                    }
+                    else if(obj.id == 2){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.series|safe}});
+                    }
+                    else if(obj.id == 3){
+                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.series|safe}});
+                    }
+                }
+                else if(echart4_timestep == "15"){
+                    if(obj.id == 1){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.series|safe}});
+                    }
+                    else if(obj.id == 2){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.series|safe}});
+                    }
+                    else if(obj.id == 3){
+                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.series|safe}});
+                    }
+                }
+                else if(echart4_timestep == "20"){
+                    if(obj.id == 1){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep20.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep20.series|safe}});
+                    }
+                    else if(obj.id == 2){
+                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep20.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep20.series|safe}});
+                    }
+                    else if(obj.id == 3){
+                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep20.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep20.series|safe}});
+                    }
+                }
+                if(obj.id == 1){
+                    echart4_mertic = "precision";
+                }
+                else if(obj.id == 2){
+                    echart4_mertic = "recall";
+                }
+                else if(obj.id == 3){
+                    echart4_mertic = "f1score";
+                }
             }
         });
         //播放器
