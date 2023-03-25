@@ -165,9 +165,7 @@ class SourceData(SourceDataDemo):
         self.counter2 = {'value':f'{time_sum_lstm: .2f}', 'name': 'LSTM运行时间(单位：秒)'}
         self.echart2_data = {
             'title': 'LSTM意图识别结果图',
-            'xAxis': bottom_left_corner['time_step=1']['xAxis'],
-            'series': bottom_left_corner['time_step=1']['series'],
-            'legend': bottom_left_corner['time_step=1']['legend']
+            'data': bottom_left_corner
         }
         self.echart7_data = {
             'title': '不同模型的预测时间',
@@ -183,5 +181,5 @@ class SourceData(SourceDataDemo):
         self.echart4_data = {
             'title': '不同模型的预测精度',
             'yAxis': lower_right_corner_dbn['precision']['time_step=1']['yAxis'],
-            'series': upper_right_corner_dbn['precision']['time_step=1']['series']
+            'series': lower_right_corner_dbn['precision']['time_step=1']['series']
         }
