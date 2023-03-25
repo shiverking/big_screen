@@ -110,7 +110,7 @@
                             time_step
                             <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
                         </button>
-                    {{ form.echart4_data.title }}</div>
+                    {{ form.echart5_data.title }}</div>
                 <div class="allnav" id="echart5"></div>
                 <div class="boxfoot"></div>
             </div>
@@ -987,7 +987,7 @@
             },
             yAxis: {
                 type: 'category',
-                data: {{form.echart4_data.yAxis|safe}},
+                data: {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis|safe}},
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -1012,7 +1012,7 @@
                     }
                 }
             },
-            series: {{form.echart4_data.series|safe}}
+            series: {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}},
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
@@ -1072,7 +1072,7 @@
             },
             yAxis: {
                 type: 'category',
-                data: {{form.echart4_data.yAxis|safe}},
+                data: {{form.echart5_data.data.dbn_and_lstm.timeStep1.yAxis|safe}},
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -1097,7 +1097,7 @@
                     }
                 }
             },
-            series: {{form.echart4_data.series|safe}}
+            series: {{form.echart5_data.data.dbn_and_lstm.timeStep1.series|safe}}
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
