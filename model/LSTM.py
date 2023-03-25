@@ -341,7 +341,7 @@ def LSTM_RES():
         axes[i].set_yticks(weMetricName)
         axes[i].set_xlabel('percent(%)', fontsize=8)
         axes[i].set_title('冷启动时间{}的整体性能指标值'.format(column_labels[i]), fontsize=8)
-    print(upper_right_corner)
+    # print(upper_right_corner)
 
     # 【可视化展示3——更新版本（原先可视化展示2-3和可视化展示3的结合），展示在右下角】
     lower_right_corner = dict() ## 右下角条形图
@@ -370,7 +370,7 @@ def LSTM_RES():
             axes[i].set_yticks(IntentionName)
             axes[i].set_xlabel('percent(%)', fontsize=8)
             axes[i].set_title('冷启动时间{}的各类别性能指标值-{}'.format(column_labels[i], metricName[j]), fontsize=8)
-    print(lower_right_corner)
+    # print(lower_right_corner)
     # 【可视化展示4】：运行时间
     plt.figure()
     x = ['time_step=1', 'time_step=5', 'time_step=10', 'time_step=15', 'time_step=20']
