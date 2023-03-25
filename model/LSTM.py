@@ -323,15 +323,15 @@ def LSTM_RES():
     plt.title('不同模型的整体性能指标分析', fontsize=8)
     for i in range(len(column_labels)):
         weMetric_list = [accur_list[i], wePre_list[i], weRec_list[i], weF_list[i]]
-        upper_right_corner[f'timeStep{i}'] = dict()
-        upper_right_corner[f'timeStep{i}']['series'] = [
+        upper_right_corner[f'timeStep{sequence_size[i]}'] = dict()
+        upper_right_corner[f'timeStep{sequence_size[i]}']['series'] = [
             {   
                 'name': 'LSTM',
                 'data': weMetric_list,
                 'type': 'bar',
             }
         ]
-        upper_right_corner[f'timeStep{i}']['yAxis'] = {
+        upper_right_corner[f'timeStep{sequence_size[i]}']['yAxis'] = {
                                                             'type': 'category',
                                                             'data': weMetricName
                                                         }
@@ -352,8 +352,8 @@ def LSTM_RES():
         fig, axes = plt.subplots(len(column_labels), 1, figsize=(11, 10))
         plt.title('不同模型的各类别性能指标分析-{}'.format(metricName[j]), fontsize=8)
         for i in range(len(column_labels)): 
-            lower_right_corner[metricName[j]][f'timeStep{i}'] = dict()
-            lower_right_corner[metricName[j]][f'timeStep{i}']['series'] = [
+            lower_right_corner[metricName[j]][f'timeStep{sequence_size[i]}'] = dict()
+            lower_right_corner[metricName[j]][f'timeStep{sequence_size[i]}']['series'] = [
                 {
                     'name': 'LSTM',
                     'data': metric_list[j][i],

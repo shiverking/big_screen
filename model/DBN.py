@@ -579,7 +579,7 @@ def DBN_RES():
     # ax.table(cellText=np.round(precision_data, 2), colLabels=column_labels, colColours=colColors, rowColours=rowColours,
     #          rowLabels=model.IntentionName, cellLoc='center', rowLoc='center', loc="center")
     # ax.set_title('不同模型在不同冷启动时间下的准确率表')
-
+    sequence_size = [1, 5, 10, 15, 20]
     column_labels = ["time_step=1", "time_step=5", "time_step=10", "time_step=15", "time_step=20"]
     accur_list = [perform_report['accuracy'] * 100] * len(column_labels)
     wePre_list = [perform_report['weighted avg']['precision'] * 100] * len(column_labels)
@@ -598,8 +598,8 @@ def DBN_RES():
     plt.title('不同模型的整体性能指标分析', fontsize=8)
     for i in range(len(column_labels)):
         weMetric_list = [accur_list[i], wePre_list[i], weRec_list[i], weF_list[i]]
-        upper_right_corner[f'timeStep{i}'] = dict()
-        upper_right_corner[f'timeStep{i}']['series'] = [
+        upper_right_corner[f'timeStep{sequence_size[i]}'] = dict()
+        upper_right_corner[f'timeStep{sequence_size[i]}']['series'] = [
             {   
                 'name': 'DBN',
                 'data': weMetric_list,
@@ -627,15 +627,15 @@ def DBN_RES():
         fig, axes = plt.subplots(len(column_labels), 1, figsize=(11, 10))
         plt.title('不同模型的各类别性能指标分析-{}'.format(metricName[j]), fontsize=8)
         for i in range(len(column_labels)):
-            lower_right_corner[metricName[j]][f'timeStep{i}'] = dict()
-            lower_right_corner[metricName[j]][f'timeStep{i}']['series'] = [
+            lower_right_corner[metricName[j]][f'timeStep{sequence_size[i]}'] = dict()
+            lower_right_corner[metricName[j]][f'timeStep{sequence_size[i]}']['series'] = [
                 {
                     'name': 'DBN',
                     'data': metric_list[j][i],
                     'type': 'bar',
                 }
             ]
-            lower_right_corner[metricName[j]][f'timeStep{i}']['yAxis'] = {
+            lower_right_corner[metricName[j]][f'timeStep{sequence_size[i]}']['yAxis'] = {
                                                                                 'type': 'category',
                                                                                 'data': model.IntentionName
                                                                             }
