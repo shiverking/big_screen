@@ -32,7 +32,7 @@
     <div class="loadbox"><img src="../static/picture/loading.gif"> 页面加载中...</div>
 </div>
 <div class="head">
-    <button class="layui-btn layui-btn-primary layui-border-blue dropdown-button-class" id="dropdown">
+    <button class="layui-btn layui-btn-primary layui-border-blue dropdown-button-class" id="dropdown1">
         选项
         <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
     </button>
@@ -839,8 +839,8 @@
         window.addEventListener("resize", function () {
             myChart.resize();
         });
-    })
-    function change_echarts_2(data) {
+    });
+    function redraw_echart_2(legend,xAxis,series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart2'));
         option = {
@@ -853,7 +853,7 @@
                 }
             },
             legend: {
-                data: {{form.echart2_data.legend|safe}},
+                data: legend,
                 textStyle: {color: 'rgb(255,255,255,0.9)',},
                 type: 'scroll',
                 orient: 'horizontal'
@@ -867,7 +867,7 @@
                 borderWidth: 1,
             },
             xAxis: [{
-                data:{{form.echart2_data.xAxis|safe}},
+                data:xAxis,
                 type: 'category',
                 axisLine: {
                     show: true,
@@ -924,7 +924,7 @@
                     }
                 }
             }],
-            series:{{form.echart2_data.series|safe}},
+            series:series,
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
@@ -1338,8 +1338,9 @@
             extend: 'skin/style.css', //同样需要先加载新皮肤
             skin: 'my-layer-skin'
         });
+        //dorpdown1
         dropdown.render({
-            elem: '#dropdown',//可绑定在任意元素中，此处以上述按钮为例
+            elem: '#dropdown1',//可绑定在任意元素中，此处以上述按钮为例
             style: 'background-color: rgba(0, 0, 0, 0.0) !important;border-color:#1E9FFF;'
             , data: [{
                 title: '验证场景设定'
@@ -1351,7 +1352,7 @@
                 title: '设置'
                 , id: 3
             }]
-            , id: 'dropdown'
+            , id: 'dropdown1'
             //菜单被点击的事件
             , click: function (obj) {
                 if (obj.title == "验证场景设定") {
@@ -1411,8 +1412,20 @@
             , id: 'dropdown2'
             //菜单被点击的事件
             , click: function (obj) {
-                if(obj.title == "1"){
-
+                if(obj.id == 1){
+                    redraw_echart_2({{form.echart2_data.data.timeStep1.legend|safe}},{{form.echart2_data.data.timeStep1.xAxis|safe}},{{form.echart2_data.data.timeStep1.series|safe}})
+                }
+                else if(obj.id == 2){
+                    redraw_echart_2({{form.echart2_data.data.timeStep5.legend|safe}},{{form.echart2_data.data.timeStep5.xAxis|safe}},{{form.echart2_data.data.timeStep5.series|safe}})
+                }
+                else if(obj.id == 3){
+                    redraw_echart_2({{form.echart2_data.data.timeStep10.legend|safe}},{{form.echart2_data.data.timeStep10.xAxis|safe}},{{form.echart2_data.data.timeStep10.series|safe}})
+                }
+                else if(obj.id == 4){
+                    redraw_echart_2({{form.echart2_data.data.timeStep15.legend|safe}},{{form.echart2_data.data.timeStep15.xAxis|safe}},{{form.echart2_data.data.timeStep15.series|safe}})
+                }
+                else if(obj.id == 5){
+                    redraw_echart_2({{form.echart2_data.data.timeStep20.legend|safe}},{{form.echart2_data.data.timeStep20.xAxis|safe}},{{form.echart2_data.data.timeStep20.series|safe}})
                 }
             }
         });
