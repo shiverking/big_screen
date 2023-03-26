@@ -215,13 +215,12 @@ def metric_compute(accNum, preNum, tarNum):
     return pre, rec, F
 
 
-def LSTM_RES():
-    data = pd.read_excel('./data/正南打击利佩茨克机场数据/data_new.xlsx')  # 导入原始数据
+def LSTM_RES(scenario, testName):
+    data = pd.read_excel(f'./data/{scenario}/data_new.xlsx')  # 导入原始数据
     typeName = '战斗机'
     data_proc = DataProcessing(data, typeName)  # 数据预处理
     data_coding = data_proc.data_Code  # 输入模型的数据
     trainName = 'F-22 科加尔尼西亚 #5'  # 输入训练目标
-    testName = 'F-22 科加尔尼西亚 #6'  # 输入测试目标——【目标选择】
     sequence_size = 1  # time_step
     trainData, testData = data_split(data_coding, trainName, testName, sequence_size)  # 训练/测试集划分
 

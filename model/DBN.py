@@ -492,14 +492,13 @@ def metric_compute(accNum, preNum, tarNum):
     return pre, rec, F
 
 
-def DBN_RES():
+def DBN_RES(scenario, testName):
     time_start = time.time()  # 记录开始时间
-    data_orign = pd.read_excel('./data/正南打击利佩茨克机场数据/data_new.xlsx')  # 导入原始数据
+    data_orign = pd.read_excel(f'./data/{scenario}/data_new.xlsx')  # 导入原始数据
     typeName = '战斗机'
     data_proc = DataProcessing(data_orign, typeName)  # 数据预处理
     data_coding = data_proc.data_Code  # 输入模型的数据
     trainName = 'F-22 科加尔尼西亚 #5'  # 输入训练目标
-    testName = 'F-22 科加尔尼西亚 #6'  # 输入测试目标——【目标选择】
     o, z, x_test, y_test = data_proc.data_split(trainName, testName)  # 训练/测试集划分
     model = KF_DBN(o, z, x_test, y_test)  # 模型训练
     # s, w, A, B, C, D, Q, R, loss_list, iteration_list = model.parameter_optimal(typeName)
@@ -656,7 +655,7 @@ def DBN_RES():
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    # plt.show()
+    plt.show()
 
     return upper_left_corner, data_pie, time_sum, x, y, upper_right_corner, lower_right_corner
 

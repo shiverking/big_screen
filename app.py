@@ -7,6 +7,7 @@
 
 from flask import Flask, render_template
 from data import *
+from flask import Flask,jsonify,request
 
 app = Flask(__name__)
 #热更新
@@ -15,9 +16,37 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 #处理乱码
 app.config['JSON_AS_ASCII']=False
 
-@app.route('/index')
+@app.route('/index',methods=['post'])
 def index():
-    data = SourceData()
+    inputs = request.json.get('data')
+    scenario_dict = {'0': '正南战斗机DD利佩茨克机场', '1': '正西无人机DD圣彼得堡', '2':'正西侦察机侦察', '3': '正西轰炸机DD莫斯科'}
+    test_name_dict = {
+            '1': 'F-22A 科加尔尼西亚 #1',
+            '2': 'F-22A 科加尔尼西亚 #2',
+            '3': 'F-22A 科加尔尼西亚 #3',
+            '4': 'F-22A 科加尔尼西亚 #4',
+            '5': 'F-22A 科加尔尼西亚 #5',
+            '6': 'F-22A 科加尔尼西亚 #6',
+            '7': 'F-22A 科加尔尼西亚 #7',
+            '8': 'F-22A 科加尔尼西亚 #8',
+            '9': 'F-22A 科加尔尼西亚 #9',
+            '10': 'F-22A 科加尔尼西亚 #10',
+            '11': '罗斯福 #42',
+            '12': '罗斯福 #43',
+            '13': '罗斯福 #44',
+            '14': '罗斯福 #45',
+            '15': '罗斯福 #46',
+            '16': '罗斯福 #47',
+            '17': '罗斯福 #48',
+            '18': 'B-52 RAF Fairford #1',
+            '19': 'B-52 RAF Fairford #2',
+            '20': 'B-52 RAF Fairford #3',
+            '21': 'B-2 RAF Fairford #1',
+            '22': 'B-2 RAF Fairford #2',
+            '23': 'B-21 RAF Fairford #1',
+            '24': 'B-21 RAF Fairford #1'
+        }
+    data = SourceData(scenario_dict[inputs['situation']], test_name_dict[inputs['target']])
     return render_template('index.html', form=data, title=data.title)
 
 @app.route('/')
