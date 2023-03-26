@@ -206,7 +206,7 @@
         <label class="layui-form-label" style="width: 110px;">选择算法</label>
         <div class="layui-input-block">
             <input type="checkbox" name="LSTM" title="LSTM">
-            <input type="checkbox" name="MF-DBN" title="MF-DBN">
+            <input type="checkbox" name="DBN" title="MF-DBN">
         </div>
     </div>
     <div class="layui-form-item">
@@ -1463,6 +1463,7 @@
 </script>
 <!--下拉菜单控制标签-->
 <script>
+    var currentAlgorithm ="";
     layui.config({
         //存放拓展模块的根目录
         base: '/static/ckplayer/'
@@ -1478,6 +1479,28 @@
             console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
             console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
             console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: "/index",
+                data: JSON.stringify({
+                "situation": data.field.situation,
+                "target": data.field.target,
+                }),
+                dataType: 'json',
+                success: function (data) {
+                    console.log("计算完毕");
+                    if(data.field.LSTM=="on"&&data.field.DBM=="on"){
+                        currentAlgorithm =  "dbn_and_lstm"
+                    }
+                    else if(data.field.LSTM=="on"){
+                        currentAlgorithm =  "lstm"
+                    }
+                    else if(data.field.DBM=="on"){
+                        currentAlgorithm =  "dbn"
+                    }
+                }
+            });
             return false//阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
         form.on('select(selectChange)', function (data) {
