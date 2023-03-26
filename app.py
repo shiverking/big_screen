@@ -19,7 +19,7 @@ app.config['JSON_AS_ASCII']=False
 @app.route('/index',methods=['post'])
 def index():
     inputs = request.json.get('data')
-    scenario_dict = {'0': '正南战斗机DD利佩茨克机场', '1': '正西无人机DD圣彼得堡', '2':'正西侦察机侦察', '3': '正西轰炸机DD莫斯科'}
+    scenario_dict = {'0': '正南打击利佩茨克机场数据', '1': '正西无人机打击圣彼得堡数据', '2':'无人机侦察数据', '3': '正西轰炸机打击莫斯科数据'}
     test_name_dict = {
             '1': 'F-22A 科加尔尼西亚 #1',
             '2': 'F-22A 科加尔尼西亚 #2',
