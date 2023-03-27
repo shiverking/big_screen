@@ -479,7 +479,7 @@ class KF_DBN:
         plt.ylabel("Intention")
         plt.title("model_test MF-DBN ({})".format(test_name))
 
-        return Aver_testTime, perfor_report, target_num, predict_num, acc_num, z_probs, plt, plot_print
+        return Aver_testTime, perfor_report, target_num, predict_num, acc_num, z_probs, plt, plot_print, self.T_test
 
 
 def metric_compute(accNum, preNum, tarNum):
@@ -497,7 +497,7 @@ def DBN_RES(scenario, testName, typeName):
     data_orign = pd.read_excel(f'./data/{scenario}/data_new.xlsx')  # 导入原始数据
     data_proc = DataProcessing(data_orign, typeName)  # 数据预处理
     data_coding = data_proc.data_Code  # 输入模型的数据
-    trainName = 'F-22 科加尔尼西亚 #5'  # 输入训练目标
+    trainName = testName  # 输入训练目标
     o, z, x_test, y_test = data_proc.data_split(trainName, testName)  # 训练/测试集划分
     model = KF_DBN(o, z, x_test, y_test)  # 模型训练
     # s, w, A, B, C, D, Q, R, loss_list, iteration_list = model.parameter_optimal(typeName)
@@ -514,7 +514,7 @@ def DBN_RES(scenario, testName, typeName):
     time_end = time.time()  # 记录结束时间
     time_sum = time_end - time_start 
 
-    Aver_time, perform_report, target_num, predict_num, acc_num, z_probs, plt, plot_print = model.accuracy_Test(A, B, C, D, Q, R, w,
+    Aver_time, perform_report, target_num, predict_num, acc_num, z_probs, plt, plot_print, T_test = model.accuracy_Test(A, B, C, D, Q, R, w,
                                                                                                     testName)  # 模型测试结果
     ## 左上角折线图
     upper_left_corner = dict()
@@ -523,7 +523,7 @@ def DBN_RES(scenario, testName, typeName):
     upper_left_corner['xAxis'] = {
                                     'type': 'category',
                                     'boundaryGap': 'false',
-                                    'data': [x for x in range(200)]
+                                    'data': [x for x in range(T_test)]
                                 }
     # print(upper_left_corner)
     # plt.show()    # 【可视化展示1】：各模型的意图识别结果图

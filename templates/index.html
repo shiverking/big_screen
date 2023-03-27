@@ -7,8 +7,17 @@
     <link rel="stylesheet" href="../static/css/comon0.css">
 </head>
 <script>
+    var currentAlgorithm = "";
     $(window).load(function () {
-        $(".loading").fadeOut()
+        $(".loading").fadeOut();
+        var str = location.search;
+        if (str.indexOf('lstm') != -1 && str.indexOf('dbn') != -1) {
+            currentAlgorithm = "dbn_and_lstm";
+        } else if (str.indexOf('dbn') == -1) {
+            currentAlgorithm = "lstm";
+        } else if (str.indexOf('lstm') == -1) {
+            currentAlgorithm = "dbn";
+        }
     })
     /****/
     $(document).ready(function () {
@@ -67,10 +76,12 @@
             </div>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
                 <div class="alltitle">
-                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown2">
+                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class"
+                            id="dropdown2">
                         time_step
                         <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
-                    </button>{{ form.echart2_data.title }}</div>
+                    </button>
+                    {{ form.echart2_data.title }}</div>
                 <div class="allnav" id="echart2">
                 </div>
                 <div class="boxfoot"></div>
@@ -80,8 +91,8 @@
             <div class="bar">
                 <div class="barbox">
                     <ul class="clearfix">
-                        <li class="pulll_left counter">{{ form.counter.value }}</li>
-                        <li class="pulll_left counter">{{ form.counter2.value }}</li>
+                        <li class="pulll_left counter" id="countValue1">{{ form.counter.value }}</li>
+                        <li class="pulll_left counter" id="countValue2">{{ form.counter2.value }}</li>
                     </ul>
                 </div>
                 <div class="barbox2">
@@ -93,10 +104,8 @@
             </div>
             <div class="map">
                 <div class="boxall" style="height: 6.54rem;width: 7.9rem; margin-bottom: 0;padding: 0px;">
-                    <div class="alltitle">{{ form.echart6_data.title }}
-                    </div>
-                    <div id="echart6" style="height:53%;">
-                    </div>
+                    <div class="alltitle">{{ form.echart6_data.title }}</div>
+                    <div id="echart6" style="height:53%;"></div>
                     <div class="alltitle">{{ form.echart7_data.title }}</div>
                     <div id="echart7" style="height:32%;"></div>
                     <div class="boxfoot"></div>
@@ -106,25 +115,28 @@
         <li>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
                 <div class="alltitle">
-                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown3">
-                            time_step
-                            <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
-                        </button>
+                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class"
+                            id="dropdown3">
+                        time_step
+                        <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                    </button>
                     {{ form.echart5_data.title }}</div>
                 <div class="allnav" id="echart5"></div>
                 <div class="boxfoot"></div>
             </div>
             <div class="boxall" style="height: 4rem;padding-bottom: 0px;margin-bottom: 0px;">
                 <div class="alltitle">
-                <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class" id="dropdown5">
-                    metrics
-                    <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
-                </button>
-                {{ form.echart4_data.title }}
-                <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class-right-top" id="dropdown4">
-                    time_step
-                    <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
-                </button>
+                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class"
+                            id="dropdown5">
+                        metrics
+                        <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                    </button>
+                    {{ form.echart4_data.title }}
+                    <button class="layui-btn layui-btn-primary layui-border-blue layui-btn-xs dropdown-button-class-right-top"
+                            id="dropdown4">
+                        time_step
+                        <i class="layui-icon layui-icon-down layui-font-12" style="color: #1E9FFF;"></i>
+                    </button>
                 </div>
                 <div class="allnav" id="echart4"></div>
                 <div class="boxfoot"></div>
@@ -173,40 +185,60 @@
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 110px;">目标选择</label>
         <div class="layui-input-block">
-            <select name="target" lay-verify="required" lay-verType="alert">
-                <option value=""></option>
-                <option value="1">F-22A 科加尔尼西亚 #1</option>
-                <option value="2">F-22A 科加尔尼西亚 #2</option>
-                <option value="3">F-22A 科加尔尼西亚 #3</option>
-                <option value="4">F-22A 科加尔尼西亚 #4</option>
-                <option value="5">F-22A 科加尔尼西亚 #5</option>
-                <option value="6">F-22A 科加尔尼西亚 #6</option>
-                <option value="7">F-22A 科加尔尼西亚 #7</option>
-                <option value="8">F-22A 科加尔尼西亚 #8</option>
-                <option value="9">F-22A 科加尔尼西亚 #9</option>
-                <option value="10">F-22A 科加尔尼西亚 #10</option>
-                <option value="11">罗斯福 #42</option>
-                <option value="12">罗斯福 #43</option>
-                <option value="13">罗斯福 #44</option>
-                <option value="14">罗斯福 #45</option>
-                <option value="15">罗斯福 #46</option>
-                <option value="16">罗斯福 #47</option>
-                <option value="17">罗斯福 #48</option>
-                <option value="18">B-52 RAF Fairford #1</option>
-                <option value="19">B-52 RAF Fairford #2</option>
-                <option value="20">B-52 RAF Fairford #3</option>
-                <option value="21">B-2 RAF Fairford #1</option>
-                <option value="22">B-2 RAF Fairford #2</option>
-                <option value="23">B-21 RAF Fairford #1</option>
-                <option value="24">B-21 RAF Fairford #1</option>
+            <div id="selectGroup1">
+                <select>
+                    <option value=""></option>
+                    <option value="1">F-22A 科加尔尼西亚 #1</option>
+                    <option value="2">F-22A 科加尔尼西亚 #2</option>
+                    <option value="3">F-22A 科加尔尼西亚 #3</option>
+                    <option value="4">F-22A 科加尔尼西亚 #4</option>
+                    <option value="5">F-22A 科加尔尼西亚 #5</option>
+                    <option value="6">F-22A 科加尔尼西亚 #6</option>
+                    <option value="7">F-22A 科加尔尼西亚 #7</option>
+                    <option value="8">F-22A 科加尔尼西亚 #8</option>
+                    <option value="9">F-22A 科加尔尼西亚 #9</option>
+                    <option value="10">F-22A 科加尔尼西亚 #10</option>
+                </select>
+            </div>
+            <div id="selectGroup2" style="display: none;">
+                <select>
+                    <option value=""></option>
+                    <option id="11" value="11">罗斯福 #42</option>
+                    <option id="12" value="12">罗斯福 #43</option>
+                    <option id="13" value="13">罗斯福 #44</option>
+                    <option id="14" value="14">罗斯福 #45</option>
+                    <option id="15" value="15">罗斯福 #46</option>
+                    <option id="16" value="16">罗斯福 #47</option>
+                    <option id="17" value="17">罗斯福 #48</option>
+                </select>
+            </div>
+            <div id="selectGroup3" style="display: none;">
+                <select>
+                    <option value=""></option>
+                    <option value="25">MQ-4 RAF Mildenhall #1</option>
+                    <option value="26">MQ-4 RAF Mildenhall #2</option>
+                </select>
+            </div>
+            <div id="selectGroup4" style="display: none;">
+                <select>
+                    <option value=""></option>
+                    <option value="18">B-52 RAF Fairford #1</option>
+                    <option value="19">B-52 RAF Fairford #2</option>
+                    <option value="20">B-52 RAF Fairford #3</option>
+                    <option value="21">B-2 RAF Fairford #1</option>
+                    <option value="22">B-2 RAF Fairford #2</option>
+                    <option value="23">B-21 RAF Fairford #1</option>
+                    <option value="24">B-21 RAF Fairford #1</option>
+                </select>
+            </div>
             </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 110px;">选择算法</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="LSTM" title="LSTM">
-            <input type="checkbox" name="DBN" title="MF-DBN">
+            <input id="lstm" type="checkbox" name="lstm" title="LSTM">
+            <input id="dbn" type="checkbox" name="dbn" title="MF-DBN">
         </div>
     </div>
     <div class="layui-form-item">
@@ -472,7 +504,8 @@
                         </div>
                     </fieldset>
                     <blockquote class="layui-elem-quote blockquoteClass">其中，距离的计算是识别目标
-                        与几个俄方重点保卫要地（Levashovo air base-圣彼得堡、Kubinka air base- 莫斯科、利佩茨克空军机场、萨基空军基地-克里米亚）之间的距离。
+                        与几个俄方重点保卫要地（Levashovo air base-圣彼得堡、Kubinka air base-
+                        莫斯科、利佩茨克空军机场、萨基空军基地-克里米亚）之间的距离。
                     </blockquote>
                 </div>
             </div>
@@ -483,16 +516,18 @@
     <div id="situation" style="height: 700px;"></div>
 </div>
 <style>
-    .dropdown-button-class{
+    .dropdown-button-class {
         position: absolute;
         top: 9px;
         left: 11px;
     }
-    .dropdown-button-class-right-top{
+
+    .dropdown-button-class-right-top {
         position: absolute;
         top: 9px;
         right: 11px;
     }
+
     .layui-form-checked[lay-skin=primary] i {
         border-color: #597FC0 !important;
         background-color: #FFF !important;
@@ -586,9 +621,11 @@
     td div {
         color: white;
     }
+
     .layui-menu {
         background-color: transparent !important;
     }
+
     /**
    设置表透明  start====================================================================================================================
  */
@@ -653,92 +690,121 @@
 </style>
 <!--echart1-->
 <script>
+    function judgeSelection() {
+        var res = "";
+        var str = location.search;
+        if (str.indexOf('lstm') != -1 && str.indexOf('dbn') != -1) {
+            res = "dbn_and_lstm";
+        } else if (str.indexOf('dbn') == -1) {
+            res = "lstm";
+        } else if (str.indexOf('lstm') == -1) {
+            res = "dbn";
+        }
+        return res;
+    }
+
     $(function echarts_1() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart1'));
-        option = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    lineStyle: {
-                        color: '#dddc6b'
+        var option = {};
+        if (judgeSelection() == "lstm") {  //暂无数据
+            option = {
+                title: {
+                    text: '暂无数据',
+                    x: 'center',
+                    y: 'center',
+                    textStyle: {
+                        fontSize: 20,
+                        fontWeight: 'normal',
+                        color: '#FFFFFF',
                     }
                 }
-            },
-            legend: {
-                data: {{form.echart1_data.legend|safe}},
-                textStyle: {color: 'rgb(255,255,255,0.9)',},
-                type: 'scroll',
-                orient: 'horizontal'
-            },
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '3%',
-                containLabel: true,
-                borderWidth: 1,
-            },
-            xAxis: [{
-                data:{{form.echart1_data.xAxis|safe}},
-                type: 'category',
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    interval: 25,
-                    // rotate:50,
-                    show: true,
-                    //splitNumber: 15,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-            }],
-            yAxis: [{
-                type: 'value',
-                min: 'dataMin', //取最小值为最小刻度
-                max: 'dataMax', //取最大值为最大刻度
-                minInterval: 0.0001, //分隔刻度
-                axisLabel: {
-                    show: true,
-                    // 内容格式器
-                    formatter: function (value, index) {
-                        return value.toFixed(4)
-                    },
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
+            }
+        } else {
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
                     }
-                }
-            }],
-            series:{{form.echart1_data.series|safe}},
-        };
+                },
+                legend: {
+                    data: {{form.echart1_data.legend|safe}},
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                    type: 'scroll',
+                    orient: 'horizontal'
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: {
+                    data:{{form.echart1_data.xAxis.data|safe}},
+                    type: 'category',
+                    max: 'dataMax', //取最大值为最大刻度
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        interval: 25,
+                        show: true,
+                        //splitNumber: 15,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 'dataMin', //取最小值为最小刻度
+                    max: 'dataMax', //取最大值为最大刻度
+                    minInterval: 0.0001, //分隔刻度
+                    axisLabel: {
+                        show: true,
+                        // 内容格式器
+                        formatter: function (value, index) {
+                            return value.toFixed(4)
+                        },
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                },
+                series:{{form.echart1_data.series|safe}},
+            };
+        }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         window.addEventListener("resize", function () {
@@ -751,96 +817,114 @@
     $(function echarts_2() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart2'));
-        option = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    lineStyle: {
-                        color: '#dddc6b'
+        var option = {};
+        if (judgeSelection() == "dbn") {  //暂无数据
+            option = {
+                title: {
+                    text: '暂无数据',
+                    x: 'center',
+                    y: 'center',
+                    textStyle: {
+                        fontSize: 20,
+                        fontWeight: 'normal',
+                        color: '#FFFFFF',
                     }
                 }
-            },
-            legend: {
-                data: {{form.echart2_data.data.timeStep1.legend|safe}},
-                textStyle: {color: 'rgb(255,255,255,0.9)',},
-                type: 'scroll',
-                orient: 'horizontal'
-            },
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '3%',
-                containLabel: true,
-                borderWidth: 1,
-            },
-            xAxis: [{
-                data:{{form.echart2_data.data.timeStep1.xAxis|safe}},
-                type: 'category',
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    interval: 25,
-                    // rotate:50,
-                    show: true,
-                    //splitNumber: 15,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-            }],
-            yAxis: [{
-                type: 'value',
-                min: 'dataMin', //取最小值为最小刻度
-                max: 'dataMax', //取最大值为最大刻度
-                minInterval: 0.0001, //分隔刻度
-                axisLabel: {
-                    show: true,
-                    // 内容格式器
-                    formatter: function (value, index) {
-                        return value.toFixed(4)
-                    },
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
-                    },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
+            }
+        } else {
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
                     }
-                }
-            }],
-            series:{{form.echart2_data.data.timeStep1.series|safe}},
-        };
+                },
+                legend: {
+                    data: {{form.echart2_data.data.timeStep1.legend|safe}},
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                    type: 'scroll',
+                    orient: 'horizontal'
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: [{
+                    data:{{form.echart2_data.data.timeStep1.xAxis.data|safe}},
+                    type: 'category',
+                    max: 'dataMax', //取最大值为最大刻度
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        interval: 25,
+                        // rotate:50,
+                        show: true,
+                        //splitNumber: 15,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                }],
+                yAxis: [{
+                    type: 'value',
+                    min: 'dataMin', //取最小值为最小刻度
+                    max: 'dataMax', //取最大值为最大刻度
+                    minInterval: 0.0001, //分隔刻度
+                    axisLabel: {
+                        show: true,
+                        // 内容格式器
+                        formatter: function (value, index) {
+                            return value.toFixed(4)
+                        },
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                }],
+                series:{{form.echart2_data.data.timeStep1.series|safe}},
+            };
+        }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         window.addEventListener("resize", function () {
             myChart.resize();
         });
     });
-    function redraw_echart_2(legend,xAxis,series) {
+
+    function redraw_echart_2(legend, xAxis, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart2'));
         option = {
@@ -867,7 +951,7 @@
                 borderWidth: 1,
             },
             xAxis: [{
-                data:xAxis,
+                data: xAxis,
                 type: 'category',
                 axisLine: {
                     show: true,
@@ -924,7 +1008,7 @@
                     }
                 }
             }],
-            series:series,
+            series: series,
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
@@ -932,6 +1016,16 @@
             myChart.resize();
         });
     }
+</script>
+<!--切换不同的值-->
+<script>
+    $(function getValue() {
+        if (judgeSelection() == "lstm") {
+            $("#countValue1").text("---");
+        } else if (judgeSelection() == "dbn") {
+            $("#countValue2").text("---");
+        }
+    })
 </script>
 <!--echart4-->
 <script>
@@ -941,89 +1035,246 @@
     $(function echarts_4() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart4'));
-        option = {
-            color: ['#5470C6', '#91CC75'],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    lineStyle: {
-                        color: '#dddc6b'
+        if (judgeSelection() == "lstm") {
+            option = {
+                color: ['#5470C6', '#91CC75'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
                     }
-                }
-            },
-            legend: {
-                textStyle: {color: 'rgb(255,255,255,0.9)',},
-            },
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '3%',
-                containLabel: true,
-                borderWidth: 1,
-            },
-            xAxis: {
-                max:105,
-                type: 'value',
-                boundaryGap: [0, 0.01],
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
+                },
+                legend: {
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: {
+                    max: 105,
+                    type: 'value',
+                    boundaryGap: [0, 0.01],
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (val) {
+                            return val + "%";
+                        },
                     },
                 },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
+                yAxis: {
+                    type: 'category',
+                    data: {{form.echart4_data.data.lstm.precision.timeStep1.yAxis.data|safe}},
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
                     },
-                    formatter: function (val){
-                        return val +"%";
+                    axisTick: {
+                        show: false,
                     },
-                },
-            },
-            yAxis: {
-                type: 'category',
-                data: {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
                     },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
                     }
-                }
-            },
-            series: {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}},
-        };
+                },
+                series: {{form.echart4_data.data.lstm.precision.timeStep1.series|safe}},
+            };
+        } else if (judgeSelection() == "dbn") {
+            option = {
+                color: ['#5470C6', '#91CC75'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: {
+                    max: 105,
+                    type: 'value',
+                    boundaryGap: [0, 0.01],
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (val) {
+                            return val + "%";
+                        },
+                    },
+                },
+                yAxis: {
+                    type: 'category',
+                    data: {{form.echart4_data.data.dbn.precision.timeStep1.yAxis.data|safe}},
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                },
+                series: {{form.echart4_data.data.dbn.precision.timeStep1.series|safe}},
+            };
+        } else {
+            option = {
+                color: ['#5470C6', '#91CC75'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: {
+                    max: 105,
+                    type: 'value',
+                    boundaryGap: [0, 0.01],
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (val) {
+                            return val + "%";
+                        },
+                    },
+                },
+                yAxis: {
+                    type: 'category',
+                    data: {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                },
+                series: {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}},
+            };
+        }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         //记录当前选项
         echart4_mertic = "precision";
         echart4_mertic = "1";
     })
-    function redraw_echart_4(yAxis,series) {
+
+    function redraw_echart_4(yAxis, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart4'));
         option = {
@@ -1048,7 +1299,7 @@
                 borderWidth: 1,
             },
             xAxis: {
-                max:105,
+                max: 105,
                 type: 'value',
                 boundaryGap: [0, 0.01],
                 axisLine: {
@@ -1068,8 +1319,8 @@
                         color: "rgba(255,255,255,.6)",
                         fontSize: '12',
                     },
-                    formatter: function (val){
-                        return val +"%";
+                    formatter: function (val) {
+                        return val + "%";
                     },
                 },
             },
@@ -1108,89 +1359,257 @@
 </script>
 <!--echart5-->
 <script>
-  $(function echarts_5() {
+    <!--这里的x轴和y轴是相反的,为了达到竖着的柱状图的效果-->
+    $(function echarts_5() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart5'));
-        option = {
-            color: ['#5470C6', '#91CC75'],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    lineStyle: {
-                        color: '#dddc6b'
+        //根据选择的算法进行不同的绘制
+        if (judgeSelection() == "lstm") {
+            option = {
+                color: ['#5470C6', '#91CC75'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
                     }
-                }
-            },
-            legend: {
-                textStyle: {color: 'rgb(255,255,255,0.9)',},
-            },
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '3%',
-                containLabel: true,
-                borderWidth: 1,
-            },
-            xAxis: {
-                max:105,
-                type: 'value',
-                boundaryGap: [0, 0.01],
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
+                },
+                legend: {
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                yAxis: {
+                    max: 100,
+                    type: 'value',
+                    boundaryGap: [0, 0.01],
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (val) {
+                            return val + "%";
+                        },
                     },
                 },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
+                xAxis: {
+                    type: 'category',
+                    data: {{form.echart5_data.data.lstm.timeStep1.yAxis.data|safe}},
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (value) {
+                            return value.split(" ").join("\n");
+                        }
                     },
-                    formatter: function (val){
-                        return val +"%";
+                    axisTick: {
+                        show: false,
                     },
-                },
-            },
-            yAxis: {
-                type: 'category',
-                data: {{form.echart5_data.data.dbn_and_lstm.timeStep1.yAxis.data|safe}},
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
                     },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
-                    },
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
                     }
-                }
-            },
-            series: {{form.echart5_data.data.dbn_and_lstm.timeStep1.series|safe}}
-        };
+                },
+                series: {{form.echart5_data.data.lstm.timeStep1.series|safe}}
+            };
+        } else if (judgeSelection() == "dbn") {
+            option = {
+                color: ['#5470C6', '#91CC75'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                yAxis: {
+                    max: 100,
+                    type: 'value',
+                    boundaryGap: [0, 0.01],
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (val) {
+                            return val + "%";
+                        },
+                    },
+                },
+                xAxis: {
+                    type: 'category',
+                    data: {{form.echart5_data.data.dbn.timeStep1.yAxis.data|safe}},
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (value) {
+                            return value.split(" ").join("\n");
+                        }
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                },
+                series: {{form.echart5_data.data.dbn.timeStep1.series|safe}}
+            };
+        } else {
+            option = {
+                color: ['#5470C6', '#91CC75'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                yAxis: {
+                    max: 100,
+                    type: 'value',
+                    boundaryGap: [0, 0.01],
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (val) {
+                            return val + "%";
+                        },
+                    },
+                },
+                xAxis: {
+                    type: 'category',
+                    data: {{form.echart5_data.data.dbn_and_lstm.timeStep1.yAxis.data|safe}},
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                        formatter: function (value) {
+                            return value.split(" ").join("\n");
+                        }
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                },
+                series: {{form.echart5_data.data.dbn_and_lstm.timeStep1.series|safe}}
+            };
+        }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     })
-  function redraw_echart_5(yAxis,series) {
+
+    function redraw_echart_5(yAxis, series) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart5'));
         option = {
@@ -1214,8 +1633,8 @@
                 containLabel: true,
                 borderWidth: 1,
             },
-            xAxis: {
-                max:105,
+            yAxis: {
+                max: 100,
                 type: 'value',
                 boundaryGap: [0, 0.01],
                 axisLine: {
@@ -1235,12 +1654,12 @@
                         color: "rgba(255,255,255,.6)",
                         fontSize: '12',
                     },
-                    formatter: function (val){
-                        return val +"%";
+                    formatter: function (val) {
+                        return val + "%";
                     },
                 },
             },
-            yAxis: {
+            xAxis: {
                 type: 'category',
                 data: yAxis,
                 axisLabel: {
@@ -1370,90 +1789,262 @@
     $(function echarts_7() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart7'));
-        option = {
-            color: ["#5470C6", "#EE6666"],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    lineStyle: {
-                        color: '#dddc6b'
+        if (judgeSelection() == "lstm") {
+            option = {
+                color: ["#5470C6", "#EE6666"],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
                     }
-                }
-            },
-            legend: {
-                data: {{form.echart7_data.legend|safe}},
-                textStyle: {color: 'rgb(255,255,255,0.9)',},
-                type: 'scroll',
-                orient: 'horizontal'
-            },
-            grid: {
-                left: '0%',
-                top: '10px',
-                right: '0%',
-                bottom: '3%',
-                containLabel: true,
-                borderWidth: 1,
-            },
-            xAxis: [{
-                data: {{form.echart7_data.xAxis|safe}},
-                type: 'category',
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
-                        width: 1,
-                        type: "solid"
+                },
+                legend: {
+                    data: {{form.echart7_data.lstmLegend|safe}},
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                    type: 'scroll',
+                    orient: 'horizontal'
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: [{
+                    data: {{form.echart7_data.xAxis|safe}},
+                    type: 'category',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
                     },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLabel: {
-                    //interval: 25,
-                    // rotate:50,
-                    show: true,
-                    //splitNumber: 15,
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
+                    axisTick: {
+                        show: false,
                     },
-                },
-            }],
-            yAxis: [{
-                type: 'value',
-                min: 'dataMin', //取最小值为最小刻度
-                max: 'dataMax', //取最大值为最大刻度
-                //minInterval: 0.0001, //分隔刻度
-                axisLabel: {
-                    show: true,
-                    // 内容格式器
-                    formatter: function (value, index) {
-                        return value.toFixed(4)
+                    axisLabel: {
+                        //interval: 25,
+                        // rotate:50,
+                        show: true,
+                        //splitNumber: 15,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
                     },
-                    textStyle: {
-                        color: "rgba(255,255,255,.6)",
-                        fontSize: '12',
+                }],
+                yAxis: [{
+                    type: 'value',
+                    min: 'dataMin', //取最小值为最小刻度
+                    max: 'dataMax', //取最大值为最大刻度
+                    //minInterval: 0.0001, //分隔刻度
+                    axisLabel: {
+                        show: true,
+                        // 内容格式器
+                        formatter: function (value, index) {
+                            return value.toFixed(4)
+                        },
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
                     },
-                },
-                axisTick: {
-                    show: false,
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1	)",
-                        width: 1,
-                        type: "solid"
+                    axisTick: {
+                        show: false,
                     },
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,.1)",
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
                     }
-                }
-            }],
-            series: {{form.echart7_data.series|safe}},
-        };
+                }],
+                series: {{form.echart7_data.lstmSeries|safe}},
+            };
+        } else if (judgeSelection() == "dbn") {
+            option = {
+                color: ["#5470C6", "#EE6666"],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    data: {{form.echart7_data.dbnLegend|safe}},
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                    type: 'scroll',
+                    orient: 'horizontal'
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: [{
+                    data: {{form.echart7_data.xAxis|safe}},
+                    type: 'category',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        //interval: 25,
+                        // rotate:50,
+                        show: true,
+                        //splitNumber: 15,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                }],
+                yAxis: [{
+                    type: 'value',
+                    min: 'dataMin', //取最小值为最小刻度
+                    max: 'dataMax', //取最大值为最大刻度
+                    //minInterval: 0.0001, //分隔刻度
+                    axisLabel: {
+                        show: true,
+                        // 内容格式器
+                        formatter: function (value, index) {
+                            return value.toFixed(4)
+                        },
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                }],
+                series: {{form.echart7_data.dbnSeries|safe}},
+            };
+        } else {
+            option = {
+                color: ["#5470C6", "#EE6666"],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        lineStyle: {
+                            color: '#dddc6b'
+                        }
+                    }
+                },
+                legend: {
+                    data: {{form.echart7_data.legend|safe}},
+                    textStyle: {color: 'rgb(255,255,255,0.9)',},
+                    type: 'scroll',
+                    orient: 'horizontal'
+                },
+                grid: {
+                    left: '0%',
+                    top: '10px',
+                    right: '0%',
+                    bottom: '3%',
+                    containLabel: true,
+                    borderWidth: 1,
+                },
+                xAxis: [{
+                    data: {{form.echart7_data.xAxis|safe}},
+                    type: 'category',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLabel: {
+                        //interval: 25,
+                        // rotate:50,
+                        show: true,
+                        //splitNumber: 15,
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                }],
+                yAxis: [{
+                    type: 'value',
+                    min: 'dataMin', //取最小值为最小刻度
+                    max: 'dataMax', //取最大值为最大刻度
+                    //minInterval: 0.0001, //分隔刻度
+                    axisLabel: {
+                        show: true,
+                        // 内容格式器
+                        formatter: function (value, index) {
+                            return value.toFixed(4)
+                        },
+                        textStyle: {
+                            color: "rgba(255,255,255,.6)",
+                            fontSize: '12',
+                        },
+                    },
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1	)",
+                            width: 1,
+                            type: "solid"
+                        },
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(255,255,255,.1)",
+                        }
+                    }
+                }],
+                series: {{form.echart7_data.series|safe}},
+            };
+        }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         window.addEventListener("resize", function () {
@@ -1463,7 +2054,6 @@
 </script>
 <!--下拉菜单控制标签-->
 <script>
-    var currentAlgorithm ="";
     layui.config({
         //存放拓展模块的根目录
         base: '/static/ckplayer/'
@@ -1474,11 +2064,32 @@
         var dropdown = layui.dropdown;
         var layer = layui.layer;
         var form = layui.form;
+        layer.config({
+            extend: 'skin/simple.css', //同样需要先加载新皮肤
+            skin: 'my-layer-skin2'
+        });
         form.on('submit(formProcess)', function (data) {
-             window.location.replace("http://localhost:5000/index?situation="+data.field.situation.toString()+"&target="+data.field.target.toString());
+            var checkOne = false;                    //判断是否被选择条件
+            var chboxVal = [];
+            var checkBox = $('input[name = lstm]'); //获得得到所的复选框
+            var checkBox2 = $('input[name = dbn]'); //获得得到所的复选框
+            //判断是否是至少选了一种算法
+            if (checkBox[0].checked || checkBox2[0].checked) {
+                checkOne = true;
+            }
+            if (!checkOne) {
+                layer.alert("至少要选择一种算法!");
+
+            } else {
+                //loading层
+                var index = layer.load(2, {
+                    skin: 'layer-ext-myskin2',
+                    shade: [0.5, '#fff'] //0.1透明度的白色背景
+                });
+                window.location.replace("http://localhost:5000/index?situation=" + data.field.situation.toString() + "&target=" + data.field.target.toString());
+            }
         });
         form.on('select(selectChange)', function (data) {
-            console.log(data.value);
             if (data.value.length == 0) {
                 $("#preview").hide();
             } else {
@@ -1489,7 +2100,7 @@
                     //设置目标选项可见，其余选项不可见
                     var cur = $("#selectGroup1");
                     cur.show().siblings().hide();
-                    cur.find("select").attr("name","target");
+                    cur.find("select").attr("name", "target");
                     cur.siblings().find("select").removeAttr("name");
                 } else if (data.value == 1) {
                     $("#preview").show();
@@ -1497,7 +2108,7 @@
                     $("#situation1").siblings().hide();
                     var cur = $("#selectGroup2");
                     cur.show().siblings().hide();
-                    cur.find("select").attr("name","target");
+                    cur.find("select").attr("name", "target");
                     cur.siblings().find("select").removeAttr("name");
 
                 } else if (data.value == 2) {
@@ -1506,7 +2117,7 @@
                     $("#situation2").siblings().hide();
                     var cur = $("#selectGroup3");
                     cur.show().siblings().hide();
-                    cur.find("select").attr("name","target");
+                    cur.find("select").attr("name", "target");
                     cur.siblings().find("select").removeAttr("name");
                 } else if (data.value == 3) {
                     $("#preview").show();
@@ -1514,7 +2125,7 @@
                     $("#situation3").siblings().hide();
                     var cur = $("#selectGroup4");
                     cur.show().siblings().hide();
-                    cur.find("select").attr("name","target");
+                    cur.find("select").attr("name", "target");
                     cur.siblings().find("select").removeAttr("name");
                 }
             }
@@ -1592,26 +2203,22 @@
             }, {
                 title: '20'
                 , id: 5
-                }
+            }
             ]
             , id: 'dropdown2'
             //菜单被点击的事件
             , click: function (obj) {
                 $("#dropdown2").text(obj.title);
-                if(obj.id == 1){
-                    redraw_echart_2({{form.echart2_data.data.timeStep1.legend|safe}},{{form.echart2_data.data.timeStep1.xAxis|safe}},{{form.echart2_data.data.timeStep1.series|safe}})
-                }
-                else if(obj.id == 2){
-                    redraw_echart_2({{form.echart2_data.data.timeStep5.legend|safe}},{{form.echart2_data.data.timeStep5.xAxis|safe}},{{form.echart2_data.data.timeStep5.series|safe}})
-                }
-                else if(obj.id == 3){
-                    redraw_echart_2({{form.echart2_data.data.timeStep10.legend|safe}},{{form.echart2_data.data.timeStep10.xAxis|safe}},{{form.echart2_data.data.timeStep10.series|safe}})
-                }
-                else if(obj.id == 4){
-                    redraw_echart_2({{form.echart2_data.data.timeStep15.legend|safe}},{{form.echart2_data.data.timeStep15.xAxis|safe}},{{form.echart2_data.data.timeStep15.series|safe}})
-                }
-                else if(obj.id == 5){
-                    redraw_echart_2({{form.echart2_data.data.timeStep20.legend|safe}},{{form.echart2_data.data.timeStep20.xAxis|safe}},{{form.echart2_data.data.timeStep20.series|safe}})
+                if (obj.id == 1) {
+                    redraw_echart_2({{form.echart2_data.data.timeStep1.legend|safe}}, {{form.echart2_data.data.timeStep1.xAxis.data|safe}}, {{form.echart2_data.data.timeStep1.series|safe}})
+                } else if (obj.id == 2) {
+                    redraw_echart_2({{form.echart2_data.data.timeStep5.legend|safe}}, {{form.echart2_data.data.timeStep5.xAxis.data|safe}}, {{form.echart2_data.data.timeStep5.series|safe}})
+                } else if (obj.id == 3) {
+                    redraw_echart_2({{form.echart2_data.data.timeStep10.legend|safe}}, {{form.echart2_data.data.timeStep10.xAxis.data|safe}}, {{form.echart2_data.data.timeStep10.series|safe}})
+                } else if (obj.id == 4) {
+                    redraw_echart_2({{form.echart2_data.data.timeStep15.legend|safe}}, {{form.echart2_data.data.timeStep15.xAxis.data|safe}}, {{form.echart2_data.data.timeStep15.series|safe}})
+                } else if (obj.id == 5) {
+                    redraw_echart_2({{form.echart2_data.data.timeStep20.legend|safe}}, {{form.echart2_data.data.timeStep20.xAxis.data|safe}}, {{form.echart2_data.data.timeStep20.series|safe}})
                 }
             }
         });
@@ -1634,27 +2241,53 @@
             }, {
                 title: '20'
                 , id: 5
-                }
+            }
             ]
             , id: 'dropdown3'
             //菜单被点击的事件
             , click: function (obj) {
                 $("#dropdown3").text(obj.title);
-                //先这么写，回头还要判断是哪个模型
-                if(obj.id == 1){
-                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep1.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep1.series|safe}})
+                //如果是lstm
+                if (judgeSelection() == "lstm") {
+                    if (obj.id == 1) {
+                        redraw_echart_5({{form.echart5_data.data.lstm.timeStep1.yAxis.data|safe}}, {{form.echart5_data.data.lstm.timeStep1.series|safe}})
+                    } else if (obj.id == 2) {
+                        redraw_echart_5({{form.echart5_data.data.lstm.timeStep5.yAxis.data|safe}}, {{form.echart5_data.data.lstm.timeStep5.series|safe}})
+                    } else if (obj.id == 3) {
+                        redraw_echart_5({{form.echart5_data.data.lstm.timeStep10.yAxis.data|safe}}, {{form.echart5_data.data.lstm.timeStep10.series|safe}})
+                    } else if (obj.id == 4) {
+                        redraw_echart_5({{form.echart5_data.data.lstm.timeStep15.yAxis.data|safe}}, {{form.echart5_data.data.lstm.timeStep15.series|safe}})
+                    } else if (obj.id == 5) {
+                        redraw_echart_5({{form.echart5_data.data.lstm.timeStep20.yAxis.data|safe}}, {{form.echart5_data.data.lstm.timeStep20.series|safe}})
+                    }
                 }
-                else if(obj.id == 2){
-                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep5.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep5.series|safe}})
+                //如果是dbn
+                else if (judgeSelection() == "dbn") {
+                    if (obj.id == 1) {
+                        redraw_echart_5({{form.echart5_data.data.dbn.timeStep1.yAxis.data|safe}}, {{form.echart5_data.data.dbn.timeStep1.series|safe}})
+                    } else if (obj.id == 2) {
+                        redraw_echart_5({{form.echart5_data.data.dbn.timeStep5.yAxis.data|safe}}, {{form.echart5_data.data.dbn.timeStep5.series|safe}})
+                    } else if (obj.id == 3) {
+                        redraw_echart_5({{form.echart5_data.data.dbn.timeStep10.yAxis.data|safe}}, {{form.echart5_data.data.dbn.timeStep10.series|safe}})
+                    } else if (obj.id == 4) {
+                        redraw_echart_5({{form.echart5_data.data.dbn.timeStep15.yAxis.data|safe}}, {{form.echart5_data.data.dbn.timeStep15.series|safe}})
+                    } else if (obj.id == 5) {
+                        redraw_echart_5({{form.echart5_data.data.dbn.timeStep20.yAxis.data|safe}}, {{form.echart5_data.data.dbn.timeStep20.series|safe}})
+                    }
                 }
-                else if(obj.id == 3){
-                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep10.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep10.series|safe}})
-                }
-                else if(obj.id == 4){
-                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep15.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep15.series|safe}})
-                }
-                else if(obj.id == 5){
-                    redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep20.yAxis.data|safe}},{{form.echart5_data.data.dbn_and_lstm.timeStep20.series|safe}})
+                //全选
+                else {
+                    if (obj.id == 1) {
+                        redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep1.yAxis.data|safe}}, {{form.echart5_data.data.dbn_and_lstm.timeStep1.series|safe}})
+                    } else if (obj.id == 2) {
+                        redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep5.yAxis.data|safe}}, {{form.echart5_data.data.dbn_and_lstm.timeStep5.series|safe}})
+                    } else if (obj.id == 3) {
+                        redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep10.yAxis.data|safe}}, {{form.echart5_data.data.dbn_and_lstm.timeStep10.series|safe}})
+                    } else if (obj.id == 4) {
+                        redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep15.yAxis.data|safe}}, {{form.echart5_data.data.dbn_and_lstm.timeStep15.series|safe}})
+                    } else if (obj.id == 5) {
+                        redraw_echart_5({{form.echart5_data.data.dbn_and_lstm.timeStep20.yAxis.data|safe}}, {{form.echart5_data.data.dbn_and_lstm.timeStep20.series|safe}})
+                    }
                 }
             }
         });
@@ -1677,61 +2310,125 @@
             }, {
                 title: '20'
                 , id: 5
-                }
+            }
             ]
             , id: 'dropdown4'
             //菜单被点击的事件
             , click: function (obj) {
                 $("#dropdown4").text(obj.title);
-                if(echart4_mertic == "precision"){
-                    if(obj.id==1){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                if (judgeSelection() == "lstm") {
+                    if (echart4_mertic == "precision") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_mertic == "recall") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_mertic == "f1score") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep1.series|safe}});
+                        }
                     }
-                    else if(obj.id==2){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.series|safe}});
+                } else if (judgeSelection() == "dbn") {
+                    if (echart4_mertic == "precision") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_mertic == "recall") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_mertic == "f1score") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep1.series|safe}});
+                        }
                     }
-                    else if(obj.id==3){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.series|safe}});
-                    }
-                    else if(obj.id==4){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.series|safe}});
-                    }
-                    else if(obj.id==4){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
-                    }
-                }
-                else if(echart4_mertic == "recall"){
-                    if(obj.id==1){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
-                    }
-                    else if(obj.id==2){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.series|safe}});
-                    }
-                    else if(obj.id==3){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.series|safe}});
-                    }
-                    else if(obj.id==4){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.series|safe}});
-                    }
-                    else if(obj.id==4){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
-                    }
-                }
-                else if(echart4_mertic == "f1score"){
-                    if(obj.id==1){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
-                    }
-                    else if(obj.id==2){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.series|safe}});
-                    }
-                    else if(obj.id==3){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.series|safe}});
-                    }
-                    else if(obj.id==4){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.series|safe}});
-                    }
-                    else if(obj.id==4){
-                         redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                } else {
+                    if (echart4_mertic == "precision") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_mertic == "recall") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_mertic == "f1score") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.series|safe}});
+                        } else if (obj.id == 4) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                        }
                     }
                 }
                 //修改标志
@@ -1756,70 +2453,143 @@
             , id: 'dropdown5'
             //菜单被点击的事件
             , click: function (obj) {
-                //同样先不判断模型
                 $("#dropdown5").text(obj.title);
-                if(echart4_timestep == "1"){
-                    if(obj.id == 1){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                //判断模型
+                if (judgeSelection() == "lstm") {
+                    if (echart4_timestep == "1") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep1.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_timestep == "5") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep5.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep5.series|safe}});
+                        }
+                    } else if (echart4_timestep == "10") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep10.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep10.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep10.series|safe}});
+                        }
+                    } else if (echart4_timestep == "15") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep15.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep15.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep15.series|safe}});
+                        }
+                    } else if (echart4_timestep == "20") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.precision.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.lstm.precision.timeStep20.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.recall.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.lstm.recall.timeStep20.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.lstm.f1score.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.lstm.f1score.timeStep20.series|safe}});
+                        }
                     }
-                    else if(obj.id == 2){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                } else if (judgeSelection() == "dbn") {
+
+                    if (echart4_timestep == "1") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep1.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_timestep == "5") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep5.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep5.series|safe}});
+                        }
+                    } else if (echart4_timestep == "10") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep10.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep10.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep10.series|safe}});
+                        }
+                    } else if (echart4_timestep == "15") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep15.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep15.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep15.series|safe}});
+                        }
+                    } else if (echart4_timestep == "20") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.precision.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.dbn.precision.timeStep20.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.recall.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.dbn.recall.timeStep20.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn.f1score.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.dbn.f1score.timeStep20.series|safe}});
+                        }
                     }
-                    else if(obj.id == 3){
-                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                } else {
+
+                    if (echart4_timestep == "1") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep1.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep1.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep1.series|safe}});
+                        }
+                    } else if (echart4_timestep == "5") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.series|safe}});
+                        }
+                    } else if (echart4_timestep == "10") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.series|safe}});
+                        }
+                    } else if (echart4_timestep == "15") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.series|safe}});
+                        }
+                    } else if (echart4_timestep == "20") {
+                        if (obj.id == 1) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.precision.timeStep20.series|safe}});
+                        } else if (obj.id == 2) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.recall.timeStep20.series|safe}});
+                        } else if (obj.id == 3) {
+                            redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep20.yAxis.data|safe}}, {{form.echart4_data.data.dbn_and_lstm.f1score.timeStep20.series|safe}});
+                        }
                     }
                 }
-                else if(echart4_timestep == "5"){
-                    if(obj.id == 1){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep5.series|safe}});
-                    }
-                    else if(obj.id == 2){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep5.series|safe}});
-                    }
-                    else if(obj.id == 3){
-                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep5.series|safe}});
-                    }
-                }
-                else if(echart4_timestep == "10"){
-                    if(obj.id == 1){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep10.series|safe}});
-                    }
-                    else if(obj.id == 2){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep10.series|safe}});
-                    }
-                    else if(obj.id == 3){
-                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep10.series|safe}});
-                    }
-                }
-                else if(echart4_timestep == "15"){
-                    if(obj.id == 1){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep15.series|safe}});
-                    }
-                    else if(obj.id == 2){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep15.series|safe}});
-                    }
-                    else if(obj.id == 3){
-                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep15.series|safe}});
-                    }
-                }
-                else if(echart4_timestep == "20"){
-                    if(obj.id == 1){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.precision.timeStep20.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.precision.timeStep20.series|safe}});
-                    }
-                    else if(obj.id == 2){
-                       redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.recall.timeStep20.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.recall.timeStep20.series|safe}});
-                    }
-                    else if(obj.id == 3){
-                        redraw_echart_4({{form.echart4_data.data.dbn_and_lstm.f1score.timeStep20.yAxis.data|safe}},{{form.echart4_data.data.dbn_and_lstm.f1score.timeStep20.series|safe}});
-                    }
-                }
-                if(obj.id == 1){
+
+                if (obj.id == 1) {
                     echart4_mertic = "precision";
-                }
-                else if(obj.id == 2){
+                } else if (obj.id == 2) {
                     echart4_mertic = "recall";
-                }
-                else if(obj.id == 3){
+                } else if (obj.id == 3) {
                     echart4_mertic = "f1score";
                 }
             }

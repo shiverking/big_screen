@@ -32,21 +32,22 @@ class SourceData(SourceDataDemo):
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
+        import copy
         upper_left_corner, data_pie, time_sum_dbn, x, time_line_dbn, upper_right_corner_dbn, lower_right_corner_dbn = get_dbnModel_res(scenario, testName, typeName)
         bottom_left_corner, time_sum_lstm, x, time_line_lstm, upper_right_corner_lstm, lower_right_corner_lstm = get_lstmModel_res(scenario, testName, typeName)
         upper_right_corner = dict()
-        upper_right_corner['dbn'] = upper_right_corner_dbn
-        upper_right_corner['lstm'] = upper_right_corner_lstm
+        upper_right_corner['dbn'] = copy.deepcopy(upper_right_corner_dbn)
+        upper_right_corner['lstm'] = copy.deepcopy(upper_right_corner_lstm)
         for key in upper_right_corner_dbn.keys():
             upper_right_corner_dbn[key]['series'] += upper_right_corner_lstm[key]['series']
-        upper_right_corner['dbn_and_lstm'] = upper_right_corner_dbn
+        upper_right_corner['dbn_and_lstm'] = copy.deepcopy(upper_right_corner_dbn)
         lower_right_corner = dict()
-        lower_right_corner['dbn'] = lower_right_corner_dbn
-        lower_right_corner['lstm'] = lower_right_corner_lstm
+        lower_right_corner['dbn'] = copy.deepcopy(lower_right_corner_dbn)
+        lower_right_corner['lstm'] = copy.deepcopy(lower_right_corner_lstm)
         for key in lower_right_corner_dbn.keys():
             for key2 in lower_right_corner_dbn[key].keys():
                 lower_right_corner_dbn[key][key2]['series'] += lower_right_corner_lstm[key][key2]['series']
-        lower_right_corner['dbn_and_lstm'] = lower_right_corner_dbn
+        lower_right_corner['dbn_and_lstm'] = copy.deepcopy(lower_right_corner_dbn)
 
         self.echart1_data = {
             'title': 'DBN意图识别结果图',
@@ -86,14 +87,18 @@ class SourceData(SourceDataDemo):
         self.echart7_data = {
             'title': '不同模型的预测时间',
             'xAxis': x,
+            'dbnSeries':time_line_dbn,
+            'lstmSeries': time_line_lstm,
+            'dbnLegend': ['模型预测时间-DBN'],
             'series': time_line_dbn + time_line_lstm,
-            'legend': ['模型预测时间-DBN', '模型预测时间-LSTM']
+            'legend': ['模型预测时间-DBN','模型预测时间-LSTM' ],
+            'lstmLegend': ['模型预测时间-LSTM'],
         }
         self.echart5_data = {
-            'title': '不同模型的预测精度',
+            'title': '不同模型的整体性能指标分析',
             'data': upper_right_corner
         }
         self.echart4_data = {
-            'title': '不同模型的预测精度',
+            'title': '不同模型的各类别性能指标分析',
             'data': lower_right_corner
         }
