@@ -22,6 +22,7 @@ def index():
     target = request.args.get("target");
     if situation !=None and target !=None:
         scenario_dict = {'0': '正南打击利佩茨克机场数据', '1': '正西无人机打击圣彼得堡数据', '2':'无人机侦察数据', '3': '正西轰炸机打击莫斯科数据'}
+        type_name = {'0': '战斗机', '1': '无人机', '2':'无人机', '3':'轰炸机'}
         test_name_dict = {
                 '1': 'F-22 科加尔尼西亚 #1',
                 '2': 'F-22 科加尔尼西亚 #2',
@@ -51,7 +52,7 @@ def index():
                 '26': 'MQ-4 RAF Mildenhall #2',
                 '27': 'MQ-4 RAF Mildenhall #3',
             }
-        data = SourceData(scenario_dict[situation], test_name_dict[target])
+        data = SourceData(scenario_dict[situation], test_name_dict[target], type_name[situation])
         return render_template('index.html', form=data, title=data.title)
     else:
         return render_template('home.html', title='智能方法性能边界对比分析原理验证系统')

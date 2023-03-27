@@ -492,10 +492,9 @@ def metric_compute(accNum, preNum, tarNum):
     return pre, rec, F
 
 
-def DBN_RES(scenario, testName):
+def DBN_RES(scenario, testName, typeName):
     time_start = time.time()  # 记录开始时间
     data_orign = pd.read_excel(f'./data/{scenario}/data_new.xlsx')  # 导入原始数据
-    typeName = '战斗机'
     data_proc = DataProcessing(data_orign, typeName)  # 数据预处理
     data_coding = data_proc.data_Code  # 输入模型的数据
     trainName = 'F-22 科加尔尼西亚 #5'  # 输入训练目标
@@ -528,7 +527,7 @@ def DBN_RES(scenario, testName):
                                 }
     # print(upper_left_corner)
     # plt.show()    # 【可视化展示1】：各模型的意图识别结果图
-    print("Average TestTime:{}".format(Aver_time))
+    # print("Average TestTime:{}".format(Aver_time))
 
     # 【可视化展示2-1】：统计信息图+性能指标值输出+各个模型预测精度对比图
     plt.figure()  # 声明一个新画布
@@ -655,7 +654,7 @@ def DBN_RES(scenario, testName):
     for a, b in zip(x, y):
         plt.text(a, b, '%.4f' % b, ha='center', va='bottom', fontsize=11, color='k')
     plt.title("各模型的预测时间", color='k')
-    plt.show()
+    # plt.show()
 
     return upper_left_corner, data_pie, time_sum, x, y, upper_right_corner, lower_right_corner
 
