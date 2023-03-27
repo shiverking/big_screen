@@ -27,13 +27,13 @@ class SourceDataDemo:
 
 class SourceData(SourceDataDemo):
 
-    def __init__(self, scenario, testName):
+    def __init__(self, scenario, testName, typeName):
         """
         按照 SourceDataDemo 的格式覆盖数据即可
         """
         super().__init__()
-        upper_left_corner, data_pie, time_sum_dbn, x, time_line_dbn, upper_right_corner_dbn, lower_right_corner_dbn = get_dbnModel_res(scenario, testName)
-        bottom_left_corner, time_sum_lstm, x, time_line_lstm, upper_right_corner_lstm, lower_right_corner_lstm = get_lstmModel_res(scenario, testName)
+        upper_left_corner, data_pie, time_sum_dbn, x, time_line_dbn, upper_right_corner_dbn, lower_right_corner_dbn = get_dbnModel_res(scenario, testName, typeName)
+        bottom_left_corner, time_sum_lstm, x, time_line_lstm, upper_right_corner_lstm, lower_right_corner_lstm = get_lstmModel_res(scenario, testName, typeName)
         upper_right_corner = dict()
         upper_right_corner['dbn'] = upper_right_corner_dbn
         upper_right_corner['lstm'] = upper_right_corner_lstm

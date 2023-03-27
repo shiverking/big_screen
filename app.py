@@ -20,6 +20,7 @@ app.config['JSON_AS_ASCII']=False
 def index():
     inputs = request.json.get('data')
     scenario_dict = {'0': '正南打击利佩茨克机场数据', '1': '正西无人机打击圣彼得堡数据', '2':'无人机侦察数据', '3': '正西轰炸机打击莫斯科数据'}
+    type_name = {'0': '战斗机', '1': '无人机', '2':'无人机', '3':'轰炸机'}
     test_name_dict = {
             '1': 'F-22 科加尔尼西亚 #1',
             '2': 'F-22 科加尔尼西亚 #2',
@@ -46,7 +47,7 @@ def index():
             '23': 'B-21 RAF Fairford #1',
             '24': 'B-21 RAF Fairford #1'
         }
-    data = SourceData(scenario_dict[inputs['situation']], test_name_dict[inputs['target']])
+    data = SourceData(scenario_dict[inputs['situation']], test_name_dict[inputs['target']], type_name[inputs['situation']])
     return render_template('index.html', form=data, title=data.title)
 
 @app.route('/')
