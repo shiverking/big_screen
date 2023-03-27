@@ -480,7 +480,7 @@
     </div>
 </div>
 <div id="display" style="display: none">
-    <div id="situation" style="height: 600px;"></div>
+    <div id="situation" style="height: 700px;"></div>
 </div>
 <style>
     .dropdown-button-class{
@@ -1478,6 +1478,7 @@
              window.location.replace("http://localhost:5000/index?situation="+data.field.situation.toString()+"&target="+data.field.target.toString());
         });
         form.on('select(selectChange)', function (data) {
+            console.log(data.value);
             if (data.value.length == 0) {
                 $("#preview").hide();
             } else {
@@ -1485,18 +1486,36 @@
                     $("#preview").show();
                     $("#situation0").show();
                     $("#situation0").siblings().hide();
+                    //设置目标选项可见，其余选项不可见
+                    var cur = $("#selectGroup1");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
                 } else if (data.value == 1) {
                     $("#preview").show();
                     $("#situation1").show();
                     $("#situation1").siblings().hide();
+                    var cur = $("#selectGroup2");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
+
                 } else if (data.value == 2) {
                     $("#preview").show();
                     $("#situation2").show();
                     $("#situation2").siblings().hide();
+                    var cur = $("#selectGroup3");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
                 } else if (data.value == 3) {
                     $("#preview").show();
                     $("#situation3").show();
                     $("#situation3").siblings().hide();
+                    var cur = $("#selectGroup4");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
                 }
             }
         });

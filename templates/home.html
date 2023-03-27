@@ -106,8 +106,10 @@
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 110px;">目标选择</label>
         <div class="layui-input-block">
-            <select id="selectGroup1" name="target" lay-verify="required" lay-verType="alert">
-                <option value=""></option>
+{#            <select  name="target" lay-verify="required" lay-verType="alert">#}
+{#                <option value=""></option>#}
+            <div id="selectGroup1">
+            <select >
                 <option value="1">F-22A 科加尔尼西亚 #1</option>
                 <option value="2">F-22A 科加尔尼西亚 #2</option>
                 <option value="3">F-22A 科加尔尼西亚 #3</option>
@@ -118,8 +120,10 @@
                 <option value="8">F-22A 科加尔尼西亚 #8</option>
                 <option value="9">F-22A 科加尔尼西亚 #9</option>
                 <option value="10">F-22A 科加尔尼西亚 #10</option>
-            </select>
-            <select id="selectGroup2" lay-verify="required" lay-verType="alert">
+             </select>
+            </div>
+            <div id="selectGroup2" style="display: none;">
+            <select >
                 <option value=""></option>
                 <option id="11" value="11">罗斯福 #42</option>
                 <option id="12" value="12">罗斯福 #43</option>
@@ -129,14 +133,16 @@
                 <option id="16" value="16">罗斯福 #47</option>
                 <option id="17" value="17">罗斯福 #48</option>
             </select>
-            <select id="selectGroup3" lay-verify="required" lay-verType="alert">
-                <option value=""></option>
+            </div>
+            <div id="selectGroup3" style="display: none;">
+            <select >
                 <option value="25">MQ-4 RAF Mildenhall #1</option>
                 <option value="26">MQ-4 RAF Mildenhall #2</option>
                 <option value="27">MQ-4 RAF Mildenhall #3</option>
             </select>
-            <select id="selectGroup4" lay-verify="required" lay-verType="alert">
-                <option value=""></option>
+            </div>
+            <div id="selectGroup4" style="display: none;">
+            <select >
                 <option value="18">B-52 RAF Fairford #1</option>
                 <option value="19">B-52 RAF Fairford #2</option>
                 <option value="20">B-52 RAF Fairford #3</option>
@@ -145,13 +151,15 @@
                 <option value="23">B-21 RAF Fairford #1</option>
                 <option value="24">B-21 RAF Fairford #1</option>
             </select>
+            </div>
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 110px;;">选择算法</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="LSTM" title="LSTM">
-            <input type="checkbox" name="MF-DBN" title="MF-DBN">
+        <div class="layui-input-block" >
+            <input id="lstm" type="checkbox" name="LSTM" title="LSTM">
+            <input id="dbn" type="checkbox" name="MF-DBN" title="MF-DBN">
         </div>
     </div>
     </div>
@@ -426,7 +434,7 @@
     </div>
 </div>
 <div id="display" style="display: none">
-    <div id="situation" style="height: 600px;"></div>
+    <div id="situation" style="height: 700px;"></div>
 </div>
 <style>
     .layui-form-checked[lay-skin=primary] i {
@@ -534,7 +542,7 @@
             window.location.replace("http://localhost:5000/index?situation="+data.field.situation.toString()+"&target="+data.field.target.toString());
         });
         form.on('select(selectChange)', function (data) {
-            console.log(data);
+            console.log(data.value);
             if (data.value.length == 0) {
                 $("#preview").hide();
             } else {
@@ -543,29 +551,35 @@
                     $("#situation0").show();
                     $("#situation0").siblings().hide();
                     //设置目标选项可见，其余选项不可见
-                    $("#selectGroup1").show().siblings().hide();
+                    var cur = $("#selectGroup1");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
                 } else if (data.value == 1) {
                     $("#preview").show();
                     $("#situation1").show();
                     $("#situation1").siblings().hide();
-                    $("#selectGroup2").show().siblings().hide();
+                    var cur = $("#selectGroup2");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
 
                 } else if (data.value == 2) {
                     $("#preview").show();
                     $("#situation2").show();
                     $("#situation2").siblings().hide();
-                    $("#selectGroup1").hide();
-                    $("#selectGroup2").hide();
-                    $("#selectGroup3").show();
-                    $("#selectGroup4").hide();
+                    var cur = $("#selectGroup3");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
                 } else if (data.value == 3) {
                     $("#preview").show();
                     $("#situation3").show();
                     $("#situation3").siblings().hide();
-                    $("#selectGroup1").hide();
-                    $("#selectGroup2").hide();
-                    $("#selectGroup3").hide();
-                    $("#selectGroup4").show();
+                    var cur = $("#selectGroup4");
+                    cur.show().siblings().hide();
+                    cur.find("select").attr("name","target");
+                    cur.siblings().find("select").removeAttr("name");
                 }
             }
         });

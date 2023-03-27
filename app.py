@@ -21,7 +21,6 @@ def index():
     situation = request.args.get("situation");
     target = request.args.get("target");
     if situation !=None and target !=None:
-        # inputs = request.json.get('data')
         scenario_dict = {'0': '正南打击利佩茨克机场数据', '1': '正西无人机打击圣彼得堡数据', '2':'无人机侦察数据', '3': '正西轰炸机打击莫斯科数据'}
         test_name_dict = {
                 '1': 'F-22 科加尔尼西亚 #1',
@@ -58,4 +57,4 @@ def index():
         return render_template('home.html', title='智能方法性能边界对比分析原理验证系统')
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', debug=False)
+    app.run(host='127.0.0.1', debug=True)
