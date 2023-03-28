@@ -202,7 +202,7 @@ def accuracy_Test(test_loader, net, test_name, sequence_size, input_size):
     plt.ylabel("Intention")
     plt.title("model_test LSTM ({}), time_step={}".format(test_name, sequence_size))
 
-    return Aver_testTime, perfor_report, target_num, predict_num, acc_num, plt, plot_print
+    return Aver_testTime, perfor_report, target_num, predict_num, acc_num, plt, plot_print, y_predict
 
 
 def metric_compute(accNum, preNum, tarNum):
@@ -288,14 +288,14 @@ def LSTM_RES(scenario, testName, typeName):
             time_start = time.time()  # 记录开始时间
         trainData, testData = data_split(data_coding, trainName, testName, i)  # 训练/测试集划分
         modelTr, iter_list, loss_list, acc_list = accuracy_Train(train_loader=trainData, sequence_size=i, input_size=input_size, model=model, epochMax=30, learning_rate=0.01)  # 模型训练结果
-        Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print = accuracy_Test(testData, modelTr, testName, i, input_size)  # 模型测试结果
+        Aver_time, perform_report, target_num, predict_num, acc_num, plt, plot_print, y_predict = accuracy_Test(testData, modelTr, testName, i, input_size)  # 模型测试结果
         bottom_left_corner[f'timeStep{i}'] = dict()
         bottom_left_corner[f'timeStep{i}']['series'] = plot_print
         bottom_left_corner[f'timeStep{i}']['legend'] = IntentionName
         bottom_left_corner[f'timeStep{i}']['xAxis'] = {
                                                             'type': 'category',
                                                             'boundaryGap': 'false',
-                                                            'data': [x for x in range(200)]
+                                                            'data': [x for x in range(len(y_predict))]
                                                         }
         # 【可视化展示1——更新版本（左下角的图）】：LSTM模型意图识别结果图（之前只输出了t=1时的结果，现在跟可视化展示3一样，设置5个按钮，分别展示相应的内容）
 
